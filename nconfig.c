@@ -728,7 +728,13 @@ int main( int argc, char *argv[])
      }
 
 
-
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "nconfig" ) ==  0 ) 
+     {
+       nsystem( " wget https://raw.githubusercontent.com/spartrekus/nconfig/master/nconfig.c -O nconfig.c ; tcc nconfig.c -o nconfig  ");
+       return 0;
+     }
 
    return 0; 
 } 
