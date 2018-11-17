@@ -239,6 +239,7 @@ int main( int argc, char *argv[])
        nsystem( " apt-get install  -y links " );
        nsystem( " apt-get install  -y ssh " );
        nsystem( " apt-get install  -y sshfs " );
+       nsystem( " apt-get install  -y zip " );
        return 0;
      }
     ////////////////////////////////////////////////////////
@@ -717,6 +718,16 @@ int main( int argc, char *argv[])
        return 0;
      }
     
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "markdown" ) ==  0 ) 
+     {
+      nsystem( " wget https://raw.githubusercontent.com/spartrekus/markdown-examples/master/README.md -O markdown.md " );
+       return 0;
+     }
+
+
 
 
    return 0; 
