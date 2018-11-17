@@ -188,6 +188,17 @@ int main( int argc, char *argv[])
      }
 
 
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "xbase" ) ==  0 ) 
+     {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y xbindkeys  wmctrl xdotool xclip  fspanel xterm xinit  " );
+         return 0;
+     }
+
 
    ////////////////////////////////////////////////////////
    if ( argc == 3)
@@ -216,13 +227,30 @@ int main( int argc, char *argv[])
          return 0;
      }
 
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )  
+     if ( strcmp( argv[2] , "work" ) ==  0 )
+     {
+       nsystem( " apt-get update " );
+       nsystem( " apt-get install  -y ncurses-dev " ); 
+       nsystem( " apt-get install  -y tcc " );
+       nsystem( " apt-get install  -y vim " );
+       nsystem( " apt-get install  -y links " );
+       nsystem( " apt-get install  -y ssh " );
+       nsystem( " apt-get install  -y sshfs " );
+       return 0;
+     }
+    ////////////////////////////////////////////////////////
+
+
+
 
 
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) 
-        || ( strcmp( argv[2] , "work" ) ==  0 ))
+      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) || ( strcmp( argv[2] , "xdesk" ) ==  0 ) )
       {
          nsystem( " apt-get update " );
          nsystem( " apt-get install  -y sshfs  " );
@@ -274,6 +302,32 @@ int main( int argc, char *argv[])
 
 
 
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    if ( argc >= 3)
+      if ( strcmp( argv[1] , "search" ) ==  0 )  // it is like in BSD
+      if ( strcmp( argv[2] , "" ) !=  0 ) 
+      {
+           strncpy( cmdi , " apt-get update ; apt-cache search " , PATH_MAX );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           for( i = 2 ; i < argc ; i++) 
+           {
+              printf( "=> %d/%d %s \n", i , argc , argv[ i ] );
+              strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+              strncat( cmdi , argv[ i ] , PATH_MAX - strlen( cmdi ) -1 );
+              strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           }
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           nsystem( cmdi );
+           return 0; 
+      }
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+
+
+
 
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
@@ -292,7 +346,7 @@ int main( int argc, char *argv[])
            }
            strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
            strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
-           system( cmdi );
+           nsystem( cmdi );
            return 0; 
       }
     /////////////////////////////////////////////////////////////
@@ -365,8 +419,9 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[1] , "devuan" ) ==  0 ) 
      {
           nsystem( " wget https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso" );
+          nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
           printf( " have a quick check 62bd2d1faa502dab8abd8ae67254024b  devuan_ascii_2.0.0_i386_desktop-live.iso\n " );
-          nsystem( " md5ssum devuan_ascii_2.0.0_i386_desktop-live.iso" );
+          nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
           printf( " Have a good day \n" );
           return 0;
      }
@@ -416,34 +471,6 @@ int main( int argc, char *argv[])
 
 
 
-    //////////////////////////////////////
-    //////////////////////////////////////
-    //////////////////////////////////////
-    if ( argc >= 3)
-      if ( ( strcmp( argv[1] , "ssh" ) ==  0 ) 
-       || ( strcmp( argv[1] , "xssh" ) ==  0 ) )
-      {
-         strncpy( cmdi, "", PATH_MAX );
-         strncat( cmdi , " ssh  " , PATH_MAX - strlen( cmdi ) -1 );
-         if  ( strcmp( argv[1] , "xssh" ) ==  0 ) 
-            strncat( cmdi , " -X " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , " -C " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "192.168.1." , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
-         if ( argc == 4 )
-         {
-           strncat( cmdi , " -l " , PATH_MAX - strlen( cmdi ) -1 );
-           strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
-         }
-         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
-         printf( "<CMD: %s>\n", cmdi );
-         nsystem( cmdi );
-         return 0;
-      }
-
-
-
-
 
 
     ////////////////////////////////////////////////////////
@@ -473,6 +500,18 @@ int main( int argc, char *argv[])
     if ( argc == 2)
      if ( ( strcmp( argv[1] , "nfont" ) ==  0 ) || ( strcmp( argv[1] , "font" ) ==  0 ) 
      || ( strcmp( argv[1] , "setfont" ) ==  0 ) || ( strcmp( argv[1] , "ft" ) ==  0 ) )
+     {
+       if ( MYOS == 1 )
+         nsystem( " setfont  /usr/share/consolefonts/Lat15-TerminusBold32x16.psf.gz    " );
+       else if ( MYOS == 4 )
+         nsystem( " vidfont " );
+       return 0;
+     }
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+     if ( ( strcmp( argv[1] , "nfont" ) ==  0 ) || ( strcmp( argv[1] , "font" ) ==  0 ) )
      {
        if ( MYOS == 1 )
          nsystem( " setfont  /usr/share/consolefonts/Lat15-TerminusBold32x16.psf.gz    " );
@@ -629,9 +668,55 @@ int main( int argc, char *argv[])
       }
 
 
+    /////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+      if  ( strcmp( argv[2] , "vimrc" ) ==  0 ) 
+      {
+         printf ( "  Get vimrc from net! \n" );
+         system( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
+         return 0;
+      }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "markdown" ) ==  0 ) 
+     {
+       nsystem( " apt-get update ; apt-get install -y markdown " );
+       return 0;
+     }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "dbview" ) ==  0 ) 
+     {
+       nsystem( " apt-get update ; apt-get install -y dbview " );
+       return 0;
+     }
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( ( strcmp( argv[2] , "squashfs" ) ==  0 ) || ( strcmp( argv[2] , "squash" ) ==  0 ) )
+     {
+       nsystem( " apt-get update ; apt-get install -y squashfs-tools " );
+       return 0;
+     }
 
 
 
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "nexplorer" ) ==  0 ) 
+     {
+       nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
+       return 0;
+     }
+    
 
 
    return 0; 
