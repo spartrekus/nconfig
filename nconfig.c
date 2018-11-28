@@ -127,6 +127,188 @@ int main( int argc, char *argv[])
    char cmdi[PATH_MAX];
 
 
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "set" ) ==  0 ) 
+      if ( strcmp( argv[2] , "pc" ) ==  0 ) 
+      {
+	  system( " apt-get install -y console-data console-setup " );
+          system( " apt-get install -f -y console-data locales" );
+
+          system( " dpkg-reconfigure tzdata " );
+          system( " dpkg-reconfigure console-data " );
+          system( " dpkg-reconfigure console-setup " );
+          system( " dpkg-reconfigure keyboard-configuration " );
+          system( " dpkg-reconfigure locales " );
+          return 0;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "sys" ) ==  0 ) 
+     {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y tcc " );
+         return 0;
+     }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] ,   "system" ) ==  0 ) 
+        || ( strcmp( argv[2] ,   "standard" ) ==  0 ) 
+        || ( strcmp( argv[2] ,   "base" ) ==  0 ) 
+        )
+      {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y tcc " ); 
+         nsystem( " apt-get install  -y debootstrap " );
+         nsystem( " apt-get install  -y ssh " ); 
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y debootstrap " );
+         nsystem( " apt-get install  -y links " ); 
+         nsystem( " apt-get install  -y ncurses-dev  " ); 
+         nsystem( " apt-get install  -y ncurses-dev screen " ); 
+         nsystem( " apt-get install  -y ncurses-dev tcc " ); 
+         nsystem( " apt-get install  -y ncurses-dev " );
+         nsystem( " apt-get install  -y ncurses-dev  " ); 
+         nsystem( " apt-get install  -y ncurses-dev make " ); 
+         nsystem( " apt-get install  -y ncurses-dev less " ); 
+         nsystem( " apt-get update " );
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y alsa-base " );
+         nsystem( " apt-get install  -y alsa-utils " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y tcc  " );
+         return 0;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "xbase" ) ==  0 ) 
+     {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y debootstrap " );
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y xbindkeys  wmctrl    xterm xinit  " );
+         nsystem( " apt-get install  -y xinit wmctrl  " );
+         nsystem( " apt-get install  -y xinit xdotool  " );
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y xclip " );
+         nsystem( " apt-get install  -y fspanel  " );
+         nsystem( " apt-get install  -y blackbox  " );
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y x11-xserver-utils  " ); 
+         nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
+         nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
+         return 0;
+     }
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) 
+         || ( strcmp( argv[2] , "xdesk" ) ==  0 ) )
+      {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y debootstrap " );
+         nsystem( " apt-get install  -y sshfs  " );
+         nsystem( " apt-get install  -y tcc  " );
+    ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y screen " );
+         nsystem( " apt-get install  -y dillo " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y x11-xserver-utils ");
+         nsystem( " apt-get install  -y libx11-dev  " );
+         // xserver-xorg-legacy  " ); 
+         ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y fbpanel  " );  // <- small and clean?
+         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+         nsystem( " apt-get install  -y i3lock scrot " );
+         nsystem( " apt-get install  -y less  " );
+         nsystem( " apt-get install  -y ssh  " );
+         nsystem( " apt-get install  -y wget  " );
+         nsystem( " apt-get install  -y make  " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y feh  " );
+         nsystem( " apt-get install  -y xterm  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y scrot  " );
+         nsystem( " apt-get install  -y nedit  " );
+         ///////// working efficiently with double cmd 
+         nsystem( " apt-get install  -y vim  " );
+         return 0;
+      }
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "min" ) ==  0 ) 
+      {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y ncurses-dev screen " ); 
+         nsystem( " apt-get install  -y ncurses-dev tcc " ); 
+         return 0;
+      }
+
+
+
+
+
+
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
@@ -188,58 +370,72 @@ int main( int argc, char *argv[])
      }
 
 
-   ////////////////////////////////////////////////////////
-   if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "xbase" ) ==  0 ) 
-     {
-         nsystem( " apt-get update " );
-         nsystem( " apt-get install  -y blackbox xinit xterm " );
-         nsystem( " apt-get install  -y xbindkeys  wmctrl xdotool xclip  fspanel xterm xinit  " );
-         return 0;
-     }
-
-
-   ////////////////////////////////////////////////////////
-   if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "base" ) ==  0 ) 
-     {
-         nsystem( " apt-get update " );
-         nsystem( " apt-get install  -y ncurses-dev " ); 
-         nsystem( " apt-get install  -y subversion  " );
-         nsystem( " apt-get install  -y tcc  " );
-         return 0;
-     }
 
 
 
 
-   ////////////////////////////////////////////////////////
-   if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "desk" ) ==  0 ) 
-     {
-         nsystem( " apt-get update " );
-         nsystem( " nconfig install x11 " );
-         nsystem( " apt-get install  -y wmctrl  " ); 
-         nsystem( " apt-get install  -y xbindkeys  " );
-         return 0;
-     }
+
 
     ////////////////////////////////////////////////////////
     if ( argc == 3)
      if ( strcmp( argv[1] , "install" ) ==  0 )  
-     if ( strcmp( argv[2] , "work" ) ==  0 )
+     if ( ( strcmp( argv[2] , "work" ) ==  0 )
+     || ( strcmp( argv[2] , "xwork" ) ==  0 ) )
      {
-       nsystem( " apt-get update " );
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y debootstrap " );
        nsystem( " apt-get install  -y ncurses-dev " ); 
        nsystem( " apt-get install  -y tcc " );
+         nsystem( " apt-get install  -y links " );
+       nsystem( " apt-get install  -y screen " );
        nsystem( " apt-get install  -y vim " );
        nsystem( " apt-get install  -y links " );
+       nsystem( " apt-get install  -y zip " );
        nsystem( " apt-get install  -y ssh " );
        nsystem( " apt-get install  -y sshfs " );
        nsystem( " apt-get install  -y zip " );
+         nsystem( " apt-get install  -y x11-xserver-utils  " ); 
+         nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y xinit xbindkeys  wmctrl  xclip fspanel xterm xinit  " );
+         nsystem( " apt-get install  -y  wmctrl  " );
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y subversion " );
+         nsystem( " apt-get install  -y  xdotool  " );
+         nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y xterm " );
+         nsystem( " apt-get install  -y subversion " );
+         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y tcc " ); 
+         nsystem( " apt-get install  -y ssh " ); 
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y links " ); 
+         nsystem( " apt-get install  -y ncurses-dev  " ); 
+         nsystem( " apt-get install  -y ncurses-dev screen " ); 
+         nsystem( " apt-get install  -y ncurses-dev tcc " ); 
+         nsystem( " apt-get install  -y ncurses-dev subversion " ); 
+         nsystem( " apt-get install  -y ncurses-dev make " ); 
+         nsystem( " apt-get install  -y ncurses-dev less " ); 
+         nsystem( " apt-get update " );
+	 nsystem( " apt-get update ; apt-get install -y subversion tcc make ncurses-dev  " );
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y alsa-base " );
+         nsystem( " apt-get install  -y alsa-utils " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y tcc  " );
+         nsystem( " apt-get install  -y ssh screen subversion tcc " );
+         nsystem( " apt-get install  -y ssh screen subversion tcc " );
+         nsystem( " apt-get install  -y mupdf  feh  " );
+         nsystem( " apt-get install  -y i3lock    " );
+         nsystem( " apt-get install  -y   gcc     " );
+         nsystem( " apt-get install  -y  nedit     " );
+
+	  nsystem( " apt-get update ; apt-get install --no-install-recommends  -y texlive mupdf  " );
+	  nsystem( " apt-get install --no-install-recommends  -y texlive-latex-extra    " );  // for enumitem with resume !! (enumitem.sty)
+	  nsystem( " apt-get install -y screen " );
        return 0;
      }
     ////////////////////////////////////////////////////////
@@ -248,57 +444,6 @@ int main( int argc, char *argv[])
 
 
 
-    ////////////////////////////////////////////////////////
-    if ( argc == 3)
-      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) || ( strcmp( argv[2] , "xdesk" ) ==  0 ) )
-      {
-         nsystem( " apt-get update " );
-         nsystem( " apt-get install  -y sshfs  " );
-         nsystem( " apt-get install  -y tcc  " );
-    ////////////////////////////////////////////////////////
-         nsystem( " apt-get install  -y screen " );
-         nsystem( " apt-get install  -y ncurses-dev " ); 
-         nsystem( " apt-get install  -y blackbox xinit xterm " );
-         nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
-         nsystem( " apt-get install  -y i3lock scrot " );
-    ////////////////////////////////////////////////////////
-         nsystem( " apt-get install  -y fspanel  " );  // <- small and clean
-         nsystem( " apt-get install  -y fbpanel  " );
-         nsystem( " apt-get install  -y less  " );
-         nsystem( " apt-get install  -y ssh  " );
-         nsystem( " apt-get install  -y wget  " );
-         nsystem( " apt-get install  -y  x48   " );
-         nsystem( " apt-get install  -y  make  " );
-         nsystem( " apt-get install  -y vim  " );
-         nsystem( " apt-get install  -y xpaint  " );
-         nsystem( " apt-get install  -y feh  " );
-         nsystem( " apt-get install  -y xterm  " );
-         nsystem( " apt-get install  -y xbindkeys  " );
-         nsystem( " apt-get install  -y scrot  " );
-         nsystem( " apt-get install  -y wmctrl  " );
-         nsystem( " apt-get install  -y scrot  " );
-         if ( strcmp( argv[2] , "work" ) ==  0 )
-            nsystem( " apt-get install  -y rox-filer  " ); // <- not so much?
-         nsystem( " apt-get install  -y i3lock  " );
-         nsystem( " apt-get install  -y xclip  " );
-         nsystem( " apt-get install  -y libx11-dev  " );   // <-- for how long when wayland comes?
-         nsystem( " apt-get install  -y x11-xserver-utils  " );   // xrandr
-         //nsystem( " apt-get install  -y xdotool  " );  //<- not so much necessary
-         //nsystem( " apt-get install  -y dzen2  " );
-         nsystem( " apt-get install  -y screen  " );
-         ////////////////////////////////////////////////
-         nsystem( " apt-get install  -y alsa-utils  " );
-         nsystem( " apt-get install  -y vim  " );
-         nsystem( " apt-get install  -y make  " );
-         nsystem( " apt-get install  -y subversion  " );
-         nsystem( " apt-get install  -y screen " );
-         nsystem( " apt-get install  -y tcc " );
-         nsystem( " apt-get install  -y tcc ncurses-dev  " );
-         ////////////////////////////////////////////////
-         nsystem( " date ; echo rocknroll and have fun with opensource"); 
-         return 0;
-      }
 
 
 
@@ -353,6 +498,84 @@ int main( int argc, char *argv[])
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
+
+
+
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    if ( argc >= 3)
+      if ( strcmp( argv[1] , "search" ) ==  0 )  // it is like in BSD
+      if ( strcmp( argv[2] , "" ) !=  0 ) 
+      {
+           strncpy( cmdi , " apt-cache search " , PATH_MAX );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           for( i = 2 ; i < argc ; i++) 
+           {
+              printf( "=> %d/%d %s \n", i , argc , argv[ i ] );
+              strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+              strncat( cmdi , argv[ i ] , PATH_MAX - strlen( cmdi ) -1 );
+              strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           }
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           nsystem( cmdi );
+           return 0; 
+      }
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)  // default
+     if ( ( strcmp( argv[1] , "asoundrc" ) ==  0 ) 
+     || ( strcmp( argv[1] , "asoundrc0" ) ==  0 ) 
+     || ( strcmp( argv[1] , "asound" ) ==  0 ) 
+     || ( strcmp( argv[1] , "sound" ) ==  0 ) 
+     || ( strcmp( argv[1] , "asoundrc-0" ) ==  0 ) )
+     {
+       nsystem( "  wget    \"https://raw.githubusercontent.com/spartrekus/asoundrc/master/asoundrc-0\" -O ~/.asoundrc " );
+       return 0;
+     }
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+     if ( ( strcmp( argv[1] , "asoundrc-1" ) ==  0 ) 
+     || ( strcmp( argv[1] , "asoundrc1" ) ==  0 ) )
+     {
+       nsystem( "  wget    \"https://raw.githubusercontent.com/spartrekus/asoundrc/master/asoundrc-1\" -O ~/.asoundrc " );
+       return 0;
+     }
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "screenrc" ) ==  0 ) 
+     {
+       nsystem( " wget  \"https://raw.githubusercontent.com/spartrekus/screenrc/master/screenrc\"  -O ~/.screenrc "  );
+       return 0;
+     }
+
+
+
+
 
 
 
@@ -428,7 +651,15 @@ int main( int argc, char *argv[])
      }
 
 
-
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "raspbian" ) ==  0 ) 
+     {
+          nsystem(  " wget http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-11-15/2018-11-13-raspbian-stretch-lite.zip " );
+          // https://downloads.raspberrypi.org/raspbian_lite_latest
+          return 0;
+     }
+       
 
 
     ////////////////////////////////////////////////////////
@@ -457,6 +688,139 @@ int main( int argc, char *argv[])
 	  nsystem( " apt-get install screen " );
           return 0;
       }
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "claw" ) ==  0 ) 
+      || ( strcmp( argv[2] , "claws" ) ==  0 ) 
+      || ( strcmp( argv[2] , "email" ) ==  0 ) 
+      || ( strcmp( argv[2] , "xemail" ) ==  0 ) )
+      {
+          nsystem( " apt-get update ; apt-get install -y mutt claws-mail  msmtp " );
+          return 0;
+      }
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "office"  ) ==  0 ) 
+      || ( strcmp( argv[2] ,   "krita"  ) ==  0 ) 
+      || ( strcmp( argv[2] ,   "calligra"  ) ==  0 ) )
+      {
+          nsystem( " apt-get update ; apt-get install -y mutt   karbon    calligrasheets calligrawords calligrastage  calligraplan  " );
+          nsystem( " apt-get update ; apt-get install -y krita  " );
+          nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
+
+          nsystem("     apt-get install  -y             gnuchess kdiamond kfourinline kfourinlineproc kmahjongg kmines        knights ksudoku ktuberling tuxmath xdemineur    ");
+          nsystem("   apt-get install  -y               karbon    calligrasheets  calligrawords  calligrastage     ");
+          nsystem("    apt-get install  -y              calligraplan      ");
+          nsystem("    apt-get install  -y         feh xpaint scrot    ");
+         nsystem( "    apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y alsa-base " );
+         nsystem( " apt-get install  -y alsa-utils " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y tcc  " );
+          return 0;
+      }
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "printer" ) ==  0 ) 
+      || ( strcmp( argv[2] , "cups" ) ==  0 ) )
+      {
+          nsystem( " apt-get update ; apt-get install  -y cups-bsd cups  " ); 
+          return 0;
+      }
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "scanner" ) ==  0 ) 
+      {
+          nsystem( " apt-get update ; apt-get install  -y sane  " ); 
+          return 0;
+      }
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "kde" ) ==  0 ) 
+      {
+	  nsystem( " apt-get update  " );
+
+          nsystem( " apt-get install  -y tcc links debootstrap " ); 
+          nsystem( " apt-get install  -y zip ssh ncurses-dev " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y debootstrap " );
+
+	  nsystem( " apt-get install -y kde-standard " );
+	  nsystem( " apt-get install -y feh scrot rox-filer   " );
+          nsystem( " apt-get  install -y  kmahjongg   kmines " );
+          nsystem( " apt-get update ; apt-get  install -y kapman  " ); 
+          nsystem( " apt-get  install -y nedit  " );
+	  nsystem( " apt-get install -y vim " );
+	  nsystem( " apt-get install -y nedit " ); //small and motif, like old unix timer  
+	  nsystem( " apt-get install -y xterm " );
+	  nsystem( " apt-get install -y vim " );
+	  nsystem( " apt-get install -y chromium " );
+	  nsystem( " apt-get install -y chromium-browser " );
+         nsystem( " apt-get install  -y ssh " ); 
+         nsystem( " apt-get install  -y links " ); 
+         nsystem( " apt-get install  -y ncurses-dev  " ); 
+          nsystem( " apt-get install  -y subversion   " ); 
+          nsystem( " apt-get install  -y make   " ); 
+          nsystem( " apt-get install  -y libx11-dev   " ); 
+          nsystem( " apt-get install  -y ncurses-dev screen " ); 
+          nsystem( " apt-get update ; apt-get install -y mutt claws-mail  msmtp " );
+          nsystem( " apt-get install  -y gcc   " ); 
+          nsystem( " apt-get install  -y tcc   " ); 
+          nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
+	  nsystem( " apt-get install -y kde-standard " );
+          nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
+
+         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+         nsystem( " apt-get install  -y i3lock scrot " );
+         nsystem( " apt-get install  -y less  " );
+         nsystem( " apt-get install  -y ssh  " );
+         nsystem( " apt-get install  -y wget  " );
+         nsystem( " apt-get install  -y make  " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y feh  " );
+         nsystem( " apt-get install  -y xterm  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y scrot  " );
+         nsystem( " apt-get install  -y nedit  " );
+         ///////// working efficiently with double cmd 
+         nsystem( " apt-get install  -y vim  " );
+         ///////// working efficiently with double cmd 
+         nsystem( " apt-get update ; apt-get install  -y cups-bsd cups  " ); 
+         return 0;
+      }
+
+
+
+
+
 
 
     ////////////////////////////////////////////////////////
@@ -561,6 +925,17 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "words" ) ==  0 ) || ( strcmp( argv[2] , "calligra" ) ==  0 ) )
+      {
+	  nsystem( " apt-get update " );
+	  nsystem( " apt-get install -y calligrawords " );
+          return 0;
+      }
 
 
 
@@ -710,11 +1085,43 @@ int main( int argc, char *argv[])
 
 
 
+
+     ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "nfind" ) ==  0 ) 
+     {
+       nsystem( " mkdir git ; cd git ;  git clone https://github.com/spartrekus/nfind nfind   " );
+       return 0;
+     }
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "nconfig" ) ==  0 ) 
+     {
+       nsystem( " mkdir git ; cd git ; git clone https://github.com/spartrekus/nconfig nconfig  " );
+       return 0;
+     }
+
+
+
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "nexplorer" ) ==  0 ) 
      {
        nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
+       return 0;
+     }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "markdown4c" ) ==  0 ) 
+     {
+       printf( "Prg to come soon.... \n" );
        return 0;
      }
     
@@ -723,7 +1130,8 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "markdown" ) ==  0 ) 
      {
-      nsystem( " wget https://raw.githubusercontent.com/spartrekus/markdown-examples/master/README.md -O markdown.md " );
+       nsystem( " wget https://raw.githubusercontent.com/spartrekus/markdown-examples/master/README.md -O markdown.md " );
+       nsystem( " markdown markdown.md > markdown.html " );
        return 0;
      }
 
@@ -736,8 +1144,82 @@ int main( int argc, char *argv[])
        return 0;
      }
 
-   return 0; 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
+     {
+         printf( "diskls found: %s\n", argv[1] ); 
+         strncpy( cmdi , "  mkdir /media/pendrive ;  cd ;  umount /media/pendrive ; mount  " , PATH_MAX );
+         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , " /media/pendrive ; nexplorer /media/pendrive ; cd ; umount /media/pendrive " , PATH_MAX - strlen( cmdi ) -1 );
+         nsystem( cmdi );
+         nsystem( " mount " );
+       return 0;
+     }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )  
+     if ( ( strcmp( argv[2] , "fbi" ) ==  0 ) || ( strcmp( argv[2] , "fbg" ) ==  0 ))
+     {
+       /// fbi and fbgv ! //gs?
+       /// fbi images
+       /// fbgv for pdfs
+       nsystem( " apt-get update ; apt-get install -y fbi  " );
+       nsystem( "  apt-get install -y fbi  " );
+       nsystem( " apt-get install -y ghostscript " );
+       return 0;
+     }
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "pi" ) ==  0 )
+     {
+         nsystem( " cd   ; sshfs pi@192.168.50.7:/home/pi sshfs " );
+         return 0;
+     }
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )
+     if ( strcmp( argv[2] , "kde-games" ) ==  0 )
+     {
+         nsystem( " apt-get update ; apt-get  install -y kolf  kmahjongg katomic  kmines granatier kgoldrunner ");
+         nsystem( " apt-get update ; apt-get  install -y kapman  " ); 
+         nsystem( " apt-get update ; apt-get  install -y kblocks  " ); 
+         return 0;
+     }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )
+     if ( strcmp( argv[2] , "kde-games-min" ) ==  0 )
+     {
+         nsystem( " apt-get update ; apt-get  install -y  kmahjongg  kmines  knights " );
+         return 0;
+     }
+
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )
+     if ( strcmp( argv[2] , "kde-pacman" ) ==  0 )
+     {
+         nsystem( " apt-get update ; apt-get  install -y kapman  kblocks " );
+         return 0;
+     }
+     return 0; 
 } 
+
 
 
 
