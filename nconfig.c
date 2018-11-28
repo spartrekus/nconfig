@@ -715,11 +715,9 @@ int main( int argc, char *argv[])
       if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "office"  ) ==  0 ) 
-      || ( strcmp( argv[2] ,   "krita"  ) ==  0 ) 
       || ( strcmp( argv[2] ,   "calligra"  ) ==  0 ) )
       {
           nsystem( " apt-get update ; apt-get install -y mutt   karbon    calligrasheets calligrawords calligrastage  calligraplan  " );
-          nsystem( " apt-get update ; apt-get install -y krita  " );
           nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
 
           nsystem("     apt-get install  -y             gnuchess kdiamond kfourinline kfourinlineproc kmahjongg kmines        knights ksudoku ktuberling tuxmath xdemineur    ");
@@ -774,9 +772,8 @@ int main( int argc, char *argv[])
 
 	  nsystem( " apt-get install -y kde-standard " );
 	  nsystem( " apt-get install -y feh scrot rox-filer   " );
-          nsystem( " apt-get  install -y  kmahjongg   kmines " );
-          nsystem( " apt-get update ; apt-get  install -y kapman  " ); 
-          nsystem( " apt-get  install -y nedit  " );
+          nsystem( " apt-get install -y nedit  " );
+          nsystem( " apt-get install -y kmahjongg  " );
 	  nsystem( " apt-get install -y vim " );
 	  nsystem( " apt-get install -y nedit " ); //small and motif, like old unix timer  
 	  nsystem( " apt-get install -y xterm " );
@@ -1185,36 +1182,23 @@ int main( int argc, char *argv[])
          return 0;
      }
 
+
      ////////////////////////////////////////////////////////
      if ( argc == 3)
      if ( strcmp( argv[1] , "install" ) ==  0 )
      if ( strcmp( argv[2] , "kde-games" ) ==  0 )
      {
          nsystem( " apt-get update ; apt-get  install -y kolf  kmahjongg katomic  kmines granatier kgoldrunner ");
-         nsystem( " apt-get update ; apt-get  install -y kapman  " ); 
-         nsystem( " apt-get update ; apt-get  install -y kblocks  " ); 
+         nsystem( " apt-get update ; apt-get  install -y kpat  " ); //freecell cards
          return 0;
      }
-
-
-     ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] , "install" ) ==  0 )
-     if ( strcmp( argv[2] , "kde-games-min" ) ==  0 )
-     {
-         nsystem( " apt-get update ; apt-get  install -y  kmahjongg  kmines  knights " );
-         return 0;
-     }
-
-
-
 
      ////////////////////////////////////////////////////////
      if ( argc == 3)
      if ( strcmp( argv[1] , "install" ) ==  0 )
      if ( strcmp( argv[2] , "kde-pacman" ) ==  0 )
      {
-         nsystem( " apt-get update ; apt-get  install -y kapman  kblocks " );
+         nsystem( " apt-get update ; apt-get  install -y kapman  kblocks " ); //tetris and pacman
          return 0;
      }
      return 0; 
