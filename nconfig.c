@@ -155,7 +155,13 @@ int main( int argc, char *argv[])
 
 
 
-
+   ////////////////////////////////////////////////////////
+   if ( argc == 2)
+     if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
+     {
+        nsystem( " cd ; mkdir sshfs ; sshfs pi@192.168.50.7:/home/pi sshfs ");
+        return 0;
+     }
 
 
 
@@ -770,7 +776,11 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y debootstrap " );
 
+          //nsystem( " dpkg-reconfigure tzdata " );
+          nsystem( " dpkg-reconfigure keyboard-configuration " );
+
 	  nsystem( " apt-get install -y kde-standard " );
+
 	  nsystem( " apt-get install -y feh scrot rox-filer   " );
           nsystem( " apt-get install -y nedit  " );
           nsystem( " apt-get install -y kmahjongg  " );
@@ -808,9 +818,10 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y scrot  " );
          nsystem( " apt-get install  -y nedit  " );
          ///////// working efficiently with double cmd 
-         nsystem( " apt-get install  -y vim  " );
          ///////// working efficiently with double cmd 
-         nsystem( " apt-get update ; apt-get install  -y cups-bsd cups  " ); 
+         nsystem( " apt-get update ; apt-get install  -y cups  " ); 
+         nsystem( " apt-get update ; apt-get install  -y cups-bsd   " ); 
+         nsystem( " apt-get install  -y vim  " );
          return 0;
       }
 
