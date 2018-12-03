@@ -251,6 +251,17 @@ int main( int argc, char *argv[])
      }
 
 
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+    if ( strcmp( argv[1] , "install" ) ==  0 ) 
+    if ( strcmp( argv[2] , "libx11+" ) ==  0 ) 
+    {
+         nsystem( " apt-get update ; apt-get install  -y libx11-dev  " );  
+         nsystem( " apt-get install  -y ncurses-dev libx11-dev " ); 
+         nsystem( " apt-get install  -y ncurses-dev libxaw7-dev " ); 
+         nsystem( "   apt-get install -y lesstif2-dev  " );
+         return 0;
+    }
 
 
 
@@ -770,16 +781,18 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[2] , "kde" ) ==  0 ) 
       {
 	  nsystem( " apt-get update  " );
+          nsystem( " dpkg-reconfigure keyboard-configuration " );
 
           nsystem( " apt-get install  -y tcc links debootstrap " ); 
+	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
+
           nsystem( " apt-get install  -y zip ssh ncurses-dev " );
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y debootstrap " );
 
-          //nsystem( " dpkg-reconfigure tzdata " );
-          nsystem( " dpkg-reconfigure keyboard-configuration " );
+	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
 
-	  nsystem( " apt-get install -y kde-standard " );
+          //nsystem( " dpkg-reconfigure tzdata " );
 
 	  nsystem( " apt-get install -y feh scrot rox-filer   " );
           nsystem( " apt-get install -y nedit  " );
@@ -1212,6 +1225,42 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update ; apt-get  install -y kapman  kblocks " ); //tetris and pacman
          return 0;
      }
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "x11-apps" ) ==  0 ) 
+      {
+         nsystem( " apt-get update ; apt-get install -y x11-apps " ); 
+         return 0;
+      }
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
+      {
+         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         nsystem( "  apt-get install -y libx11-dev " ); 
+         return 0;
+      }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "screenrc" ) ==  0 ) 
+     {
+       nsystem( " wget  \"https://raw.githubusercontent.com/spartrekus/screenrc/master/screenrc\"  -O ~/.screenrc "  );
+       return 0;
+     }
+
+
+
      return 0; 
 } 
 
