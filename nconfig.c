@@ -157,9 +157,16 @@ int main( int argc, char *argv[])
 
    ////////////////////////////////////////////////////////
    if ( argc == 2)
-     if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
+     if ( strcmp( argv[1] ,   "sshfspi" ) ==  0 ) 
      {
         nsystem( " cd ; mkdir sshfs ; sshfs pi@192.168.50.7:/home/pi sshfs ");
+        return 0;
+     }
+   ////////////////////////////////////////////////////////
+   if ( argc == 2)
+     if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
+     {
+        nsystem( " ssh pi@192.168.50.7 "  );
         return 0;
      }
 
@@ -736,9 +743,9 @@ int main( int argc, char *argv[])
       {
           nsystem( " apt-get update ; apt-get install -y mutt   karbon    calligrasheets calligrawords calligrastage  calligraplan  " );
           nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
+          nsystem("   apt-get install  -y      karbon    calligrasheets  calligrawords  calligrastage     ");
 
-          nsystem("     apt-get install  -y             gnuchess kdiamond kfourinline kfourinlineproc kmahjongg kmines        knights ksudoku ktuberling tuxmath xdemineur    ");
-          nsystem("   apt-get install  -y               karbon    calligrasheets  calligrawords  calligrastage     ");
+          nsystem("     apt-get install  -y  kfourinline kmahjongg kmines knights ksudoku                 tuxmath  xdemineur    ");
           nsystem("    apt-get install  -y              calligraplan      ");
           nsystem("    apt-get install  -y         feh xpaint scrot    ");
          nsystem( "    apt-get install  -y ncurses-dev " ); 
@@ -758,9 +765,12 @@ int main( int argc, char *argv[])
       if ( ( strcmp( argv[2] , "printer" ) ==  0 ) 
       || ( strcmp( argv[2] , "cups" ) ==  0 ) )
       {
-          nsystem( " apt-get update ; apt-get install  -y cups-bsd cups  " ); 
+          nsystem( " apt-get update ; apt-get install  -y cups   " ); 
+          nsystem( " apt-get install  -y cups-bsd  " ); 
           return 0;
       }
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -775,6 +785,9 @@ int main( int argc, char *argv[])
 
 
 
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -791,9 +804,7 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y debootstrap " );
 
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
-
           //nsystem( " dpkg-reconfigure tzdata " );
-
 	  nsystem( " apt-get install -y feh scrot rox-filer   " );
           nsystem( " apt-get install -y nedit  " );
           nsystem( " apt-get install -y kmahjongg  " );
@@ -803,6 +814,8 @@ int main( int argc, char *argv[])
 	  nsystem( " apt-get install -y vim " );
 	  nsystem( " apt-get install -y chromium " );
 	  nsystem( " apt-get install -y chromium-browser " );
+         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+
          nsystem( " apt-get install  -y ssh " ); 
          nsystem( " apt-get install  -y links " ); 
          nsystem( " apt-get install  -y ncurses-dev  " ); 
@@ -810,6 +823,14 @@ int main( int argc, char *argv[])
           nsystem( " apt-get install  -y make   " ); 
           nsystem( " apt-get install  -y libx11-dev   " ); 
           nsystem( " apt-get install  -y ncurses-dev screen " ); 
+
+          nsystem("    apt-get install  -y         feh xpaint scrot    ");
+         nsystem( "    apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y alsa-base " );
+         nsystem( " apt-get install  -y alsa-utils " );
+         nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y tcc  " );
+
           nsystem( " apt-get update ; apt-get install -y mutt claws-mail  msmtp " );
           nsystem( " apt-get install  -y gcc   " ); 
           nsystem( " apt-get install  -y tcc   " ); 
@@ -817,7 +838,6 @@ int main( int argc, char *argv[])
 	  nsystem( " apt-get install -y kde-standard " );
           nsystem( " apt-get install  -y libx11-dev  " );  //really useful and really small
 
-         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
          nsystem( " apt-get install  -y i3lock scrot " );
          nsystem( " apt-get install  -y less  " );
          nsystem( " apt-get install  -y ssh  " );
@@ -1259,6 +1279,41 @@ int main( int argc, char *argv[])
        return 0;
      }
 
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
+      {
+         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         nsystem( "  apt-get install -y libx11-dev " ); 
+         return 0;
+      }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "libfltk" ) ==  0 ) 
+      {
+         nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
+         return 0;
+      }
+
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
+      if ( argc >= 2)
+      if ( strcmp( argv[1] , "tpiwork" ) ==  0 )
+      {  
+         strncpy( cmdi, "", PATH_MAX );
+         strncat( cmdi , " scp -C -r " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "\"  " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "  192.168.50.6:~/Downloads/ "  , PATH_MAX - strlen( cmdi ) -1 );
+         nsystem( cmdi );
+         return 0;
+      }
 
 
      return 0; 
