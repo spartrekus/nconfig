@@ -127,6 +127,10 @@ int main( int argc, char *argv[])
    char cmdi[PATH_MAX];
 
 
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
@@ -135,14 +139,13 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] , "set" ) ==  0 ) 
       if ( strcmp( argv[2] , "pc" ) ==  0 ) 
       {
-	  system( " apt-get install -y console-data console-setup " );
-          system( " apt-get install -f -y console-data locales" );
-
-          system( " dpkg-reconfigure tzdata " );
-          system( " dpkg-reconfigure console-data " );
-          system( " dpkg-reconfigure console-setup " );
-          system( " dpkg-reconfigure keyboard-configuration " );
-          system( " dpkg-reconfigure locales " );
+	  nsystem( " apt-get install -y console-data console-setup " );
+          nsystem( " apt-get install -f -y console-data locales" );
+          nsystem( " dpkg-reconfigure tzdata " );
+          nsystem( " dpkg-reconfigure console-data " );
+          nsystem( " dpkg-reconfigure console-setup " );
+          nsystem( " dpkg-reconfigure keyboard-configuration " );
+          nsystem( " dpkg-reconfigure locales " );
           return 0;
       }
 
@@ -151,24 +154,49 @@ int main( int argc, char *argv[])
 
 
 
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "desktop" ) ==  0 ) 
+      {
+	 nsystem( " apt-get update  " );
+         ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y tcc  " ); //always there
+         nsystem( " apt-get install  -y screen  " ); //always there
+         ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y xinit xterm " );
+         nsystem( " apt-get install  -y libx11-dev  " );
+
+         //nsystem( " apt-get install  -y x11-xserver-utils ");
+         //nsystem( " apt-get install  -y xserver-xorg ");
+         nsystem( " apt-get install  -y libx11-dev  " );
+         nsystem( " apt-get install  -y rxvt  " );
+         // xserver-xorg-legacy  " ); 
+         //nsystem( " apt-get install  -y blackbox  " );
+         nsystem( " apt-get install  -y feh  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y xterm  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y scrot  " );
+         nsystem( " apt-get install  -y fspanel  " );
+         nsystem( " apt-get install  -y ncurses-dev " ); 
+         nsystem( " apt-get install  -y xclip   " );
+         nsystem( " apt-get install  -y wmctrl   " );
+         nsystem( " apt-get install  -y xdotool   " );
+         ////////////////////////////////////////////////////////
+	 nsystem( " apt-get install -y feh scrot rox-filer   " );
+         nsystem( " apt-get install -y screen  " );
+         ////////////////////////////////////////////////////////
+         return 0;
+      }
 
 
 
 
-   ////////////////////////////////////////////////////////
-   if ( argc == 2)
-     if ( strcmp( argv[1] ,   "sshfspi" ) ==  0 ) 
-     {
-        nsystem( " cd ; mkdir sshfs ; sshfs pi@192.168.50.7:/home/pi sshfs ");
-        return 0;
-     }
-   ////////////////////////////////////////////////////////
-   if ( argc == 2)
-     if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
-     {
-        nsystem( " ssh pi@192.168.50.7 "  );
-        return 0;
-     }
+
+
+
 
 
 
@@ -272,11 +300,15 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) 
-         || ( strcmp( argv[2] , "xdesk" ) ==  0 ) )
+      if ( ( strcmp( argv[2] , "mypc" ) ==  0 ) 
+         || ( strcmp( argv[2] , "pc" ) ==  0 ) )
       {
          nsystem( " apt-get update " );
          nsystem( " apt-get install  -y debootstrap " );
@@ -285,12 +317,28 @@ int main( int argc, char *argv[])
     ////////////////////////////////////////////////////////
          nsystem( " apt-get install  -y screen " );
          nsystem( " apt-get install  -y dillo " );
+
+	 nsystem( " apt-get update  " );
+         ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y tcc  " ); //always there
+         ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y xinit xterm " );
+         nsystem( " apt-get install  -y libx11-dev  " );
+
+         ////////////////////////////////////////////////////////
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y blackbox xinit xterm " );
          nsystem( " apt-get install  -y x11-xserver-utils ");
          nsystem( " apt-get install  -y libx11-dev  " );
          // xserver-xorg-legacy  " ); 
+
+         nsystem( " apt-get install  -y feh  " );
+         nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y xterm  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y scrot  " );
          ////////////////////////////////////////////////////////
+
          nsystem( " apt-get install  -y fbpanel  " );  // <- small and clean?
          nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
          nsystem( " apt-get install  -y i3lock scrot " );
@@ -299,12 +347,6 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y wget  " );
          nsystem( " apt-get install  -y make  " );
          nsystem( " apt-get install  -y vim  " );
-         nsystem( " apt-get install  -y xpaint  " );
-         nsystem( " apt-get install  -y feh  " );
-         nsystem( " apt-get install  -y xterm  " );
-         nsystem( " apt-get install  -y xbindkeys  " );
-         nsystem( " apt-get install  -y scrot  " );
-         nsystem( " apt-get install  -y nedit  " );
          ///////// working efficiently with double cmd 
          nsystem( " apt-get install  -y vim  " );
          return 0;
@@ -389,6 +431,7 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update " );
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y libx11-dev ");
          nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
          return 0;
      }
@@ -455,7 +498,6 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y mupdf  feh  " );
          nsystem( " apt-get install  -y i3lock    " );
          nsystem( " apt-get install  -y   gcc     " );
-         nsystem( " apt-get install  -y  nedit     " );
 
 	  nsystem( " apt-get update ; apt-get install --no-install-recommends  -y texlive mupdf  " );
 	  nsystem( " apt-get install --no-install-recommends  -y texlive-latex-extra    " );  // for enumitem with resume !! (enumitem.sty)
@@ -788,6 +830,7 @@ int main( int argc, char *argv[])
 
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
+    // xterm has bugs
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -803,13 +846,18 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y debootstrap " );
 
+         nsystem( " apt-get install  -y rxvt " ); // rxvt has no (less) display bug, like xterm or Eterm.
+
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
           //nsystem( " dpkg-reconfigure tzdata " );
 	  nsystem( " apt-get install -y feh scrot rox-filer   " );
-          nsystem( " apt-get install -y nedit  " );
-          nsystem( " apt-get install -y kmahjongg  " );
+          nsystem( " apt-get install -y kmahjongg  " ); // ma
 	  nsystem( " apt-get install -y vim " );
-	  nsystem( " apt-get install -y nedit " ); //small and motif, like old unix timer  
+
+          nsystem( " apt-get install  -y rxvt  " );
+	  nsystem( " apt-get install -y fledit " ); //let's hope that one day in there with fltk 
+	  nsystem( " apt-get install -y leafpad " ); //leafpad for pa
+
 	  nsystem( " apt-get install -y xterm " );
 	  nsystem( " apt-get install -y vim " );
 	  nsystem( " apt-get install -y chromium " );
@@ -849,12 +897,10 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y scrot  " );
-         nsystem( " apt-get install  -y nedit  " );
-         ///////// working efficiently with double cmd 
-         ///////// working efficiently with double cmd 
          nsystem( " apt-get update ; apt-get install  -y cups  " ); 
          nsystem( " apt-get update ; apt-get install  -y cups-bsd   " ); 
          nsystem( " apt-get install  -y vim  " );
+         nsystem( " apt-get install  -y xpenguins  " );
          return 0;
       }
 
@@ -1091,7 +1137,7 @@ int main( int argc, char *argv[])
       if  ( strcmp( argv[2] , "vimrc" ) ==  0 ) 
       {
          printf ( "  Get vimrc from net! \n" );
-         system( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
+         nsystem( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
          return 0;
       }
 
@@ -1127,24 +1173,18 @@ int main( int argc, char *argv[])
 
 
 
+
+
      ////////////////////////////////////////////////////////
      ////////////////////////////////////////////////////////
      ////////////////////////////////////////////////////////
-     ////////////////////////////////////////////////////////
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "nfind" ) ==  0 ) 
-     {
-       nsystem( " mkdir git ; cd git ;  git clone https://github.com/spartrekus/nfind nfind   " );
-       return 0;
-     }
      if ( argc == 2)
      if ( strcmp( argv[1] , "nconfig" ) ==  0 ) 
      {
-       nsystem( " mkdir git ; cd git ; git clone https://github.com/spartrekus/nconfig nconfig  " );
+       //nsystem( " mkdir git ; cd git ; git clone https://github.com/spartrekus/nconfig nconfig  " );
+       nsystem( " wget tinyurl.com/nconfig1 -O nconfig.c ; gcc nconfig.c -o nconfig " );
        return 0;
      }
-
 
 
 
@@ -1156,6 +1196,9 @@ int main( int argc, char *argv[])
        nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
        return 0;
      }
+
+
+
 
 
      ////////////////////////////////////////////////////////
@@ -1177,13 +1220,6 @@ int main( int argc, char *argv[])
      }
 
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "nconfig" ) ==  0 ) 
-     {
-       nsystem( " wget https://raw.githubusercontent.com/spartrekus/nconfig/master/nconfig.c -O nconfig.c ; tcc nconfig.c -o nconfig  ");
-       return 0;
-     }
 
      ////////////////////////////////////////////////////////
      if ( argc == 3)
@@ -1282,6 +1318,22 @@ int main( int argc, char *argv[])
 
     ////////////////////////////////////////////////////////
     if ( argc == 3)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "config" ) ==  0 ) 
+     {
+         nsystem( " wget  \"https://raw.githubusercontent.com/spartrekus/screenrc/master/screenrc\"  -O ~/.screenrc "  );
+         nsystem( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
+         nsystem( " wget tinyurl.com/nconfig1 -O /tmp/nconfig.c " );
+         return 0;
+     }
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
       {
@@ -1300,24 +1352,58 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
       if ( argc >= 2)
-      if ( strcmp( argv[1] , "tpiwork" ) ==  0 )
+      if ( strcmp( argv[1] , "tpidell" ) ==  0 )
       {  
          strncpy( cmdi, "", PATH_MAX );
          strncat( cmdi , " scp -C -r " , PATH_MAX - strlen( cmdi ) -1 );
          strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
          strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
          strncat( cmdi , "\"  " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "  192.168.50.6:~/Downloads/ "  , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "  192.168.50.6:~ "  , PATH_MAX - strlen( cmdi ) -1 );
          nsystem( cmdi );
          return 0;
       }
+   ////////////////////////////////////////////////////////
+   if ( argc == 2)
+     if ( strcmp( argv[1] ,   "pifs" ) ==  0 ) 
+     {
+        nsystem( " cd ; mkdir sshfs ; sshfs pi@192.168.50.7:/home/pi  sshfs ");
+        return 0;
+     }
+   ////////////////////////////////////////////////////////
+   if ( argc == 2)
+     if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
+     {
+        nsystem( " ssh pi@192.168.50.7 "  );
+        return 0;
+     }
 
+
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "gnumeric" ) ==  0 ) 
+     {
+        nsystem( " apt-get update ; apt-get install -y --no-install-recommends          gnumeric " );
+        return 0;
+     }
+
+
+
+     // root@rpidesk# nconfig  pkg jabberd2 fluxbox 
 
      return 0; 
 } 
+
+
+
+
 
 
 
