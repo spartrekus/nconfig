@@ -1334,6 +1334,15 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
@@ -1342,19 +1351,31 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[2] , "config" ) ==  0 ) 
      {
          nsystem( " wget  \"https://raw.githubusercontent.com/spartrekus/screenrc/master/screenrc\"  -O ~/.screenrc "  );
+
          nsystem( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
+
          nsystem( " wget tinyurl.com/nconfig1 -O /tmp/nconfig.c " );
+
          nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xkey.ini   -O .xbindkeysrc  " );
+
+
          nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xinitrc.txt -O .xinitrc  " );
+
+
+         nsystem( " cd ; wget    \"https://raw.githubusercontent.com/spartrekus/asoundrc/master/asoundrc-0\" -O ~/.asoundrc " );
 
          chdir( getenv( "HOME" ));
          if ( fexist( ".wallpaper.jpg" ) == 0 ) 
-          nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.jpg   " );
+            nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.jpg   " );
 
          printf( " chdir HOME. \n " );
          chdir( getenv( "HOME" ));
+
          return 0;
      }
+
+
+
 
 
 
