@@ -154,6 +154,10 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -162,29 +166,35 @@ int main( int argc, char *argv[])
       {
 	 nsystem( " apt-get update  " );
          ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y xinit xterm " );
+
+         nsystem( " apt-get install  -y blackbox  " );
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y wmctrl   " );
+
+
+         ////////////////////////////////////////////////////////
          nsystem( " apt-get install  -y tcc  " ); //always there
          nsystem( " apt-get install  -y screen  " ); //always there
          ////////////////////////////////////////////////////////
-         nsystem( " apt-get install  -y xinit xterm " );
+
          nsystem( " apt-get install  -y libx11-dev  " );
 
          //nsystem( " apt-get install  -y x11-xserver-utils ");
          //nsystem( " apt-get install  -y xserver-xorg ");
          nsystem( " apt-get install  -y libx11-dev  " );
-         nsystem( " apt-get install  -y rxvt  " );
          // xserver-xorg-legacy  " ); 
          //nsystem( " apt-get install  -y blackbox  " );
          nsystem( " apt-get install  -y feh  " );
-         nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y xpaint  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y i3lock  " );
          nsystem( " apt-get install  -y scrot  " );
          nsystem( " apt-get install  -y fspanel  " );
+
          nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y xclip   " );
-         nsystem( " apt-get install  -y wmctrl   " );
          nsystem( " apt-get install  -y xdotool   " );
          ////////////////////////////////////////////////////////
 	 nsystem( " apt-get install -y feh scrot rox-filer   " );
@@ -435,6 +445,8 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y blackbox xinit xterm " );
          nsystem( " apt-get install  -y libx11-dev ");
          nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
+         nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y wmctrl   " );
          return 0;
      }
 
@@ -930,7 +942,8 @@ int main( int argc, char *argv[])
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( ( strcmp( argv[2] , "svn" ) ==  0 ) || ( strcmp( argv[2] , "subversion" ) ==  0 ) )
+      if ( ( strcmp( argv[2] , "svn" ) ==  0 ) 
+       || ( strcmp( argv[2] , "subversion" ) ==  0 ) )
       {
 	  nsystem( " apt-get update ; apt-get install -y subversion tcc make ncurses-dev  " );
           return 0;
@@ -1333,6 +1346,13 @@ int main( int argc, char *argv[])
          nsystem( " wget tinyurl.com/nconfig1 -O /tmp/nconfig.c " );
          nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xkey.ini   -O .xbindkeysrc  " );
          nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xinitrc.txt -O .xinitrc  " );
+
+         chdir( getenv( "HOME" ));
+         if ( fexist( ".wallpaper.jpg" ) == 0 ) 
+          nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.jpg   " );
+
+         printf( " chdir HOME. \n " );
+         chdir( getenv( "HOME" ));
          return 0;
      }
 
@@ -1359,6 +1379,50 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
          return 0;
       }
+
+
+
+
+
+    //////////////////////////////////////
+    if ( argc >= 3)
+      if ( strcmp( argv[1] , "ssh" ) ==  0 ) 
+      {
+         strncpy( cmdi, "", PATH_MAX );
+         strncat( cmdi , " ssh  " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , " -C " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "192.168.1." , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+         if ( argc == 4 )
+         {
+           strncat( cmdi , " -l " , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
+         }
+         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+         printf( "<CMD: %s>\n", cmdi );
+         nsystem( cmdi );
+         return 0;
+      }
+    //////////////////////////////////////
+    if ( argc >= 3)
+      if ( strcmp( argv[1] , "nssh" ) ==  0 ) 
+      {
+         strncpy( cmdi, "", PATH_MAX );
+         strncat( cmdi , " ssh  " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , " -C " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "192.168.52." , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+         if ( argc == 4 )
+         {
+           strncat( cmdi , " -l " , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
+         }
+         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+         printf( "<CMD: %s>\n", cmdi );
+         nsystem( cmdi );
+         return 0;
+      }
+
 
 
 
