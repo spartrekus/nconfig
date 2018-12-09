@@ -157,7 +157,8 @@ int main( int argc, char *argv[])
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "desktop" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) 
+      || ( strcmp( argv[2] , "desk" ) ==  0 ) )
       {
 	 nsystem( " apt-get update  " );
          ////////////////////////////////////////////////////////
@@ -178,6 +179,7 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y xpaint  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
+         nsystem( " apt-get install  -y i3lock  " );
          nsystem( " apt-get install  -y scrot  " );
          nsystem( " apt-get install  -y fspanel  " );
          nsystem( " apt-get install  -y ncurses-dev " ); 
@@ -1316,6 +1318,11 @@ int main( int argc, char *argv[])
      }
 
 
+
+
+
+    ////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     if ( argc == 3)
      if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
@@ -1324,6 +1331,8 @@ int main( int argc, char *argv[])
          nsystem( " wget  \"https://raw.githubusercontent.com/spartrekus/screenrc/master/screenrc\"  -O ~/.screenrc "  );
          nsystem( " wget 'https://raw.githubusercontent.com/spartrekus/Config-Xbindkeys/master/vimrc.txt' -O ~/.vimrc  " );
          nsystem( " wget tinyurl.com/nconfig1 -O /tmp/nconfig.c " );
+         nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xkey.ini   -O .xbindkeysrc  " );
+         nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xinitrc.txt -O .xinitrc  " );
          return 0;
      }
 
