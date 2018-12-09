@@ -893,6 +893,8 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y vim  " );
          nsystem( " apt-get install  -y tcc  " );
 
+         nsystem( " apt-get install  -y ekiga  " ); // to chat and voice video  over ip in intranet 
+
           nsystem( " apt-get update ; apt-get install -y mutt claws-mail  msmtp " );
           nsystem( " apt-get install  -y gcc   " ); 
           nsystem( " apt-get install  -y tcc   " ); 
