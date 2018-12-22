@@ -18,6 +18,7 @@
 //////////////////////////////////////////
 //////////////////////////////////////////
 //////////////////////////////////////////
+
 //////////////////////////////////////////
 #include <stdio.h>
 #if defined(__linux__) //linux
@@ -124,10 +125,18 @@ int main( int argc, char *argv[])
 
    int i; 
    int foundcmd = 0;
+   int ch = 0;
    char cmdi[PATH_MAX];
 
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "linux" ) ==  0 ) 
+     {
+       nsystem( " wget  https://raw.githubusercontent.com/spartrekus/linux-logo/master/linux.png -O linux.png  " );
+       return 0;
+     }
 
 
 
@@ -162,43 +171,64 @@ int main( int argc, char *argv[])
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "desktop" ) ==  0 ) 
+      || ( strcmp( argv[2] , "desk+" ) ==  0 ) 
       || ( strcmp( argv[2] , "desk" ) ==  0 ) )
       {
-	 nsystem( " apt-get update  " );
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install  -y tcc  " );
+         nsystem( " apt-get install  -y links " );
+         nsystem( " apt-get install  -y ssh " );
+         nsystem( " apt-get install  -y sshfs  " );
+         nsystem( " apt-get install  -y xinit xterm " );
          ////////////////////////////////////////////////////////
+         nsystem( " apt-get install  -y links " );
+         nsystem( " apt-get install  -y ssh " );
          nsystem( " apt-get install  -y xinit xterm " );
 
          nsystem( " apt-get install  -y blackbox  " );
          nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y wmctrl   " );
 
-
          ////////////////////////////////////////////////////////
          nsystem( " apt-get install  -y tcc  " ); //always there
          nsystem( " apt-get install  -y screen  " ); //always there
          ////////////////////////////////////////////////////////
-
-         nsystem( " apt-get install  -y libx11-dev  " );
-
          //nsystem( " apt-get install  -y x11-xserver-utils ");
          //nsystem( " apt-get install  -y xserver-xorg ");
          nsystem( " apt-get install  -y libx11-dev  " );
          // xserver-xorg-legacy  " ); 
          //nsystem( " apt-get install  -y blackbox  " );
          nsystem( " apt-get install  -y feh  " );
-         nsystem( " apt-get install  -y xpaint  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y i3lock  " );
          nsystem( " apt-get install  -y scrot  " );
          nsystem( " apt-get install  -y fspanel  " );
-
          nsystem( " apt-get install  -y ncurses-dev " ); 
-         nsystem( " apt-get install  -y xclip   " );
+         nsystem( " apt-get install  -y xclip  scrot feh  " );
          nsystem( " apt-get install  -y xdotool   " );
          ////////////////////////////////////////////////////////
-	 nsystem( " apt-get install -y feh scrot rox-filer   " );
+	 //nsystem( " apt-get install -y feh scrot rox-filer   " );
          nsystem( " apt-get install -y screen  " );
+         nsystem( " apt-get install -y sshfs  " );
+
+         nsystem( " apt-get install  -y rox-filer  " );
+         nsystem( " apt-get install  -y fbpanel  " );
+
+         nsystem( " apt-get install  -y links " );
+         nsystem( " apt-get install  -y ssh " );
+         nsystem( " apt-get install  -y xinit xterm " );
+
+         ////////////////////////////////////////////////////////
+         //if ( strcmp( argv[2] , "desk+" ) ==  0 ) 
+            nsystem( " apt-get install  -y nedit  " ); //it works
+            nsystem( " apt-get install  -y rox-filer  " );
+            nsystem( " apt-get install  -y fbpanel  " );
+            nsystem( " apt-get install  -y xpaint  " );
+
+         nsystem( " apt-get install  -y less  " ); 
+         nsystem( " apt-get install  -y calcurse  " ); 
+         nsystem( " apt-get install  -y abook  " ); 
          ////////////////////////////////////////////////////////
          return 0;
       }
@@ -435,18 +465,36 @@ int main( int argc, char *argv[])
 
 
 
+
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "tiny" ) ==  0 ) 
+     {
+         nsystem( " apt-get update " );
+         nsystem("  apt-get install  -y blackbox xinit xterm netsurf vim ssh sshfs ncurses-dev tcc " ); 
+         nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
+         nsystem( " apt-get install  -y libx11-dev ");
+         return 0;
+     }
+
+
+
+
+
+
+
+
    ////////////////////////////////////////////////////////
    if ( argc == 3)
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
      if ( strcmp( argv[2] ,   "x11" ) ==  0 ) 
      {
          nsystem( " apt-get update " );
-         nsystem( " apt-get install  -y ncurses-dev " ); 
          nsystem( " apt-get install  -y blackbox xinit xterm " );
+         nsystem( " apt-get install  -y xbindkeys wmctrl " );
          nsystem( " apt-get install  -y libx11-dev ");
          nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
-         nsystem( " apt-get install  -y xbindkeys  " );
-         nsystem( " apt-get install  -y wmctrl   " );
          return 0;
      }
 
@@ -487,7 +535,7 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y blackbox xinit xterm " );
          nsystem( " apt-get install  -y xterm " );
          nsystem( " apt-get install  -y subversion " );
-         nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+         ////nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
          nsystem( " apt-get update " );
          nsystem( " apt-get install  -y tcc " ); 
          nsystem( " apt-get install  -y ssh " ); 
@@ -511,11 +559,18 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y ssh screen subversion tcc " );
          nsystem( " apt-get install  -y mupdf  feh  " );
          nsystem( " apt-get install  -y i3lock    " );
-         nsystem( " apt-get install  -y   gcc     " );
+         nsystem( " apt-get install  -y gcc     " );
 
-	  nsystem( " apt-get update ; apt-get install --no-install-recommends  -y texlive mupdf  " );
-	  nsystem( " apt-get install --no-install-recommends  -y texlive-latex-extra    " );  // for enumitem with resume !! (enumitem.sty)
-	  nsystem( " apt-get install -y screen " );
+         /// new
+	 nsystem( " apt-get update ; apt-get install --no-install-recommends  -y texlive mupdf  " );
+	 nsystem( " apt-get install --no-install-recommends  -y texlive-latex-extra    " );  // for enumitem with resume !! (enumitem.sty)
+
+         /// surely
+	 nsystem( " apt-get install -y screen " );
+	 nsystem( " apt-get install -y tcc " );
+	 nsystem( " apt-get install -y links " );
+	 nsystem( " apt-get install -y ncurses-dev " );
+	 nsystem( " apt-get install -y libx11-dev " );
        return 0;
      }
     ////////////////////////////////////////////////////////
@@ -722,10 +777,30 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "devuan" ) ==  0 ) 
      {
-          nsystem( " wget https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso" );
-          nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
-          printf( " have a quick check 62bd2d1faa502dab8abd8ae67254024b  devuan_ascii_2.0.0_i386_desktop-live.iso\n " );
-          nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
+          printf( "\n" );
+          printf( "======\n" );
+          printf( "=MENU=\n" );
+          printf( "======\n" );
+          printf( "1-Raspberry\n" );
+          printf( "2-i386\n" );
+          printf( "3-Cancel\n" );
+          printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
+          ch = getchar();
+          printf( "<Keypress: %c>\n", ch ); 
+          if      ( ch == '1') 
+
+             nsystem( " wget https://mirror.leaseweb.com/devuan/devuan_ascii/embedded/devuan_ascii_2.0.0_arm64_raspi3.img.xz " );
+          else if ( ch == '2') 
+          {
+             nsystem( " wget https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso" );
+             nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
+             printf( " have a quick check 62bd2d1faa502dab8abd8ae67254024b  devuan_ascii_2.0.0_i386_desktop-live.iso\n " );
+             nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
+          }
+          else if ( ch == '3') 
+          {
+             printf( " Choice: 3\n" );
+          }
           printf( " Have a good day \n" );
           return 0;
      }
@@ -740,6 +815,23 @@ int main( int argc, char *argv[])
           return 0;
      }
        
+
+
+
+
+      ///////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if (  ( strcmp( argv[2] , "libreoffice" ) ==  0 ) 
+         || ( strcmp( argv[2] , "lbo" ) ==  0 ) )
+      {
+	  nsystem( " apt-get update ; apt-get install --no-install-recommends  -y libreoffice    " );
+	  nsystem( "  apt-get install -y nedit  " );
+	  nsystem( "  apt-get install -y gnumeric  " );
+          return 0;
+      }
+
+
 
 
     ////////////////////////////////////////////////////////
@@ -909,6 +1001,8 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y make  " );
          nsystem( " apt-get install  -y vim  " );
          nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y nedit  " ); //it works
+
          nsystem( " apt-get install  -y feh  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
@@ -916,7 +1010,23 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update ; apt-get install  -y cups  " ); 
          nsystem( " apt-get update ; apt-get install  -y cups-bsd   " ); 
          nsystem( " apt-get install  -y vim  " );
+
          nsystem( " apt-get install  -y xpenguins  " );
+         nsystem( " apt-get install  -y xdemineur  " );
+         nsystem( " apt-get install  -y xedit  " );
+         nsystem( " apt-get install  -y nedit  " );
+
+        nsystem( " apt-get install  -y mtpfs  " );
+        nsystem( " apt-get install  -y go-mtpfs  " );
+        nsystem( " apt-get install  -y jmtpfs  " );
+        /*
+         go-mtpfs - Mount MTP devices over FUSE
+         golang-github-hanwen-usb-dev - CGO bindings for libusb.
+         jmtpfs - FUSE based filesystem for accessing MTP devices
+         mtpfs - FUSE filesystem for Media Transfer Protocol devices
+        */
+
+
          return 0;
       }
 
@@ -1451,28 +1561,6 @@ int main( int argc, char *argv[])
 
 
 
-
-    ////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////
-      if ( argc >= 2)
-      if ( strcmp( argv[1] , "tpidell" ) ==  0 )
-      {  
-         strncpy( cmdi, "", PATH_MAX );
-         strncat( cmdi , " scp -C -r " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "\"  " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "  192.168.50.6:~ "  , PATH_MAX - strlen( cmdi ) -1 );
-         nsystem( cmdi );
-         return 0;
-      }
-   ////////////////////////////////////////////////////////
-   if ( argc == 2)
-     if ( strcmp( argv[1] ,   "pifs" ) ==  0 ) 
-     {
-        nsystem( " cd ; mkdir sshfs ; sshfs pi@192.168.50.7:/home/pi  sshfs ");
-        return 0;
-     }
    ////////////////////////////////////////////////////////
    if ( argc == 2)
      if ( strcmp( argv[1] ,   "pi" ) ==  0 ) 
@@ -1491,8 +1579,69 @@ int main( int argc, char *argv[])
      }
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "myip" ) ==  0 ) 
+     {
+         nsystem( " wget http://checkip.dyndns.com/ -O /tmp/extip ; cat /tmp/extip " ); 
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
 
-     // root@rpidesk# nconfig  pkg jabberd2 fluxbox 
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "xwrapper" ) ==  0 ) 
+     {
+         nsystem( " dpkg-reconfigure xserver-xorg-legacy " );
+         return 0;
+     }
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fluid" ) ==  0 ) 
+      {
+         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         nsystem( "  apt-get install -y libx11-dev " ); 
+         nsystem( "  apt-get install -y fluid  " ); 
+         return 0;
+      }
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "c" ) ==  0 ) 
+      {
+         nsystem( " apt-get update " );
+         nsystem( " apt-get install -y  vim make tcc gcc ncurses-dev gcc make vim  subversion  " );
+         return 0;
+      }
+
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "xp" ) ==  0 ) 
+      {
+         nsystem( " cd ; mkdir .icewm " );
+         nsystem( " cd ; mkdir .icewm/themes " );
+         nsystem( " cd ; cd .icewm ; cd themes ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/WindowsXP.zip -O winxp.zip " );
+         nsystem( " cd ; cd .icewm ; cd themes ; unzip -o winxp.zip " );
+         nsystem( " cd ; cd .icewm ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/keys -O         keys   " );
+         nsystem( " cd ; cd .icewm ; echo 'Theme=WindowsXP/default.theme'  >  theme " );
+         nsystem( " cd ; echo icewm > .xinitrc  " );
+         return 0;
+      }
+
+
+     // chat: nconfig  pkg jabberd2  
+     // calendar: calcurse
+     // abook: contacts
 
      return 0; 
 } 
@@ -1502,5 +1651,25 @@ int main( int argc, char *argv[])
 
 
 
+/*
+go-mtpfs - Mount MTP devices over FUSE
+golang-github-hanwen-usb-dev - CGO bindings for libusb.
+jmtpfs - FUSE based filesystem for accessing MTP devices
+mtpfs - FUSE filesystem for Media Transfer Protocol devices
+*/
+
+/*
+Better not to install fluid: 
+
+The following NEW packages will be installed:
+  fltk1.3-doc fluid libdrm-dev libdrm-exynos1 libdrm-omap1 libdrm-tegra0 libfltk-cairo1.3 libfltk-forms1.3
+  libfltk-gl1.3 libfltk-images1.3 libfltk1.3-dev libgl1-mesa-dev libglu1-mesa libglu1-mesa-dev
+  libpthread-stubs0-dev libx11-dev libx11-doc libx11-xcb-dev libxau-dev libxcb-dri2-0-dev libxcb-dri3-dev
+  libxcb-glx0-dev libxcb-present-dev libxcb-randr0 libxcb-randr0-dev libxcb-render0-dev libxcb-shape0-dev
+  libxcb-sync-dev libxcb-xfixes0-dev libxcb1-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev
+  libxshmfence-dev libxxf86vm-dev mesa-common-dev x11proto-core-dev x11proto-damage-dev x11proto-dri2-dev
+  x11proto-fixes-dev x11proto-gl-dev x11proto-input-dev x11proto-kb-dev x11proto-xext-dev
+  x11proto-xf86vidmode-dev xorg-sgml-doctools 
+*/
 
 
