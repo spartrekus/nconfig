@@ -499,6 +499,17 @@ int main( int argc, char *argv[])
 
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "prboom" ) ==  0 ) 
+      {
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         npkg( " prboom-plus   " );
+         return 0;
+      }
+
+
 
 
 
@@ -1926,6 +1937,11 @@ int main( int argc, char *argv[])
          nsystem( " cd ; cd .icewm ; echo 'Theme=WindowsXP/default.theme'  >  theme " );
          nsystem( " cd ; echo setxkbmap de >  .xinitrc  " );
          nsystem( " cd ; echo icewm        >> .xinitrc  " );
+
+         /// wallpaper for i3lock
+         chdir( getenv( "HOME" ));
+         if ( fexist( ".wallpaper.jpg" ) == 0 ) 
+            nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.jpg   " );
          return 0;
       }
 
