@@ -226,6 +226,7 @@ int main( int argc, char *argv[])
      {
            nsystem( " wget https://raw.githubusercontent.com/spartrekus/davedit/master/termedit.c  -O termedit.c " );
            nsystem( " wget https://raw.githubusercontent.com/spartrekus/davedit/master/termedit.h  -O termedit.h " );
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/davedit/master/structs.h  -O structs.h " );
            nsystem( "     gcc -lncurses termedit.c -o termedit  " );
            return 0;
      }
@@ -261,17 +262,6 @@ int main( int argc, char *argv[])
     /////////////////////////////////////////////////////////////
 
 
-
-
-      ////////////////////////////////////////////////////////
-      if ( argc == 3)
-      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "icewm" ) ==  0 ) 
-      {
-           if      ( MYOS == 1 ) npkg( " ncurses-dev icewm xinit xterm " );
-           else if ( MYOS == 4 ) npkg( " ncurses Xorg feh vim icewm menu " );
-           return 0; 
-      }
 
 
       ////////////////////////////////////////////////////////
@@ -319,9 +309,14 @@ int main( int argc, char *argv[])
          else if ( MYOS == 4 ) npkg( " ncurses Xorg " );
 
          if           ( ch == '1') 
+         {
             npkg( " blackbox " ); 
+         }
          else if      ( ch == '2') 
+         {
             npkg( " icewm " ); 
+            npkg( " menu " ); 
+         }
 
          npkg( " less  " );
          npkg( " wget  " );
@@ -1933,6 +1928,21 @@ int main( int argc, char *argv[])
          nsystem( " cd ; echo icewm        >> .xinitrc  " );
          return 0;
       }
+
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "icewm" ) ==  0 ) 
+      {
+           if      ( MYOS == 1 ) npkg( " ncurses-dev icewm xinit xterm " );
+           else if ( MYOS == 4 ) npkg( " ncurses Xorg feh vim icewm menu " );
+           return 0; 
+      }
+
+
 
 
      // chat: nconfig  pkg jabberd2  
