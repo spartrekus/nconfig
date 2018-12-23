@@ -218,6 +218,22 @@ int main( int argc, char *argv[])
 
 
 
+
+     ////////////////////////////////////////////////////////
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "termedit" ) ==  0 ) 
+     {
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/davedit/master/termedit.c  -O termedit.c " );
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/davedit/master/termedit.h  -O termedit.h " );
+           nsystem( "     gcc -lncurses termedit.c -o termedit  " );
+           return 0;
+     }
+
+
+
+
+
     /////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////
     if ( argc >= 3)
@@ -309,7 +325,9 @@ int main( int argc, char *argv[])
 
          npkg( " less  " );
          npkg( " wget  " );
+         npkg( " bash  " );
          npkg( " xinit xterm " );
+
          npkg( " sshfs  " );
          npkg( " i3lock  " );
          npkg( " vim  " );
@@ -319,12 +337,15 @@ int main( int argc, char *argv[])
          npkg( " feh " );
          npkg( " zip " );
 
+         npkg( " xclip " );
+
          npkg( " dillo " );
          npkg( " links " );
          ////////////////////////////////////////////////////////
 
          if ( MYOS == 1 )
          {
+	 nsystem( " apt-get install  -y  console-setup " ); // very first, the keyboard
          nsystem( " apt-get install  -y links " );
          nsystem( " apt-get install  -y ssh " );
          nsystem( " apt-get install  -y xz-utils " );
@@ -375,6 +396,30 @@ int main( int argc, char *argv[])
          return 0;
       }
 
+
+
+
+
+
+    ///////////////////////////////////////////////////////
+    // BSD Rocks
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "wheel" ) ==  0 ) 
+      {
+         printf( " you may enter this : pw user mod username -G wheel \n" );
+         printf( " or : nconfig set wheel \n" );
+         return 0;
+      }
+    ///////////////////////////////////////////////////////
+    // BSD Rocks
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "de" ) ==  0 )  // BSD
+      {
+         nsystem( " kbdcontrol -l /usr/share/syscons/keymaps/german.iso.kbd " );
+         return 0;
+      }
 
 
 
@@ -487,12 +532,19 @@ int main( int argc, char *argv[])
             npkg( " make " );
             npkg( " ncurses " );
           }
-          return 0;
+
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         if ( MYOS == 1 ) 
+           nsystem( " apt-get install -y  vim make tcc gcc ncurses-dev gcc make vim  subversion  " );
+         else if ( MYOS == 4 ) 
+           npkg( " vim gcc make " );
+
+         return 0;
       }
 
 
 
-     if ( argc == 3)
+      if ( argc == 3)
       if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
       if ( strcmp( argv[2] , "sddm" ) ==  0 ) 
       {
@@ -970,6 +1022,10 @@ int main( int argc, char *argv[])
           nsystem( " dpkg-reconfigure tzdata " );
           return 0;
       }
+
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "set" ) ==  0 ) 
@@ -977,8 +1033,10 @@ int main( int argc, char *argv[])
       || ( strcmp( argv[2] , "key" ) ==  0 ) 
       || ( strcmp( argv[2] , "keys" ) ==  0 ) )
       {
+          npkg( " keyboard-configuration " );
           nsystem( " dpkg-reconfigure keyboard-configuration " ); //for gal
-          nsystem( " dpkg-reconfigure console-setup " );  //for console
+          npkg( " console-setup " );
+          //nsystem( " dpkg-reconfigure console-setup " );  //for console
           // on bsd, /etc/rc.conf  with keymap=us   or keymap=de or keymap=fr
           return 0;
       }
@@ -994,6 +1052,7 @@ int main( int argc, char *argv[])
           // select de de utf8 utf8, and then put C.UTF8
           system( " apt-get install -f -y console-data locales" );
           system( " dpkg-reconfigure locales " );
+          nsystem( " echo LANG=C.UTF-8 > /etc/default/locale  " );
           return 0;
       }
 
@@ -1381,6 +1440,18 @@ int main( int argc, char *argv[])
 	  nsystem( " apt-get install -y --no-install-recommends   chromium " );
 	  nsystem( " apt-get install -y --no-install-recommends   chromium-browser " );
 	  nsystem( " apt-get install -y --no-install-recommends   chromium " );
+          return 0;
+      }
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "midori" ) ==  0 ) 
+      {
+	  if ( MYOS == 1 ) nsystem( " apt-get update " );
+	  npkg( " midori  ");
           return 0;
       }
 
