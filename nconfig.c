@@ -340,6 +340,7 @@ int main( int argc, char *argv[])
          npkg( " xlockmore " );  // xlock daisy
          npkg( " xclip " );
          npkg( " xedit " );
+         npkg( " links " );      // links -g for graphics
 
          npkg( " dillo " );
          npkg( " links " );
@@ -1975,7 +1976,13 @@ int main( int argc, char *argv[])
       }
 
 
-
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] ,   "xlock" ) ==  0 ) 
+      {
+         nsystem( " xlock -mode random +inwindow -duration 3  ");
+         return 0;
+      }
 
       ////////////////////////////////////////////////////////
       if ( argc == 3)
