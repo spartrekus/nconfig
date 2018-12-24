@@ -278,6 +278,11 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     if ( argc == 3)
@@ -332,7 +337,9 @@ int main( int argc, char *argv[])
          npkg( " feh " );
          npkg( " zip " );
 
+         npkg( " xlockmore " );  // xlock daisy
          npkg( " xclip " );
+         npkg( " xedit " );
 
          npkg( " dillo " );
          npkg( " links " );
@@ -1910,6 +1917,18 @@ int main( int argc, char *argv[])
      }
 
 
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "xfce-terminal" ) ==  0 ) 
+     {
+         npkg( " xfce4-terminal " );
+         return 0;
+     }
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -1922,9 +1941,19 @@ int main( int argc, char *argv[])
       }
 
 
+      ////////////////////////////////////////////////////////
+      // useful sometimes
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "max" ) ==  0 ) 
+      {
+        nsystem( "  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz   " );
+        return 0;
+      }
 
 
-      // setxkbmap
+
+
       ////////////////////////////////////////////////////////
       if ( argc == 2)
       if ( strcmp( argv[1] , "xp" ) ==  0 ) 
@@ -1940,8 +1969,8 @@ int main( int argc, char *argv[])
 
          /// wallpaper for i3lock
          chdir( getenv( "HOME" ));
-         if ( fexist( ".wallpaper.jpg" ) == 0 ) 
-            nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.jpg   " );
+         if ( fexist( ".wallpaper.png" ) == 0 ) 
+            nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.png   " );
          return 0;
       }
 
