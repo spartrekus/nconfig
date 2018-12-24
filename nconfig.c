@@ -337,17 +337,24 @@ int main( int argc, char *argv[])
          npkg( " feh " );
          npkg( " zip " );
 
-         npkg( " xlockmore " );  // xlock daisy
          npkg( " xclip " );
-         npkg( " xedit " );
          npkg( " links " );      // links -g for graphics
 
-         npkg( " dillo " );
-         npkg( " links " );
-         ////////////////////////////////////////////////////////
+         npkg( " dillo " );   
+         npkg( " links " );      // very useful
+         npkg( " ssh " );   
 
-         if ( MYOS == 1 )
-         {
+        if ( MYOS == 4 )
+        {
+            npkg( " ntp " ); 
+            npkg( " xlockmore " );  // xlock daisy
+            npkg( " nedit " );
+            npkg( " unzip " );
+        }
+        ////////////////////////////////////////////////////////
+
+        if ( MYOS == 1 )
+        {
 	 nsystem( " apt-get install  -y  console-setup " ); // very first, the keyboard
          nsystem( " apt-get install  -y links " );
          nsystem( " apt-get install  -y ssh " );
@@ -1084,60 +1091,16 @@ int main( int argc, char *argv[])
      }
 
 
+
+
      if ( argc == 2)
-     if ( strcmp( argv[1] , "xinitrc" ) ==  0 ) 
+     if ( strcmp( argv[1] , "freebsd" ) ==  0 ) 
      {
-       nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xinitrc.txt -O .xinitrc  " );
-       return 0;
+        nsystem( " wget https://download.freebsd.org/ftp/releases/i386/i386/ISO-IMAGES/12.0/FreeBSD-12.0-RELEASE-i386-disc1.iso.xz " );
+        return 0;
      }
 
 
-
-
-     ////////////////////////////////////////////////////////
-     // for a stable system without systemD (D for de-installing ), devuan live desktop
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "devuan" ) ==  0 ) 
-     {
-          printf( "\n" );
-          printf( "======\n" );
-          printf( "=MENU=\n" );
-          printf( "======\n" );
-          printf( "1. Raspberry\n" );
-          printf( "2. i386\n" );
-          printf( "3. Cancel\n" );
-          printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
-          ch = getchar();
-          printf( "<Keypress: %c>\n", ch ); 
-          if      ( ch == '1') 
-
-             nsystem( " wget https://mirror.leaseweb.com/devuan/devuan_ascii/embedded/devuan_ascii_2.0.0_arm64_raspi3.img.xz " );
-          else if ( ch == '2') 
-          {
-             nsystem( " wget https://files.devuan.org/devuan_ascii/desktop-live/devuan_ascii_2.0.0_i386_desktop-live.iso" );
-             nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
-             printf( " have a quick check 62bd2d1faa502dab8abd8ae67254024b  devuan_ascii_2.0.0_i386_desktop-live.iso\n " );
-             nsystem( " md5sum devuan_ascii_2.0.0_i386_desktop-live.iso" );
-          }
-          else if ( ch == '3') 
-          {
-             printf( " Choice: 3\n" );
-          }
-          printf( " Have a good day \n" );
-          return 0;
-     }
-
-
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "raspbian" ) ==  0 ) 
-     {
-          nsystem(  " wget http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2018-11-15/2018-11-13-raspbian-stretch-lite.zip " );
-          // https://downloads.raspberrypi.org/raspbian_lite_latest
-          return 0;
-     }
-       
 
 
 
