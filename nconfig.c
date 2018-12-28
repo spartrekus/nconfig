@@ -49,6 +49,30 @@
 //////////////////////////////////////////
 
 
+#include <time.h>
+///////////////////////////////
+///////////////////////////////
+///////////////////////////////
+char *strtimestamp()
+{
+      long t;
+      struct tm *ltime;
+      time(&t);
+      ltime=localtime(&t);
+      char charo[50];  int fooi ; 
+      fooi = snprintf( charo, 50 , "%04d%02d%02d%02d%02d%02d",
+	1900 + ltime->tm_year, ltime->tm_mon +1 , ltime->tm_mday, 
+	ltime->tm_hour, ltime->tm_min, ltime->tm_sec 
+	);
+    size_t siz = sizeof charo ; 
+    char *r = malloc( sizeof charo );
+    return r ? memcpy(r, charo, siz ) : NULL;
+}
+
+
+
+
+
 void printdir()
 {
    DIR *dirp; int chr ;  
@@ -140,9 +164,19 @@ return fileordir;
 int main( int argc, char *argv[])
 {
 
+      ///////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "time" ) ==  0 ) 
+      {
+          printf( "%s\n", strtimestamp() );
+          return 0;
+      }
+
+
    int i; 
    int foundcmd = 0;
    int ch = 0;
+   int keych = 0;
    char cmdi[PATH_MAX];
 
    if ( MYOS == 1 )
@@ -293,17 +327,12 @@ int main( int argc, char *argv[])
           printf( "======\n" );
           printf( "=MENU=\n" );
           printf( "======\n" );
-          printf( "1. Blackbox\n" );
-          printf( "2. Icewm\n" );
-          printf( "3. Other (just free)\n" );
-          printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
-          ch = getchar();
-          printf( "<Keypress: %c>\n", ch ); 
-
-          if           ( ch == '1') 
-            printf( "=> blackbox \n" );
-          else if      ( ch == '2') 
-            printf( "=> icewm\n" );
+          //printf( "1. Blackbox\n" );
+          //printf( "2. Icewm\n" );
+          //printf( "3. Other (just free)\n" );
+          //printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
+          //ch = getchar();
+          //ch = '2'; printf( "<Keypress: %c>\n", ch ); 
 
          if ( MYOS == 1 ) nsystem( " apt-get update " );
          npkg( " tcc  " );
@@ -312,16 +341,6 @@ int main( int argc, char *argv[])
 
          if      ( MYOS == 1 ) npkg( " ncurses-dev xinit xterm " );
          else if ( MYOS == 4 ) npkg( " ncurses Xorg " );
-
-         if           ( ch == '1') 
-         {
-            npkg( " blackbox " ); 
-         }
-         else if      ( ch == '2') 
-         {
-            npkg( " icewm " ); 
-            npkg( " menu " ); 
-         }
 
          npkg( " less  " );
          npkg( " wget  " );
@@ -344,28 +363,43 @@ int main( int argc, char *argv[])
          npkg( " links " );      // very useful
          npkg( " ssh " );   
 
-        if ( MYOS == 4 )
-        {
-            npkg( " ntp " ); 
-            npkg( " xlockmore " );  // xlock daisy
-            npkg( " nedit " );
-            npkg( " unzip " );
+         npkg( " icewm " );   // stable, 17 Mb, larger but comfort. 
+         npkg( " xfe " );     // for icons and likely it may work., with xfw and xfi. 
+         npkg( " unzip " );
+
+
+         if ( MYOS == 4 )
+         {
+            npkg(  " ntp " ); 
+            npkg(  " xlockmore " );  // xlock daisy, cool no?
+            npkg(  " nedit " );      // stable and good
+            npkg(  " unzip " );      // still unseful today
+            npkg(  " alsa-utils " ); // might help to avoid pulseaudio, locking users like other Operating Systems.
+            npkg(  " fusefs-sshfs "); // great to mount a drive over the seas with X11 forward and usage. ;)
+            npkg(  " fusefs-ext2 ");  // for ext2, and likely ext3.
         }
         ////////////////////////////////////////////////////////
+
 
         if ( MYOS == 1 )
         {
 	 nsystem( " apt-get install  -y  console-setup " ); // very first, the keyboard
+         npkg(  "  ssh ");
+         npkg(  "  sshfs ");
          nsystem( " apt-get install  -y links " );
          nsystem( " apt-get install  -y ssh " );
-         nsystem( " apt-get install  -y xz-utils " );
+         nsystem( " apt-get install  -y xz-utils " );  //why?
+
          nsystem( " apt-get install  -y xinit xterm " );
          nsystem( " apt-get install  -y xbindkeys  " );
-         nsystem( " apt-get install  -y wmctrl   " );
-         nsystem( " apt-get install  -y xdotool   " );
+
+         nsystem( " apt-get install  -y x11-xserver-utils   " ); //xrdb might help for sddm
+
+         nsystem( " apt-get install  -y wmctrl   " );   // if use blackbox
+         nsystem( " apt-get install  -y xdotool   " );  // if use blackbox
+         nsystem( " apt-get install  -y alsa-utils   " );
          ////////////////////////////////////////////////////////
-         nsystem( " apt-get install  -y tcc  " ); //always there
-         nsystem( " apt-get install  -y tcc  " ); //always there
+         nsystem( " apt-get install  -y tcc  " ); //always there, on some systems
          nsystem( " apt-get install  -y screen  " ); //always there
          ////////////////////////////////////////////////////////
          //nsystem( " apt-get install  -y x11-xserver-utils ");
@@ -384,8 +418,7 @@ int main( int argc, char *argv[])
          ////////////////////////////////////////////////////////
          nsystem( " apt-get install -y screen  " );
          nsystem( " apt-get install -y sshfs  " );
-
-         nsystem( " apt-get install  -y fbpanel  " );
+         //nsystem( " apt-get install  -y fbpanel  " );
 
          nsystem( " apt-get install  -y links " );
          nsystem( " apt-get install  -y ssh " );
@@ -396,10 +429,8 @@ int main( int argc, char *argv[])
             nsystem( " apt-get install  -y nedit  " ); //it works
             nsystem( " apt-get install  -y fbpanel  " );
             nsystem( " apt-get install  -y xpaint  " );
+            nsystem( " apt-get install  -y less  " ); 
 
-         nsystem( " apt-get install  -y less  " ); 
-         nsystem( " apt-get install  -y calcurse  " ); 
-         nsystem( " apt-get install  -y abook  " ); 
          }
 
          ////////////////////////////////////////////////////////
@@ -517,13 +548,22 @@ int main( int argc, char *argv[])
      ////////////////////////////////////////////////////////
      if ( argc == 3)
       if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-      if ( strcmp( argv[2] ,   "prboom" ) ==  0 ) 
+      if ( ( strcmp( argv[2] ,    "prboom" ) ==  0 ) 
+         || ( strcmp( argv[2] ,   "boom" ) ==  0 ) )
       {
          if ( MYOS == 1 ) nsystem( " apt-get update " );
          npkg( " prboom-plus   " );
          return 0;
       }
-
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,    "boom-server" ) ==  0 ) 
+      {
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         npkg( " prboom-plus-game-server  " );
+         return 0;
+      }
 
 
 
@@ -546,19 +586,29 @@ int main( int argc, char *argv[])
       || ( strcmp( argv[2] ,  "subversion" ) ==  0 ) )
       {
           if ( MYOS == 1 ) 
-	    nsystem( " apt-get update ; apt-get install -y subversion tcc make ncurses-dev  " );
+           nsystem( " apt-get update " );
+
+          npkg( "  tcc  " );
+
+          if ( MYOS == 1 ) 
+          {
+           nsystem( "  apt-get install -y subversion tcc make ncurses-dev  " );
+           npkg( "  tcc  " );
+           npkg( "  make  " );
+           npkg( "  ncurses-dev  " );
+          }
+
+
           else if ( MYOS == 4 ) 
           {
-            npkg( " subversion gcc " );
+            npkg( " subversion  " );
             npkg( " make " );
             npkg( " ncurses " );
           }
 
-         if ( MYOS == 1 ) nsystem( " apt-get update " );
-         if ( MYOS == 1 ) 
-           nsystem( " apt-get install -y  vim make tcc gcc ncurses-dev gcc make vim  subversion  " );
-         else if ( MYOS == 4 ) 
-           npkg( " vim gcc make " );
+          npkg( "  gcc  " );
+
+          npkg( " vim " );  // or emacs, up to you.
 
          return 0;
       }
@@ -822,6 +872,53 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "icewm" ) ==  0 ) 
+      {
+           if      ( MYOS == 1 ) npkg( " ncurses-dev icewm xinit xterm " );
+           else if ( MYOS == 4 ) npkg( " ncurses Xorg feh vim icewm menu " );
+           return 0; 
+      }
+
+
+
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "xapps" ) ==  0 ) 
+         || ( strcmp( argv[2] , "xapp" ) ==  0 ) )
+      {
+         //nsystem( " apt-get update ; apt-get install -y x11vnc nedit tcc links xclip feh rox-filer scrot nedit  xbindkeys xterm rxvt  " );
+         npkg( "  gcc  " );
+         npkg( "  tcc  " );
+         npkg( "  xterm  " );
+         npkg( "  xinit  " );
+         npkg( "  xdotool  " );
+         npkg( "  wmctrl  " );
+         npkg( "  feh  " );
+         npkg( "  ncurses  " );
+         npkg( "  xclip  " );
+         npkg( "  xlockmore  " );
+         npkg( "  i3lock  " );
+         npkg( "  icewm  " );
+         npkg( "  links  " );
+         npkg( "  scrot  " );
+         npkg( "  rox-filer  " );
+         npkg( "  xpaint  " );
+         npkg( "  nedit  " );
+         npkg( "  rox-filer  " );
+         return 0;
+      }
+
+
+
+
+
 
 
    ////////////////////////////////////////////////////////
@@ -829,11 +926,17 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
      if ( strcmp( argv[2] ,   "x11" ) ==  0 ) 
      {
-         nsystem( " apt-get update " );
-         nsystem( " apt-get install  -y  xinit xterm " );
-         nsystem( " apt-get install  -y xbindkeys wmctrl " );
+         printf( "1. Blackbox\n" );
+         printf( "2. Icewm\n" );
+         printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
+         //keych = getchar();
+         //if      ( keych == '1') 
+         //   nsystem( " apt-get update ; apt-get install  -y xinit xterm blackbox " );
+         //else if ( keych == '2') 
+          nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
          nsystem( " apt-get install  -y libx11-dev ");
-         nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
+         nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
+         //nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
          return 0;
      }
 
@@ -994,7 +1097,6 @@ int main( int argc, char *argv[])
      if ( ( strcmp( argv[1] , "asoundrc" ) ==  0 ) 
      || ( strcmp( argv[1] , "asoundrc0" ) ==  0 ) 
      || ( strcmp( argv[1] , "asound" ) ==  0 ) 
-     || ( strcmp( argv[1] , "sound" ) ==  0 ) 
      || ( strcmp( argv[1] , "asoundrc-0" ) ==  0 ) )
      {
        nsystem( "  wget    \"https://raw.githubusercontent.com/spartrekus/asoundrc/master/asoundrc-0\" -O ~/.asoundrc " );
@@ -1084,9 +1186,13 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[1] , "kwin95" ) ==  0 ) 
      {
        nsystem( " cd ; wget  https://raw.githubusercontent.com/spartrekus/kwin95/master/wallpaper-win.jpg  -O .wallpaper.jpg " );
-       nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/icons.zip  -O icons.zip  ; unzip -o icons.zip  " );
+
+       if ( fexist( "/usr/bin/unzip" ) == 1 ) 
+          nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/icons.zip  -O kwin95icons.zip  ; unzip -o kwin95icons.zip  ; rm kwin95icons.zip " );
        nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xkey.ini   -O .xbindkeysrc  " );
        nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/xinitrc.txt -O .xinitrc  " );
+
+
        return 0;
      }
 
@@ -1102,6 +1208,15 @@ int main( int argc, char *argv[])
 
 
 
+      ///////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "sshfs" ) ==  0 ) 
+     {
+        npkg(  " fusefs-sshfs "); // great to mount a drive over the seas with X11 forward and usage. ;)
+        npkg(  " fusefs-ext2 ");  // for ext2, and likely ext3.
+        return 0;
+     }
 
 
 
@@ -1226,10 +1341,11 @@ int main( int argc, char *argv[])
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "kde" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "kde" ) ==  0 ) 
+      || ( strcmp( argv[2] , "kde-standard" ) ==  0 ) )
       {
 	  nsystem( " apt-get update  " );
-          nsystem( " dpkg-reconfigure keyboard-configuration " );
+          ////nsystem( " dpkg-reconfigure keyboard-configuration " );
 
           nsystem( " apt-get install  -y tcc links debootstrap " ); 
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
@@ -1406,6 +1522,35 @@ int main( int argc, char *argv[])
      }
 
 
+
+     //////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "big" ) ==  0 ) 
+     {
+       nsystem( "  xterm -bg black -fg green  -fn DejaVuMono -fa 50 -fs 35 " );
+       return 0;
+     }
+
+
+
+     ///////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "big" ) ==  0 ) 
+     {
+       strncpy( cmdi , "  xterm -bg black -fg green  -fn DejaVuMono -fa 50 -fs  ",  PATH_MAX );
+       strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[ 2 ] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem(  cmdi  ); 
+       return 0;
+     }
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -1448,6 +1593,24 @@ int main( int argc, char *argv[])
 
 
 
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "sound" ) ==  0 ) 
+      {
+          nsystem( " aplay  /usr/share/sounds/alsa/Rear_Center.wav  " );
+          return 0;
+      }
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "mylene" ) ==  0 ) 
+      {
+          nsystem( " mplayer http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
+          return 0;
+      }
+
+
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -1456,11 +1619,26 @@ int main( int argc, char *argv[])
       if ( argc == 2)
       if ( strcmp( argv[1] , "arec" ) ==  0 ) 
       {
-          if ( fexist( "/usr/bin/mencoder" ) != 1 ) 
-                 nsystem( "apt-get update ; apt-get install -y alsa-utils  "); 
-          nsystem( "  arecord -V stereo -t wav -f cd -D plughw:0,0 $(ntimestamp )-arec.wav  ");
-          return 0;
+         if ( MYOS == 1 )   nsystem( " apt-get update  " );
+         npkg( " mencoder  " );
+         npkg( " alsa-utils  " );
+         if ( fexist( "/usr/bin/mencoder" ) != 1 ) 
+              nsystem( "apt-get update ; apt-get install -y alsa-utils  "); 
+         // nsystem( "  arecord -V stereo -t wav -f cd -D plughw:0,0   $( ntimestamp )-arec.wav  ");
+         // cmdi 
+         strncpy( cmdi , "  arecord -V stereo -t wav -f cd -D plughw:0,0    " , PATH_MAX );
+         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , strtimestamp() , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "-arec.wav" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+         printf( ">cmdi: %s\n", cmdi );
+         nsystem( cmdi );
+         return 0;
       }
+
+
+
+
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -1525,9 +1703,18 @@ int main( int argc, char *argv[])
 
 
 
-
-    ////////////////////////////////////////////////////////
+    /////////////////////////////////////////////
     if ( argc == 3)
+    if ( strcmp( argv[1] , "install" ) ==  0 ) 
+    if ( strcmp( argv[2] , "qemu" ) ==  0 ) 
+    {
+          npkg( " qemu-system-i386  " );
+          return 0;
+    }
+
+
+    ///////////////////////////////////////////////////////
+      if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "tex" ) ==  0 ) 
       || ( strcmp( argv[2] , "texlive" ) ==  0 ) 
@@ -1914,6 +2101,21 @@ int main( int argc, char *argv[])
         nsystem( "  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz   " );
         return 0;
       }
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "key" ) ==  0 ) 
+      if ( strcmp( argv[2] , "right" ) ==  0 ) 
+      {
+        nsystem( " xdotool key Right " );
+        return 0;
+      }
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "key" ) ==  0 ) 
+      if ( strcmp( argv[2] , "left" ) ==  0 ) 
+      {
+        nsystem( " xdotool key Left " );
+        return 0;
+      }
+
 
 
 
@@ -1924,19 +2126,38 @@ int main( int argc, char *argv[])
       {
          nsystem( " cd ; mkdir .icewm " );
          nsystem( " cd ; mkdir .icewm/themes " );
-         nsystem( " cd ; cd .icewm ; cd themes ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/WindowsXP.zip -O winxp.zip " );
-         nsystem( " cd ; cd .icewm ; cd themes ; unzip -o winxp.zip " );
+         nsystem( " cd ; cd .icewm ; cd themes ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/WindowsXP.zip -O winxp.zip ; unzip -o winxp.zip  " );
+
          nsystem( " cd ; cd .icewm ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/keys -O         keys   " );
+         nsystem( " cd ; cd .icewm ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/menu -O         menu   " );
+
          nsystem( " cd ; cd .icewm ; echo 'Theme=WindowsXP/default.theme'  >  theme " );
-         nsystem( " cd ; echo setxkbmap de >  .xinitrc  " );
-         nsystem( " cd ; echo icewm        >> .xinitrc  " );
+
+         nsystem( " cd ; echo  >       .xinitrc  " );
+         nsystem( " cd ; echo  rox -p desktop   >>  .xinitrc  " );
+         nsystem( " cd ; echo setxkbmap de >>  .xinitrc  " );
+         nsystem( " cd ; echo        >>  .xinitrc  " );
+         nsystem( " cd ; echo icewm        >>  .xinitrc  " );
+
+        chdir( getenv( "HOME" ));
+        if ( fexist( ".icons" ) == 0 ) 
+        if ( fexist( ".icons" ) != 2 ) 
+         if ( fexist( "/usr/bin/unzip" ) == 1 ) 
+              nsystem( " cd ; wget https://raw.githubusercontent.com/spartrekus/kwin95/master/icons.zip  -O kwin95icons.zip  ; unzip -o kwin95icons.zip  ; rm kwin95icons.zip " );
 
          /// wallpaper for i3lock
          chdir( getenv( "HOME" ));
          if ( fexist( ".wallpaper.png" ) == 0 ) 
             nsystem( " cd ; wget \"https://raw.githubusercontent.com/spartrekus/Totally-Libre-Free-GNU-Matrix-Wallpaper-1920x1080/master/cmatrix-free-gnu-wallpaper-unix-1920x1080.png\" -O .wallpaper.png   " );
+
          return 0;
       }
+
+
+
+
+
+
 
 
       ////////////////////////////////////////////////////////
@@ -1947,22 +2168,25 @@ int main( int argc, char *argv[])
          return 0;
       }
 
+
+
+
       ////////////////////////////////////////////////////////
       if ( argc == 3)
       if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "icewm" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "doom3" ) ==  0 ) 
       {
-           if      ( MYOS == 1 ) npkg( " ncurses-dev icewm xinit xterm " );
-           else if ( MYOS == 4 ) npkg( " ncurses Xorg feh vim icewm menu " );
+           if      ( MYOS == 1 ) nsystem( " apt-get update " );
+           npkg( " dhewm3 " );
            return 0; 
       }
-
-
-
-
-     // chat: nconfig  pkg jabberd2  
-     // calendar: calcurse
-     // abook: contacts
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] ,   "doom3" ) ==  0 ) 
+      {
+           nsystem( " dhewm3 " );
+           return 0; 
+      }
 
      return 0; 
 } 
@@ -1970,6 +2194,7 @@ int main( int argc, char *argv[])
 
 
 
+// ext2fs    mount -t ext2fs /dev/da0s1 /media/disk1
 
 
 /*
@@ -1992,5 +2217,4 @@ The following NEW packages will be installed:
   x11proto-fixes-dev x11proto-gl-dev x11proto-input-dev x11proto-kb-dev x11proto-xext-dev
   x11proto-xf86vidmode-dev xorg-sgml-doctools 
 */
-
 
