@@ -48,29 +48,25 @@
 //////////////////////////////////////////
 //////////////////////////////////////////
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>   //chdir
+#include <dirent.h>
 
-#include <time.h>
-///////////////////////////////
-///////////////////////////////
-///////////////////////////////
-char *strtimestamp()
-{
-      long t;
-      struct tm *ltime;
-      time(&t);
-      ltime=localtime(&t);
-      char charo[50];  int fooi ; 
-      fooi = snprintf( charo, 50 , "%04d%02d%02d%02d%02d%02d",
-	1900 + ltime->tm_year, ltime->tm_mon +1 , ltime->tm_mday, 
-	ltime->tm_hour, ltime->tm_min, ltime->tm_sec 
-	);
-    size_t siz = sizeof charo ; 
-    char *r = malloc( sizeof charo );
-    return r ? memcpy(r, charo, siz ) : NULL;
+void nls()
+{ 
+   DIR *dirp;
+   struct dirent *dp;
+   dirp = opendir( "." );
+   while  ((dp = readdir( dirp )) != NULL ) 
+   {
+         if (  strcmp( dp->d_name, "." ) != 0 )
+         if (  strcmp( dp->d_name, ".." ) != 0 )
+             printf( "%s\n", dp->d_name );
+   }
+   closedir( dirp );
 }
-
-
-
 
 
 void printdir()
@@ -90,6 +86,92 @@ void printdir()
    }
    closedir( dirp );
 }
+
+
+
+
+///////////////
+void listdir(const char *name, int indent, const char *searchitem )
+{
+    DIR *dir;
+    struct dirent *entry;
+
+    if (!(dir = opendir(name)))
+        return;
+
+    while ((entry = readdir(dir)) != NULL) 
+    {
+        if (entry->d_type == DT_DIR) 
+	{
+            char path[1024];
+
+            if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                continue;
+
+            snprintf( path, sizeof(path), "%s/%s", name, entry->d_name);
+
+            listdir( path, indent + 2, searchitem );
+        } 
+	else 
+	{
+	    if ( strstr( entry->d_name , searchitem ) != 0 ) 
+	    {
+              printf("%s/%s\n", name , entry->d_name );
+	    }
+        }
+    }
+    closedir(dir);
+}
+
+
+
+
+void fseek_filesize(const char *filename)
+{
+    FILE *fp = NULL;
+    long off;
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("failed to fopen %s\n", filename);
+        exit(EXIT_FAILURE);
+    }
+
+    if (fseek(fp, 0, SEEK_END) == -1)
+    {
+        printf("failed to fseek %s\n", filename);
+        exit(EXIT_FAILURE);
+    }
+
+    off = ftell( fp );
+    if (off == (long)-1)
+    {
+        printf("failed to ftell %s\n", filename);
+        exit(EXIT_FAILURE);
+    }
+
+    //printf("[*] fseek_filesize - file: %s, size: %ld\n", filename, off);
+    printf("%ld\n", off);
+
+    if (fclose(fp) != 0)
+    {
+        printf("failed to fclose %s\n", filename);
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+
+
+
+
+
+
+
+// new
+#include <time.h>
+
 
 
 
@@ -123,7 +205,9 @@ void npkg( char *mycmd )
 ///////////////////////////////////////
 ///////////////////////////////////////
 ///////////////////////////////////////
-int fexist(char *a_option)
+//void fseek_filesize(const char *filename)
+//int fexist(char *a_option)
+int fexist(const char *a_option)
 {
   char dir1[PATH_MAX]; 
   char *dir2;
@@ -163,21 +247,104 @@ return fileordir;
 //////////////////////////////////////////
 int main( int argc, char *argv[])
 {
+     char cmdi[PATH_MAX];
+     char charo[PATH_MAX];
+     int i; 
 
-      ///////////////////////////////////////////////////////
-      if ( argc == 2)
-      if ( strcmp( argv[1] , "time" ) ==  0 ) 
-      {
-          printf( "%s\n", strtimestamp() );
-          return 0;
-      }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "time" ) ==  0 ) 
+     {
+       printf("Timestamp: %d\n",(int)time(NULL));
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "timeh" ) ==  0 ) 
+     {
+       time_t clk = time(NULL);
+       printf("%s", ctime( &clk ));
+       return 0;
+     }
 
 
-   int i; 
-   int foundcmd = 0;
-   int ch = 0;
-   int keych = 0;
-   char cmdi[PATH_MAX];
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "timec" ) ==  0 ) 
+     {
+       i = snprintf( cmdi, 50 , "%d",  (int)time(NULL) );
+       printf("%s\n", cmdi );
+       return 0;
+     }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "ls" ) ==  0 ) 
+     {
+       nls();
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "size" ) ==  0 ) 
+     {
+         if ( fexist( argv[ 2 ] ) == 1 ) 
+           fseek_filesize( argv[ 2 ] );
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "ls" ) ==  0 ) 
+     {
+         chdir( argv[ 2 ] );
+         printdir();
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "ld" ) ==  0 ) 
+     {
+       listdir( ".", 0 , argv[ 2 ] ) ;
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] ,   "pwd" ) ==  0 ) 
+     {
+         printf( "%s\n", getcwd( cmdi , PATH_MAX ));
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] ,   "USER" ) ==  0 ) 
+     {
+         printf( "%s\n", getenv( "USER") );
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] ,   "TERM" ) ==  0 ) 
+     {
+         printf( "%s\n", getenv( "TERM") );
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] ,   "HOME" ) ==  0 ) 
+     {
+         printf( "%s\n", getenv( "HOME") );
+         return 0;
+     }
+
+
+
+
+
+
+
+
+
 
    if ( MYOS == 1 )
      printf( "OS: Linux (Keep going OpenSource)\n" );
@@ -190,20 +357,51 @@ int main( int argc, char *argv[])
 
 
 
-    ////////////////////////////////////////////////////////
+
+
      if ( argc == 2)
-     if ( strcmp( argv[1] , "os" ) ==  0 ) 
+     if ( strcmp( argv[1] , "times" ) ==  0 ) 
      {
-       printf( "< what is my os? (os cmd) (OS: %d)\n" , MYOS );
+       time_t clk = time(NULL);
+       printf("%s", ctime(&clk));
        return 0;
      }
-     if ( MYOS == 2 ) return 0;  // right, so let's keep opensource
-     if ( MYOS == 3 ) return 0;  // right, so let's keep opensource
+     //long t;
+     //struct tm *ltime;
+     //time(&t);
+     //ltime=localtime(&t);
+     //char charo[50];  int fooi ; 
+     //fooi = snprintf( charo, 50 , "%04d%02d%02d%02d%02d%02d", 1900 + ltime->tm_year, ltime->tm_mon +1 , ltime->tm_mday, ltime->tm_hour, ltime->tm_min, ltime->tm_sec );
 
 
 
 
 
+    ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "pciconf" ) ==  0 ) 
+     {
+       if      ( MYOS == 1 ) nsystem( " lspci " );
+       else if ( MYOS == 4 ) nsystem( " pciconfig -lv  " );
+       return 0;
+     }
+
+    ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "geom" ) ==  0 ) 
+     {
+       if      ( MYOS == 1 ) nsystem( " /sbin/blkid " );
+       else if ( MYOS == 4 ) nsystem( " gpart list | grep name " );
+       return 0;
+     }
+    ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "gpart" ) ==  0 ) 
+     {
+       if ( MYOS == 1 )      nsystem( " /sbin/fdisk -l  | less " );
+       else if ( MYOS == 4 ) nsystem( " gpart list      | less " );
+       return 0;
+    }
     ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "ip" ) ==  0 ) 
@@ -212,7 +410,6 @@ int main( int argc, char *argv[])
        else if ( MYOS == 4 ) nsystem( " ifconfig " );
        return 0;
      }
-
     ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "df" ) ==  0 ) 
@@ -226,9 +423,11 @@ int main( int argc, char *argv[])
 
 
 
+
     ////////////////////////////////////////////////////////
      if ( argc == 2)
-     if ( ( strcmp( argv[1] , "nfont" ) ==  0 ) || ( strcmp( argv[1] , "vidfont" ) ==  0 ) )
+     if ( ( strcmp( argv[1] , "nfont" ) ==  0 ) || ( strcmp( argv[1] , "vidfont" ) ==  0 ) 
+     || ( strcmp( argv[1] , "nfont" ) ==  0 ) || ( strcmp( argv[1] , "font" ) ==  0 ) )
      {
        if ( MYOS == 1 )
          nsystem( " setfont  /usr/share/consolefonts/Lat15-TerminusBold32x16.psf.gz    " );
@@ -323,16 +522,11 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
       if ( strcmp( argv[2] , "desktop" ) ==  0 ) 
       {
-          printf( "\n" );
-          printf( "======\n" );
-          printf( "=MENU=\n" );
-          printf( "======\n" );
-          //printf( "1. Blackbox\n" );
-          //printf( "2. Icewm\n" );
-          //printf( "3. Other (just free)\n" );
-          //printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
-          //ch = getchar();
-          //ch = '2'; printf( "<Keypress: %c>\n", ch ); 
+         printf( "\n" );
+         printf( "======\n" );
+         printf( "=MENU=\n" );
+         printf( "======\n" );
+         printf( "\n" );
 
          if ( MYOS == 1 ) nsystem( " apt-get update " );
          npkg( " tcc  " );
@@ -807,52 +1001,6 @@ int main( int argc, char *argv[])
 
 
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] ,   "pwd" ) ==  0 ) 
-     {
-         printf( "%s\n", getcwd( cmdi , PATH_MAX ));
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] ,   "USER" ) ==  0 ) 
-     {
-         printf( "%s\n", getenv( "USER") );
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] ,   "TERM" ) ==  0 ) 
-     {
-         printf( "%s\n", getenv( "TERM") );
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] ,   "HOME" ) ==  0 ) 
-     {
-         printf( "%s\n", getenv( "HOME") );
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] ,   "ls" ) ==  0 ) 
-     {
-         printdir();
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] ,   "ls" ) ==  0 ) 
-     {
-         chdir( argv[ 2 ] );
-         printdir();
-         return 0;
-     }
-
-
-
 
 
    ////////////////////////////////////////////////////////
@@ -885,6 +1033,40 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] ,    "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] ,  "apps" ) ==  0 ) 
+         || ( strcmp( argv[2] , "app" ) ==  0 ) )
+      {
+         npkg( "  gcc  " );
+         npkg( "  tcc  " );
+         npkg( "  less  " );
+         npkg( "  unzip  " );
+         npkg( "  wget  " );
+         npkg( "  subversion  " );
+         npkg( "  make  " );
+         npkg( "  ncurses  " );
+         npkg( "  links  " );
+         npkg( "  fusefs-ext2  " );
+         npkg( "  fusefs-sshfs  " );
+         npkg( "  e2fsprogs  " );
+         return 0;
+      }
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "all" ) ==  0 ) 
+      {
+         nsystem( "  nconfig install svn ");
+         nsystem( "  nconfig install x11 ");
+         nsystem( "  nconfig install apps ");
+         nsystem( "  nconfig install xapps ");
+         nsystem( "  nconfig install desktop ");
+         return 0;
+      }
 
 
       ////////////////////////////////////////////////////////
@@ -895,14 +1077,18 @@ int main( int argc, char *argv[])
       {
          //nsystem( " apt-get update ; apt-get install -y x11vnc nedit tcc links xclip feh rox-filer scrot nedit  xbindkeys xterm rxvt  " );
          npkg( "  gcc  " );
+         npkg( "  less  " );
          npkg( "  tcc  " );
          npkg( "  xterm  " );
          npkg( "  xinit  " );
          npkg( "  xdotool  " );
          npkg( "  wmctrl  " );
          npkg( "  feh  " );
+         npkg( "  links  " );
          npkg( "  ncurses  " );
          npkg( "  xclip  " );
+         npkg( "  unzip  " );
+         npkg( "  subversion  " );
          npkg( "  xlockmore  " );
          npkg( "  i3lock  " );
          npkg( "  icewm  " );
@@ -912,6 +1098,9 @@ int main( int argc, char *argv[])
          npkg( "  xpaint  " );
          npkg( "  nedit  " );
          npkg( "  rox-filer  " );
+         npkg( "  subversion  " );
+         npkg( "  unzip  " );
+         npkg( "  xlockmore  " );
          return 0;
       }
 
@@ -929,11 +1118,7 @@ int main( int argc, char *argv[])
          printf( "1. Blackbox\n" );
          printf( "2. Icewm\n" );
          printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
-         //keych = getchar();
-         //if      ( keych == '1') 
-         //   nsystem( " apt-get update ; apt-get install  -y xinit xterm blackbox " );
-         //else if ( keych == '2') 
-          nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
+         nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
          nsystem( " apt-get install  -y libx11-dev ");
          nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
          //nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
@@ -1500,16 +1685,49 @@ int main( int argc, char *argv[])
 
 
 
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "echo" ) ==  0 ) 
+      if ( strcmp( argv[2] , "wlan0" ) ==  0 ) 
+      {
+          printf( " kldstat ; ifconfig wlan0 create wlandev rtwn0 ; ifconfig wlan0 up scan ;  wpa_supplicant -B -i wlan0 -c /etc/wifi.conf ; dhclient wlan0 ; ifconfig   " );
+          printf( "\n" );
+          return 0;
+      }
     ////////////////////////////////////////////////////////
     if ( argc == 2)
       if ( ( strcmp( argv[1] , "wlan0" ) ==  0 ) 
       || ( strcmp( argv[1] , "wlan" ) ==  0 ) )
       {
-          //nsystem( "  ifdown --force wlan0 ; sleep 1s ; ifup wlan0 " );
-          nsystem( "  while : ; do   dhclient -v wlan0 ; sleep 5s ; done " );
+          if ( MYOS == 1 )
+            //nsystem( "  while : ; do   dhclient -v wlan0 ; sleep 5s ; done " );
+            nsystem( "  ifdown --force wlan0 ; sleep 1 ; ifup wlan0 ; dhclient -v wlan0 " );
+          else if ( MYOS == 4 )
+            nsystem( " kldstat ; ifconfig wlan0 create wlandev rtwn0 ; ifconfig wlan0 up scan ;  wpa_supplicant -B -i wlan0 -c /etc/wifi.conf ; dhclient wlan0 ; ifconfig   " );
           return 0;
       }
 
+
+
+
+    /// just burn a dvd
+    if ( argc == 3)
+    if ( strcmp( argv[1] , "--burn" ) ==  0 ) 
+    if ( strcmp( argv[2] , "" ) !=  0 ) 
+    {
+         // growisofs -dvd-compat -Z /dev/sr0=/home/user_name/Downloads/LinuxMint.iso
+         printf("Burn of file ISO (Linux): %s\n", argv[ 2 ] );
+         npkg( " growisofs " );
+         strncpy( cmdi, "", PATH_MAX );
+         strncat( cmdi , "  growisofs -dvd-compat -Z /dev/sr0=" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , "\" " , PATH_MAX - strlen( cmdi ) -1 );
+         printf( "<CMD: %s>\n", cmdi );
+         nsystem( cmdi );
+         return 0;
+     }
 
 
 
@@ -1521,6 +1739,13 @@ int main( int argc, char *argv[])
        return 0;
      }
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "msx2" ) ==  0 ) 
+     {
+       nsystem( "xterm -bg black -fg green  -fn DejaVuMono -fa 50 -fs 12 -e bash " );
+       return 0;
+     }
 
 
      //////////////////////////////////////
@@ -1606,9 +1831,21 @@ int main( int argc, char *argv[])
       if ( argc == 2)
       if ( strcmp( argv[1] , "mylene" ) ==  0 ) 
       {
+          printf(  "> Testing Application (mplayer, http connection for audio, and audio) \n" );
           nsystem( " mplayer http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
           return 0;
       }
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "bigbunny" ) ==  0 ) 
+      {
+          printf(  "> Testing Application (mplayer, http connection for video, and video) \n" );
+          nsystem( " mplayer -loop 0 http://ia800201.us.archive.org/12/items/BigBuckBunny_328/BigBuckBunny.ogv" );
+          return 0;
+      }
+
+
+
 
 
       ////////////////////////////////////////////////////////
@@ -1619,19 +1856,21 @@ int main( int argc, char *argv[])
       if ( argc == 2)
       if ( strcmp( argv[1] , "arec" ) ==  0 ) 
       {
+         // nsystem( "  arecord -V stereo -t wav -f cd -D plughw:0,0   $( ntimestamp )-arec.wav  ");
          if ( MYOS == 1 )   nsystem( " apt-get update  " );
          npkg( " mencoder  " );
          npkg( " alsa-utils  " );
+
          if ( fexist( "/usr/bin/mencoder" ) != 1 ) 
               nsystem( "apt-get update ; apt-get install -y alsa-utils  "); 
-         // nsystem( "  arecord -V stereo -t wav -f cd -D plughw:0,0   $( ntimestamp )-arec.wav  ");
-         // cmdi 
+
+         i = snprintf( charo , 50 , "%d",  (int)time(NULL) );
          strncpy( cmdi , "  arecord -V stereo -t wav -f cd -D plughw:0,0    " , PATH_MAX );
-         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , strtimestamp() , PATH_MAX - strlen( cmdi ) -1 );
+         strncat( cmdi , charo , PATH_MAX - strlen( cmdi ) -1 );
          strncat( cmdi , "-arec.wav" , PATH_MAX - strlen( cmdi ) -1 );
          strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
          printf( ">cmdi: %s\n", cmdi );
+
          nsystem( cmdi );
          return 0;
       }
