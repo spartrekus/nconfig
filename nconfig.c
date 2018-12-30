@@ -18,7 +18,6 @@
 //////////////////////////////////////////
 //////////////////////////////////////////
 //////////////////////////////////////////
-
 //////////////////////////////////////////
 #include <stdio.h>
 #if defined(__linux__) //linux
@@ -512,6 +511,13 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "fexist" ) ==  0 ) 
+      {
+         printf( "CMD: fexist %d\n", fexist( argv[ 2 ] ) );
+         return 0;
+      }
 
 
 
@@ -632,6 +638,66 @@ int main( int argc, char *argv[])
       }
 
 
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "watch" ) ==  0 ) 
+      if ( strcmp( argv[2] , "ls" ) ==  0 ) 
+      {
+         printf( "> watch ls.\n" );
+         while ( 1 ) 
+         { 
+              printf( "===============\n");
+              printf(" Timestamp: %d\n",(int)time(NULL));
+              time_t clk = time(NULL);
+              printf(" %s", ctime( &clk ));
+              printf( "===============\n");
+              printdir(); 
+              usleep( 5 * 1000000 ); 
+         }
+         return 0;
+      }
+
+
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "watch" ) ==  0 ) 
+      if ( strcmp( argv[2] , "sd" ) ==  0 ) 
+      {
+         printf( "> watch ls.\n" );
+         while ( 1 ) 
+         { 
+              printf( "===============\n");
+              printf(" Timestamp: %d\n",(int)time(NULL));
+              time_t clk = time(NULL);
+              printf(" %s", ctime( &clk ));
+              printf( "===============\n");
+              nsystem( "  ls -ltra /dev/sd* " );
+              usleep( 5 * 1000000 ); 
+         }
+         return 0;
+      }
+
+
+
+
+
+
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "eject" ) ==  0 ) 
+      {
+         printf( "> Eject cdrom.\n" );
+         if      ( MYOS == 1 ) 
+            nsystem( " eject " );
+         else if ( MYOS == 4 ) 
+            nsystem( " eject cd0 " );
+         return 0;
+      }
+
+
+
+
+
+
+
+
 
 
 
@@ -647,12 +713,44 @@ int main( int argc, char *argv[])
          return 0;
       }
     ///////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "us" ) ==  0 )  // BSD
+      {
+         printf( "> Set keyboard layout.\n" );
+         nsystem( " kbdcontrol -l /usr/share/syscons/keymaps/us.iso.kbd " );
+         nsystem( " setxkbmap us " );
+         return 0;
+      }
+    ///////////////////////////////////////////////////////
     // BSD Rocks
     ////////////////////////////////////////////////////////
     if ( argc == 2)
       if ( strcmp( argv[1] , "de" ) ==  0 )  // BSD
       {
+         printf( "> Set keyboard layout.\n" );
          nsystem( " kbdcontrol -l /usr/share/syscons/keymaps/german.iso.kbd " );
+         nsystem( " setxkbmap de " );
+         return 0;
+      }
+    ///////////////////////////////////////////////////////
+    // BSD Rocks
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "fr" ) ==  0 )  // BSD
+      {
+         printf( "> Set keyboard layout.\n" );
+         nsystem( " kbdcontrol -l /usr/share/syscons/keymaps/fr.iso.kbd " );
+         nsystem( " setxkbmap fr " );
          return 0;
       }
 
