@@ -278,13 +278,6 @@ int main( int argc, char *argv[])
 
 
      ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "ls" ) ==  0 ) 
-     {
-       nls();
-       return 0;
-     }
-     ////////////////////////////////////////////////////////
      if ( argc == 3)
      if ( strcmp( argv[1] ,   "size" ) ==  0 ) 
      {
@@ -292,17 +285,11 @@ int main( int argc, char *argv[])
            fseek_filesize( argv[ 2 ] );
          return 0;
      }
+
      ////////////////////////////////////////////////////////
      if ( argc == 3)
-     if ( strcmp( argv[1] ,   "ls" ) ==  0 ) 
-     {
-         chdir( argv[ 2 ] );
-         printdir();
-         return 0;
-     }
-     ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] , "ld" ) ==  0 ) 
+     if ( ( strcmp( argv[1] , "ld" ) ==  0 ) 
+     || ( strcmp( argv[1] ,   "nfind" ) ==  0 ) )
      {
        listdir( ".", 0 , argv[ 2 ] ) ;
        return 0;
@@ -409,14 +396,8 @@ int main( int argc, char *argv[])
        else if ( MYOS == 4 ) nsystem( " ifconfig " );
        return 0;
      }
-    ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "df" ) ==  0 ) 
-     {
-       if      ( MYOS == 1 ) nsystem( " df -h " );
-       else if ( MYOS == 4 ) nsystem( " df -h  " );
-       return 0;
-     }
+
+
 
 
 
@@ -638,6 +619,83 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+
+
+
+
+
+
+
+
+
+      //////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "mount" ) ==  0 ) 
+      if ( strcmp( argv[2] , "stick" ) ==  0 ) 
+      {
+         printf( "> mount stick.\n" );
+         { 
+              printf( "===============\n");
+              printf(" Timestamp: %d\n",(int)time(NULL));
+              time_t clk = time(NULL);
+              printf(" %s", ctime( &clk ));
+              printf( "===============\n");
+
+              nsystem( " mkdir /media " );
+              nsystem( " mkdir /media/stick/ " );
+              // loader, BSD gpart live, and installer
+              nsystem( " mkdir /media/stick/sdb1 " );
+              // unstable, operating system: linux
+              nsystem( " mkdir /media/stick/sdb2 " );
+              // Real stuffs, reliable system, and worker : BSD
+              nsystem( " mkdir /media/stick/sdb3 " );
+              // Squashfs, toram, volatile  
+              nsystem( " mkdir /media/stick/sqfs " );
+
+              printf( " Extension Linux 83 \n" );
+              nsystem( " mount /dev/sdb1  /media/stick/sdb1 " );
+              printf( " Extension Linux 83 \n" );
+              nsystem( " mount /dev/sdb2  /media/stick/sdb2 " );
+              printf( " Extension Linux a5 \n" );
+              nsystem( " mount -r -t ufs -o ufstype=ufs2 /dev/sdb3 /media/stick/sdb3 " );
+
+              chdir( "/media/stick" );
+              printdir();
+         }
+         return 0;
+      }
+
+
+
+
+
+
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "watch" ) ==  0 ) 
+      if ( strcmp( argv[2] , "df" ) ==  0 ) 
+      {
+         printf( "> watch df.\n" );
+         while ( 1 ) 
+         { 
+              printf( "===============\n");
+              printf(" Timestamp: %d\n",(int)time(NULL));
+              time_t clk = time(NULL);
+              printf(" %s", ctime( &clk ));
+              printf( "===============\n");
+              nsystem( " df -h " ); 
+              usleep( 5 * 1000000 ); 
+         }
+         return 0;
+      }
+
+
+
+
+
       if ( argc == 3)
       if ( strcmp( argv[1] , "watch" ) ==  0 ) 
       if ( strcmp( argv[2] , "ls" ) ==  0 ) 
@@ -655,6 +713,24 @@ int main( int argc, char *argv[])
          }
          return 0;
       }
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "ls" ) ==  0 ) 
+     {
+       nls();
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "ls" ) ==  0 ) 
+     {
+         chdir( argv[ 2 ] );
+         printdir();
+         return 0;
+     }
+
+
 
 
       if ( argc == 3)
@@ -1931,6 +2007,7 @@ int main( int argc, char *argv[])
       {
           printf(  "> Testing Application (mplayer, http connection for audio, and audio) \n" );
           nsystem( " mplayer http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
+          nsystem( " mpg123 http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
           return 0;
       }
       ////////////////////////////////////////////////////////
@@ -2126,7 +2203,16 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "nexplorer" ) ==  0 ) 
      {
-       nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
+         if ( MYOS == 1 ) 
+            npkg( "ncurses-dev" );
+         else if ( MYOS == 4 ) 
+            npkg( "ncurses" );
+
+         if ( fexist( "/usr/bin/tcc" ) == 0 ) 
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
+
+         else if ( fexist( "/usr/bin/gcc" ) == 0 ) 
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; gcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
        return 0;
      }
 
@@ -2540,6 +2626,8 @@ golang-github-hanwen-usb-dev - CGO bindings for libusb.
 jmtpfs - FUSE based filesystem for accessing MTP devices
 mtpfs - FUSE filesystem for Media Transfer Protocol devices
 */
+
+// mnount ufs : mount -r -t ufs -o ufstype=ufs2 /dev/sdb1 /home/<your_username>/ufs_mount
 
 /*
 Better not to install fluid: 
