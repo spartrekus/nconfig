@@ -392,7 +392,7 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "ip" ) ==  0 ) 
      {
-       if      ( MYOS == 1 ) nsystem( " ip addr " );
+       if ( MYOS == 1 ) nsystem( " ip addr " );
        else if ( MYOS == 4 ) nsystem( " ifconfig " );
        return 0;
      }
@@ -897,6 +897,17 @@ int main( int argc, char *argv[])
       }
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "dos" ) ==  0 ) 
+      {
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         npkg( " dosfstools  " );
+         return 0;
+      }
+
+
 
 
      ////////////////////////////////////////////////////////
@@ -1207,41 +1218,55 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+
+
+
+
+
+
       ////////////////////////////////////////////////////////
       if ( argc == 3)
       if ( strcmp( argv[1] ,    "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] ,  "apps" ) ==  0 ) 
          || ( strcmp( argv[2] , "app" ) ==  0 ) )
       {
-         npkg( "  gcc  " );
          npkg( "  tcc  " );
+         npkg( "  subversion  " );
+         npkg( "  wget  " );
+         npkg( "  gcc  " );
          npkg( "  less  " );
          npkg( "  unzip  " );
-         npkg( "  wget  " );
+         npkg( "  zip  " );
+         npkg( "  vim  " );
          npkg( "  subversion  " );
          npkg( "  make  " );
          npkg( "  ncurses  " );
          npkg( "  links  " );
+         npkg( "  wget  " );
+         npkg( "  screen  " );
+         npkg( "  less  " );
+         npkg( "  xz-utils  " );
+         npkg( "  ncurses-dev " );
+         npkg( "  fusefs-ext2  " );
          npkg( "  fusefs-ext2  " );
          npkg( "  fusefs-sshfs  " );
          npkg( "  e2fsprogs  " );
          return 0;
       }
 
-
       ////////////////////////////////////////////////////////
       if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( strcmp( argv[2] , "all" ) ==  0 ) 
       {
-         nsystem( "  nconfig install svn ");
-         nsystem( "  nconfig install x11 ");
+         if ( MYOS == 1 ) nsystem( " apt-get update  " );
          nsystem( "  nconfig install apps ");
          nsystem( "  nconfig install xapps ");
-         nsystem( "  nconfig install desktop ");
          return 0;
       }
-
 
       ////////////////////////////////////////////////////////
       if ( argc == 3)
@@ -1250,10 +1275,10 @@ int main( int argc, char *argv[])
          || ( strcmp( argv[2] , "xapp" ) ==  0 ) )
       {
          //nsystem( " apt-get update ; apt-get install -y x11vnc nedit tcc links xclip feh rox-filer scrot nedit  xbindkeys xterm rxvt  " );
-         npkg( "  gcc  " );
-         npkg( "  less  " );
-         npkg( "  tcc  " );
+         npkg( "  xdotool  " );
+         npkg( "  wmctrl  " );
          npkg( "  xterm  " );
+         npkg( "  vim  " );
          npkg( "  xinit  " );
          npkg( "  xdotool  " );
          npkg( "  wmctrl  " );
@@ -1261,23 +1286,17 @@ int main( int argc, char *argv[])
          npkg( "  links  " );
          npkg( "  ncurses  " );
          npkg( "  xclip  " );
-         npkg( "  unzip  " );
-         npkg( "  subversion  " );
          npkg( "  xlockmore  " );
          npkg( "  i3lock  " );
-         npkg( "  icewm  " );
          npkg( "  links  " );
          npkg( "  scrot  " );
          npkg( "  rox-filer  " );
          npkg( "  xpaint  " );
          npkg( "  nedit  " );
          npkg( "  rox-filer  " );
-         npkg( "  subversion  " );
-         npkg( "  unzip  " );
          npkg( "  xlockmore  " );
          return 0;
       }
-
 
 
 
@@ -1905,6 +1924,30 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "chromium" ) ==  0 ) 
+     {
+       if      ( MYOS == 1 ) 
+       {
+         if ( fexist( "/etc/rpi" ) == 1 ) 
+             nsystem( " chromium-browser google.com " ); 
+         else 
+             nsystem( " chromium google.com " ); 
+       }
+       else if ( MYOS == 4 ) 
+         nsystem( " chrome google.com " ); 
+       return 0;
+     }
+
+
+
+
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "msx" ) ==  0 ) 
@@ -2185,12 +2228,13 @@ int main( int argc, char *argv[])
     ////////////////////////////////////////////////////////
     if ( argc == 3)
      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-     if ( ( strcmp( argv[2] , "squashfs" ) ==  0 ) || ( strcmp( argv[2] , "squash" ) ==  0 ) )
+     if ( ( strcmp( argv[2] , "squashfs" ) ==  0 ) 
+      || ( strcmp( argv[2] , "sqfs" ) ==  0 )
+      || ( strcmp( argv[2] , "squash" ) ==  0 ) )
      {
        nsystem( " apt-get update ; apt-get install -y squashfs-tools " );
        return 0;
      }
-
 
 
 
@@ -2575,10 +2619,6 @@ int main( int argc, char *argv[])
 
          return 0;
       }
-
-
-
-
 
 
 
