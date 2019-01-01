@@ -252,6 +252,16 @@ int main( int argc, char *argv[])
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
+     if ( strcmp( argv[1] , "freebsd" ) ==  0 ) 
+     {
+       printf(  "Timestamp: %d\n", (int)time(NULL));
+       nsystem( " wget https://download.freebsd.org/ftp/snapshots/i386/i386/ISO-IMAGES/13.0/FreeBSD-13.0-CURRENT-i386-20181213-r342020-memstick.img.xz " );
+       return 0;
+     }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
      if ( strcmp( argv[1] , "time" ) ==  0 ) 
      {
        printf("Timestamp: %d\n",(int)time(NULL));
@@ -377,7 +387,8 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[1] , "geom" ) ==  0 ) 
      {
        if      ( MYOS == 1 ) nsystem( " /sbin/blkid " );
-       else if ( MYOS == 4 ) nsystem( " gpart list | grep name " );
+       //else if ( MYOS == 4 ) nsystem( " gpart list | grep name " );
+       else if ( MYOS == 4 ) nsystem( " gpart list | grep da " );
        return 0;
      }
     ////////////////////////////////////////////////////////
@@ -392,7 +403,11 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "ip" ) ==  0 ) 
      {
-       if ( MYOS == 1 ) nsystem( " ip addr " );
+       if ( MYOS == 1 ) 
+       {
+          nsystem( " ip addr " );
+          nsystem( " ifconfig " );
+       }
        else if ( MYOS == 4 ) nsystem( " ifconfig " );
        return 0;
      }
@@ -1711,6 +1726,20 @@ int main( int argc, char *argv[])
 
 
 
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "xfce" ) ==  0 ) 
+      {
+          npkg( " xfce4 " );
+          npkg( " xfwm4 " );
+          npkg( " thunar " );
+          npkg( " wicd " );
+          npkg( " xfe " );
+          return 0;
+      }
+
+
+
 
 
     ////////////////////////////////////////////////////////
@@ -1986,6 +2015,27 @@ int main( int argc, char *argv[])
        nsystem(  cmdi  ); 
        return 0;
      }
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 4 )
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "devuan" ) ==  0 ) 
+      {
+       strncpy( cmdi , "   date ; mount ; umount /target ;  umount /target ; fdisk -l ;  ls /target ;  mount ; echo mkfs ;  mkfs.ext3  -F  ",  PATH_MAX );
+       strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[ 3 ] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "  ; mount  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[ 3 ] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " /target ;  " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "   bash /root/debootstrap-devuan.sh  ; umount /target   ; umount  /target  ; date ; sleep 3  ; echo mission completed " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem(  cmdi  ); 
+       //nsystem( "   date ; mount ;  umount /target ; fdisk -l ;  ls /target ;  mount ; echo mkfs ;  mkfs.ext3 /dev/sda2  ; mount /dev/sda2 /target/ ;   bash /root/debootstrap-devuan.sh     ; umount  /target  ; date  " );
+       return 0;
+      }
 
 
 
