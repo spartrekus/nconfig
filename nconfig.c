@@ -250,12 +250,21 @@ int main( int argc, char *argv[])
      char charo[PATH_MAX];
      int i; 
 
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "freebsd" ) ==  0 ) 
      {
        printf(  "Timestamp: %d\n", (int)time(NULL));
        nsystem( " wget https://download.freebsd.org/ftp/snapshots/i386/i386/ISO-IMAGES/13.0/FreeBSD-13.0-CURRENT-i386-20181213-r342020-memstick.img.xz " );
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "base" ) ==  0 ) 
+     {
+       nsystem( " links  http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/ " );
        return 0;
      }
 
