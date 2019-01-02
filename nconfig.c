@@ -931,8 +931,12 @@ int main( int argc, char *argv[])
          if ( MYOS == 1 ) nsystem( " apt-get update " );
          // xmahjongg - tile-based solitaire game
          npkg( " xdemineur xmahjongg " );
+         if ( MYOS == 1 ) npkg( "  ninvaders " );
          return 0;
       }
+
+
+
 
 
      ////////////////////////////////////////////////////////
@@ -944,6 +948,42 @@ int main( int argc, char *argv[])
          npkg( " dosfstools  " );
          return 0;
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "tiger" ) ==  0 ) 
+     {
+         //nsystem( "  /usr/bin/Xtigervnc :1 -desktop :1 -depth 32 -SecurityTypes None -AlwaysShared -geometry 1680x1050   "   );
+         nsystem( "  /usr/bin/Xtigervnc :1 -desktop :1 -depth 32 -SecurityTypes None -AlwaysShared -geometry 1280x720   "   );
+         // ok, but you need too on vnc server:
+         // xtightvncviewer :1
+         // export DISPLAY=:1 
+         // icewm 
+         return 0;
+      }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "vnc" ) ==  0 ) 
+     {
+         nsystem( " x2vnc 192.168.52.14:1 ");
+         return 0;
+     }
+
+
+
 
 
 
@@ -1955,24 +1995,24 @@ int main( int argc, char *argv[])
 
 
     ////////////////////////////////////////////////////////
-    if ( argc == 3)
-      if ( strcmp( argv[1] , "echo" ) ==  0 ) 
-      if ( strcmp( argv[2] , "wlan0" ) ==  0 ) 
-      {
-          printf( " kldstat ; ifconfig wlan0 create wlandev rtwn0 ; ifconfig wlan0 up scan ;  wpa_supplicant -B -i wlan0 -c /etc/wifi.conf ; dhclient wlan0 ; ifconfig   " );
-          printf( "\n" );
-          return 0;
-      }
-    ////////////////////////////////////////////////////////
     if ( argc == 2)
-      if ( ( strcmp( argv[1] , "wlan0" ) ==  0 ) 
-      || ( strcmp( argv[1] , "wlan" ) ==  0 ) )
+      if ( strcmp( argv[1] , "wlan0" ) ==  0 )   
       {
           if ( MYOS == 1 )
-            //nsystem( "  while : ; do   dhclient -v wlan0 ; sleep 5s ; done " );
-            nsystem( "  ifdown --force wlan0 ; sleep 1 ; ifup wlan0 ; dhclient -v wlan0 " );
+            nsystem( " pkill wpa_supplicant ; ifdown --force wlan0 ; sleep 1 ; ifup wlan0 ; dhclient -v wlan0 " );
           else if ( MYOS == 4 )
-            nsystem( " kldstat ; ifconfig wlan0 create wlandev rtwn0 ; ifconfig wlan0 up scan ;  wpa_supplicant -B -i wlan0 -c /etc/wifi.conf ; dhclient wlan0 ; ifconfig   " );
+            nsystem( " pkill wpa_supplicant ; kldload rtwn0 ; kldstat ; ifconfig wlan0 create wlandev rtwn0 ; ifconfig wlan0 up scan ;  wpa_supplicant -B -i wlan0 -c /etc/mywifi.conf ; dhclient wlan0 ; ifconfig   " );
+          return 0;
+      }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "wlan1" ) ==  0 )   
+      {
+          if ( MYOS == 1 )
+            nsystem( "  ifdown --force wlan1 ; sleep 1 ; ifup wlan1 ; dhclient -v wlan1 " );
+          else if ( MYOS == 4 )
+            nsystem( "  kldload rtwn0 ;  kldstat ; ifconfig wlan1 create wlandev rtwn0 ; ifconfig wlan1 up scan ;  wpa_supplicant -B -i wlan1 -c /etc/mywifi.conf ; dhclient wlan1 ; ifconfig   " );
           return 0;
       }
 
@@ -2703,6 +2743,22 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "yellow" ) ==  0 ) 
+     {
+         nsystem( " echo yellow term  ; xterm  -bg black -fg yellow   -e  bash " );
+         return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "green" ) ==  0 ) 
+     {
+         nsystem( " echo green term  ; xterm  -bg black -fg green   -e  bash " );
+         return 0;
+     }
 
 
 
