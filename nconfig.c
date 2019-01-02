@@ -252,6 +252,9 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "freebsd" ) ==  0 ) 
@@ -261,19 +264,72 @@ int main( int argc, char *argv[])
        return 0;
      }
      ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "base" ) ==  0 ) 
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "base" ) ==  0 ) 
+     if ( strcmp( argv[3] , "11.2" ) ==  0 ) 
      {
-       nsystem( " links  http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/ " );
+       nsystem( " mkdir 11.2 " );
+       chdir( "11.2" );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/MANIFEST " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/base-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/base.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/kernel-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/kernel.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/ports.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/11.2-RELEASE/src.txz " );
        return 0;
      }
+     ////////////////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "base" ) ==  0 ) 
+     if ( strcmp( argv[3] , "12.0" ) ==  0 ) 
+     {
+       nsystem( " mkdir 12.0 " );
+       chdir( "12.0" );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/MANIFEST " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/base-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/base.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/kernel-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/kernel.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/ports.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/12.0-RELEASE/src.txz " );
+       return 0;
+     }
+     ////////////////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+     if ( strcmp( argv[2] , "base" ) ==  0 ) 
+     if ( strcmp( argv[3] , "13.0" ) ==  0 ) 
+     {
+       nsystem( " mkdir 13.0 " );
+       chdir( "13.0" );
+       //nsystem( " wget -r -l 5  http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/ " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/MANIFEST " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/base-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/base.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/kernel-dbg.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/kernel.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/ports.txz " );
+       nsystem( " wget http://ftp.freebsd.org/pub/FreeBSD/releases/i386/13.0-RELEASE/src.txz " );
+       return 0;
+     }
+
+
+
+
+
+
+
 
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "time" ) ==  0 ) 
      {
-       printf("Timestamp: %d\n",(int)time(NULL));
+       //printf("Timestamp: %d\n",(int)time(NULL));
+       printf("%d\n", (int)time(NULL));
        return 0;
      }
      ////////////////////////////////////////////////////////
@@ -600,8 +656,8 @@ int main( int argc, char *argv[])
 
          nsystem( " apt-get install  -y x11-xserver-utils   " ); //xrdb might help for sddm
 
-         nsystem( " apt-get install  -y wmctrl   " );   // if use blackbox
-         nsystem( " apt-get install  -y xdotool   " );  // if use blackbox
+         nsystem( " apt-get install  -y wmctrl   " );   
+         nsystem( " apt-get install  -y xdotool   " ); 
          nsystem( " apt-get install  -y alsa-utils   " );
          ////////////////////////////////////////////////////////
          nsystem( " apt-get install  -y tcc  " ); //always there, on some systems
@@ -650,48 +706,6 @@ int main( int argc, char *argv[])
 
 
 
-
-
-
-
-      //////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////////////
-      if ( argc == 3)
-      if ( strcmp( argv[1] , "mount" ) ==  0 ) 
-      if ( strcmp( argv[2] , "stick" ) ==  0 ) 
-      {
-         printf( "> mount stick.\n" );
-         { 
-              printf( "===============\n");
-              printf(" Timestamp: %d\n",(int)time(NULL));
-              time_t clk = time(NULL);
-              printf(" %s", ctime( &clk ));
-              printf( "===============\n");
-
-              nsystem( " mkdir /media " );
-              nsystem( " mkdir /media/stick/ " );
-              // loader, BSD gpart live, and installer
-              nsystem( " mkdir /media/stick/sdb1 " );
-              // unstable, operating system: linux
-              nsystem( " mkdir /media/stick/sdb2 " );
-              // Real stuffs, reliable system, and worker : BSD
-              nsystem( " mkdir /media/stick/sdb3 " );
-              // Squashfs, toram, volatile  
-              nsystem( " mkdir /media/stick/sqfs " );
-
-              printf( " Extension Linux 83 \n" );
-              nsystem( " mount /dev/sdb1  /media/stick/sdb1 " );
-              printf( " Extension Linux 83 \n" );
-              nsystem( " mount /dev/sdb2  /media/stick/sdb2 " );
-              printf( " Extension Linux a5 \n" );
-              nsystem( " mount -r -t ufs -o ufstype=ufs2 /dev/sdb3 /media/stick/sdb3 " );
-
-              chdir( "/media/stick" );
-              printdir();
-         }
-         return 0;
-      }
 
 
 
@@ -982,6 +996,13 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -1012,6 +1033,12 @@ int main( int argc, char *argv[])
           npkg( "  gcc  " );
 
           npkg( " vim " );  // or emacs, up to you.
+
+	  npkg( " gcc  " );
+	  npkg( " subversion  " );
+	  npkg( " make  " );
+	  npkg( " ncurses-dev  " );
+	  npkg( " tcc  " );
 
          return 0;
       }
@@ -1236,6 +1263,7 @@ int main( int argc, char *argv[])
       {
            if      ( MYOS == 1 ) npkg( " ncurses-dev icewm xinit xterm " );
            else if ( MYOS == 4 ) npkg( " ncurses Xorg feh vim icewm menu " );
+           npkg( " unzip " );
            return 0; 
       }
 
@@ -1249,6 +1277,20 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "all" ) ==  0 ) 
+      {
+         if ( MYOS == 1 ) nsystem( " apt-get update  " );
+         npkg( "    links  subversion gcc " );
+         nsystem( "  nconfig install apps ");
+         nsystem( "  nconfig install xapps ");
+         npkg( "  alsa-utils " );
+         if ( MYOS == 1 ) 
+            nsystem( " apt-get install  -y xinit xterm " );
+         return 0;
+      }
 
 
       ////////////////////////////////////////////////////////
@@ -1268,9 +1310,10 @@ int main( int argc, char *argv[])
          npkg( "  subversion  " );
          npkg( "  make  " );
          npkg( "  ncurses  " );
+         npkg( "  ncurses-dev " );
          npkg( "  links  " );
-         npkg( "  wget  " );
          npkg( "  screen  " );
+         npkg( "  wget  " );
          npkg( "  less  " );
          npkg( "  xz-utils  " );
          npkg( "  ncurses-dev " );
@@ -1281,16 +1324,8 @@ int main( int argc, char *argv[])
          return 0;
       }
 
-      ////////////////////////////////////////////////////////
-      if ( argc == 3)
-      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "all" ) ==  0 ) 
-      {
-         if ( MYOS == 1 ) nsystem( " apt-get update  " );
-         nsystem( "  nconfig install apps ");
-         nsystem( "  nconfig install xapps ");
-         return 0;
-      }
+
+
 
       ////////////////////////////////////////////////////////
       if ( argc == 3)
@@ -1310,21 +1345,30 @@ int main( int argc, char *argv[])
          npkg( "  links  " );
          npkg( "  ncurses  " );
          npkg( "  xclip  " );
-         npkg( "  xlockmore  " );
-         npkg( "  i3lock  " );
+         if ( MYOS == 4 ) 
+           npkg( "  xlockmore  " );
+         else 
+           npkg( "  i3lock  " );
          npkg( "  links  " );
          npkg( "  scrot  " );
-         npkg( "  rox-filer  " );
          npkg( "  xpaint  " );
          npkg( "  nedit  " );
          npkg( "  rox-filer  " );
-         npkg( "  xlockmore  " );
          return 0;
       }
 
 
 
 
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "ssh" ) ==  0 ) 
+     {
+         npkg( " ssh " );
+         npkg( " sshfs " );
+         return 0;
+     }
 
 
    ////////////////////////////////////////////////////////
@@ -1338,6 +1382,8 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
          nsystem( " apt-get install  -y libx11-dev ");
          nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
+         nsystem( " apt-get install  -y icewm " );
+         nsystem( " apt-get install  -y unzip " ); //for the x11 icons
          //nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
          return 0;
      }
@@ -1856,19 +1902,6 @@ int main( int argc, char *argv[])
 
 
 
-    ////////////////////////////////////////////////////////
-    if ( argc == 3)
-      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "ssh" ) ==  0 ) 
-      {
-	  nsystem( " echo install useful ssh packages ; apt-get update " );
-	  nsystem( " apt-get install ssh " );
-	  nsystem( " apt-get install sshfs " );
-          return 0;
-      }
-
-
-
 
 
 
@@ -1878,7 +1911,11 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "gcc" ) ==  0 ) || ( strcmp( argv[2] , "gcc" ) ==  0 ) )
       {
-	  nsystem( " apt-get update ; apt-get install -y subversion gcc make ncurses-dev  " );
+	  //nsystem( " apt-get update ; apt-get install -y subversion gcc make ncurses-dev  " );
+	  npkg( " gcc  " );
+	  npkg( " subversion  " );
+	  npkg( " make  " );
+	  npkg( " ncurses-dev  " );
           return 0;
       }
 
@@ -2311,11 +2348,15 @@ int main( int argc, char *argv[])
          else if ( MYOS == 4 ) 
             npkg( "ncurses" );
 
-         if ( fexist( "/usr/bin/tcc" ) == 0 ) 
+         if ( fexist( "/usr/bin/tcc" ) == 1 ) 
            nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; tcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
 
-         else if ( fexist( "/usr/bin/gcc" ) == 0 ) 
+         else if ( fexist( "/usr/bin/gcc" ) == 1 ) 
            nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c ; gcc -lncurses nexplorer.c -o nexplorer ; chmod  +x  nexplorer ; ls nexplorer  -ltra " );
+
+         else 
+           nsystem( " wget https://raw.githubusercontent.com/spartrekus/nexplorer/master/nexplorer.c -O nexplorer.c " );
+
        return 0;
      }
 
@@ -2323,14 +2364,7 @@ int main( int argc, char *argv[])
 
 
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "markdown4c" ) ==  0 ) 
-     {
-       printf( "Prg to come soon.... \n" );
-       return 0;
-     }
-    
+
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
@@ -2343,21 +2377,10 @@ int main( int argc, char *argv[])
 
 
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
-     {
-         printf( "diskls found: %s\n", argv[1] ); 
-         strncpy( cmdi , "  mkdir /media/pendrive ;  cd ;  umount /media/pendrive ; mount  " , PATH_MAX );
-         strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
-         strncat( cmdi , " /media/pendrive ; nexplorer /media/pendrive ; cd ; umount /media/pendrive " , PATH_MAX - strlen( cmdi ) -1 );
-         nsystem( cmdi );
-         nsystem( " mount " );
-       return 0;
-     }
+
+
+
+
 
 
      ////////////////////////////////////////////////////////
@@ -2678,6 +2701,35 @@ int main( int argc, char *argv[])
 
          return 0;
       }
+
+
+
+
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
+     {
+       printf( "diskls found: %s\n", argv[1] ); 
+       strncpy( cmdi , "  mkdir /media/pendrive ;  cd ;  umount /media/pendrive ; mount  " , PATH_MAX );
+       strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[2] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " /media/pendrive  " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem( cmdi );
+       nsystem( " bash " );
+       nsystem( " umount /media/pendrive ; mount " );
+       nsystem( " ls /media/pendrive " );
+       return 0;
+     }
+
+
+
+
+
 
 
 
