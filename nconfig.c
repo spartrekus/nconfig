@@ -2210,6 +2210,13 @@ int main( int argc, char *argv[])
        return 0;
      }
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "reboot" ) ==  0 ) 
+     {
+       nsystem( " reboot " ); 
+       return 0;
+     }
 
 
      ///////////////////////////////////////
@@ -2342,9 +2349,16 @@ int main( int argc, char *argv[])
 
       ////////////////////////////////////////////////////////
       if ( argc == 3)
-      if ( strcmp( argv[1] , "videotest" ) ==  0 ) 
+      if ( strcmp( argv[1] , "--mp-3" ) ==  0 ) 
       {
           ncmdwith( "    mplayer  -af volume=30.1:0  -fs -zoom -loop 0  " ,  argv[ 2 ] );
+          return 0;
+      }
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "--mp" ) ==  0 ) 
+      {
+          ncmdwith( "    mplayer  -fs -zoom -loop 0  " ,  argv[ 2 ] );
           return 0;
       }
 
