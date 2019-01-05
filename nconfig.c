@@ -182,6 +182,23 @@ void nsystem( char *mycmd )
 }
 
 
+void ncmdwith( char *mycmd, char *myfile )
+{
+           char cmdi[PATH_MAX];
+           printf( "** CMD (start) (OS: %d)\n" , MYOS );
+           strncpy( cmdi , mycmd , PATH_MAX );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , " \""  , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , myfile , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , "\" "  , PATH_MAX - strlen( cmdi ) -1 );
+           strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+           nsystem( cmdi ); 
+           printf( "** CMD (completed) (OS: %d)\n" , MYOS );
+}
+
+
+
+
 void npkg( char *mycmd )
 {
            char cmdi[PATH_MAX];
@@ -249,8 +266,6 @@ int main( int argc, char *argv[])
      char cmdi[PATH_MAX];
      char charo[PATH_MAX];
      int i; 
-
-
 
 
 
@@ -326,7 +341,10 @@ int main( int argc, char *argv[])
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
-     if ( strcmp( argv[1] , "time" ) ==  0 ) 
+     if ( ( strcmp( argv[1] , "time" ) ==  0 ) 
+     || ( strcmp( argv[1] , "--time" ) ==  0 ) 
+     || ( strcmp( argv[1] , "--ntimestamp" ) ==  0 ) 
+      )
      {
        //printf("Timestamp: %d\n",(int)time(NULL));
        printf("%d\n", (int)time(NULL));
@@ -775,7 +793,8 @@ int main( int argc, char *argv[])
 
       if ( argc == 3)
       if ( strcmp( argv[1] , "watch" ) ==  0 ) 
-      if ( strcmp( argv[2] , "sd" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "sd" ) ==  0 ) 
+      || ( strcmp( argv[2] ,   "da" ) ==  0 ) )
       {
          printf( "> watch ls.\n" );
          while ( 1 ) 
@@ -785,11 +804,20 @@ int main( int argc, char *argv[])
               time_t clk = time(NULL);
               printf(" %s", ctime( &clk ));
               printf( "===============\n");
-              nsystem( "  ls -ltra /dev/sd* " );
+
+              if ( MYOS == 1 ) 
+                nsystem( "  ls -ltra /dev/sd* " );
+              else if ( MYOS == 1 ) 
+                nsystem( "  ls -ltra /dev/da* " );
+
               usleep( 5 * 1000000 ); 
          }
          return 0;
       }
+
+
+
+
 
 
 
@@ -829,9 +857,12 @@ int main( int argc, char *argv[])
          return 0;
       }
     ///////////////////////////////////////////////////////
-
-
-
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "pkg-update" ) ==  0 ) 
+      {
+         printf( " pkg clean ; pkg bootstrap -f ; pkg update -f \n" );
+         return 0;
+      }
 
 
 
@@ -1326,9 +1357,6 @@ int main( int argc, char *argv[])
 
 
 
-
-
-
       ////////////////////////////////////////////////////////
       if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -1337,7 +1365,11 @@ int main( int argc, char *argv[])
          if ( MYOS == 1 ) nsystem( " apt-get update  " );
          npkg( " ssh   " );
          npkg( " links " );
-         npkg( "  mc  " );
+         npkg( "  wget  " );
+         npkg( "  less  " );
+         npkg( "  vim  " );
+         npkg( "  links  " );
+         npkg( "  screen  " );
          npkg( " subversion gcc " );
          nsystem( "  nconfig install apps ");
          nsystem( "  nconfig install xapps ");
@@ -2064,6 +2096,9 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 2)
       if ( strcmp( argv[1] , "wlan0" ) ==  0 )   
@@ -2085,6 +2120,9 @@ int main( int argc, char *argv[])
             nsystem( "  kldload rtwn0 ;  kldstat ; ifconfig wlan1 create wlandev rtwn0 ; ifconfig wlan1 up scan ;  wpa_supplicant -B -i wlan1 -c /etc/mywifi.conf ; dhclient wlan1 ; ifconfig   " );
           return 0;
       }
+
+
+
 
 
 
@@ -2139,6 +2177,13 @@ int main( int argc, char *argv[])
          return 0;
      }
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "xip" ) ==  0 ) 
+     {
+         nsystem( " cd ; nconfig ip > ip.log  ;  xmessage -file ip.log  " );
+         return 0;
+     }
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
@@ -2274,14 +2319,46 @@ int main( int argc, char *argv[])
           nsystem( " mplayer -loop 0 http://ia800201.us.archive.org/12/items/BigBuckBunny_328/BigBuckBunny.ogv" );
           return 0;
       }
+
+
+
       ////////////////////////////////////////////////////////
-      if ( argc == 2)
-      if ( strcmp( argv[1] , "videotest" ) ==  0 ) 
+      if ( argc == 3)
+      if (( strcmp( argv[1] , "fetch" ) ==  0 ) || ( strcmp( argv[1] , "play" ) ==  0 ))
+      if ( strcmp( argv[2] , "hal" ) ==  0 )
       {
           printf(  "> Testing Application (mplayer, http connection for video, and video) \n" );
-          nsystem( " mplayer -fs -zoom -loop 0 https://ia800402.us.archive.org/22/items/video_20160419/video.mp4 ");
+          printf(  "> Why HP 9000, do you think? \n" );
+          if ( strcmp( argv[1] , "fetch" ) ==  0 ) 
+            nsystem( " wget https://ia800402.us.archive.org/22/items/video_20160419/video.mp4 ");
+          else
+            nsystem( "   mplayer  -af volume=30.1:0  -fs -zoom -loop 0 https://ia800402.us.archive.org/22/items/video_20160419/video.mp4 ");
           return 0;
       }
+
+
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "videotest" ) ==  0 ) 
+      {
+          ncmdwith( "    mplayer  -af volume=30.1:0  -fs -zoom -loop 0  " ,  argv[ 2 ] );
+          return 0;
+      }
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "hal" ) ==  0 ) 
+      {
+          npkg( " mplayer vim links alsa-utils mpg123 screen " );
+          return 0;
+      }
+
 
 
 
@@ -2293,7 +2370,6 @@ int main( int argc, char *argv[])
       if ( argc == 2)
       if ( strcmp( argv[1] , "arec" ) ==  0 ) 
       {
-         // nsystem( "  arecord -V stereo -t wav -f cd -D plughw:0,0   $( ntimestamp )-arec.wav  ");
          if ( MYOS == 1 )   nsystem( " apt-get update  " );
          npkg( " mencoder  " );
          npkg( " alsa-utils  " );
@@ -2318,19 +2394,18 @@ int main( int argc, char *argv[])
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
       if ( argc == 2)
       if ( strcmp( argv[1] , "vrec" ) ==  0 ) 
       {
           if ( fexist( "/usr/bin/mencoder" ) != 1 ) 
                  nsystem( "apt-get update ; apt-get install -y mencoder  "); 
-          nsystem( " mencoder tv:// -tv driver=v4l2:device=/dev/video0 -ovc lavc -nosound -o $( ntimestamp )-video.avi  ");
+          nsystem( " mencoder tv:// -tv driver=v4l2:device=/dev/video0 -ovc lavc -nosound -o $( nconfig --ntimestamp )-video.avi  ");
           return 0;
       }
-      ////////////////////////////////////////////////////////
-      ////////////////////////////////////////////////////////
-      ////////////////////////////////////////////////////////
-      ////////////////////////////////////////////////////////
-
 
 
 
@@ -2341,16 +2416,14 @@ int main( int argc, char *argv[])
     if ( argc == 2)
     if ( strcmp( argv[1] , "x48" ) ==  0 ) 
     {
-      nsystem( " xlsfonts ; x48 -connFont -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-iso8859-1     -smallFont -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-iso8859-1   -mediumFont -misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1  -largeFont -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1     " );
+      if ( MYOS == 1 ) 
+         nsystem( " xlsfonts ; x48 -connFont -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-iso8859-1     -smallFont -misc-fixed-medium-r-semicondensed--0-0-75-75-c-0-iso8859-1   -mediumFont -misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1  -largeFont -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1     " );
+      else 
+         nsystem( " x48 " );
       return 0;
     }
-    ////////////////////////////////////////////////////////
-    if ( argc == 2)
-    if ( strcmp( argv[1] , "hl" ) ==  0 ) 
-    {
-       nsystem( " cd ; cd  SIERRA/Half-Life ; sleep 1 ; xterm -e wine hl.exe  ");
-       return 0;
-    }
+
+
 
 
 
@@ -2791,6 +2864,24 @@ int main( int argc, char *argv[])
 
 
 
+     ////////////////////////////////////////////////////////
+     // mnount ufs : mount -r -t ufs -o ufstype=ufs2   /dev/sdb1 /home/<your_username>/ufs_mount
+     ////////////////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
+     if ( strcmp( argv[2] , "ufs" ) ==  0 ) 
+     {
+       strncpy( cmdi , " mkdir /media/ufs_mount ; mount -r -t ufs -o  ufstype=ufs2  " , PATH_MAX );
+       strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " /media/ufs_mount  " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem( cmdi );
+       return 0;
+     }
+
+
 
       ////////////////////////////////////////////////////////
       if ( argc == 2)
@@ -2899,24 +2990,6 @@ int main( int argc, char *argv[])
 
 
 
-
-     ////////////////////////////////////////////////////////
-     // mnount ufs : mount -r -t ufs -o ufstype=ufs2   /dev/sdb1 /home/<your_username>/ufs_mount
-     ////////////////////////////////////////////////////////
-     if ( argc == 4)
-     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
-     if ( strcmp( argv[2] , "ufs" ) ==  0 ) 
-     {
-       strncpy( cmdi , " mkdir /media/ufs_mount ; mount -r -t ufs -o  ufstype=ufs2  " , PATH_MAX );
-       strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
-       strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
-       strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
-       strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
-       strncat( cmdi , " /media/ufs_mount  " , PATH_MAX - strlen( cmdi ) -1 );
-       nsystem( cmdi );
-       return 0;
-     }
-
     ////////////////////////////////////////////////////////
     if ( argc == 3)
      if ( strcmp( argv[1] , "mount" ) ==  0 ) 
@@ -2952,24 +3025,6 @@ int main( int argc, char *argv[])
       }
 
 
-
-
-      ////////////////////////////////////////////////////////
-      if ( argc == 3)
-      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-      if ( strcmp( argv[2] ,   "doom3" ) ==  0 ) 
-      {
-           if      ( MYOS == 1 ) nsystem( " apt-get update " );
-           npkg( " dhewm3 " );
-           return 0; 
-      }
-      ////////////////////////////////////////////////////////
-      if ( argc == 2)
-      if ( strcmp( argv[1] ,   "doom3" ) ==  0 ) 
-      {
-           nsystem( " dhewm3 " );
-           return 0; 
-      }
 
      return 0; 
 } 
