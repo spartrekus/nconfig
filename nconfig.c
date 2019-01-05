@@ -625,7 +625,9 @@ int main( int argc, char *argv[])
          npkg( " ssh " );   
 
          npkg( " icewm " );   // stable, 17 Mb, larger but comfort. 
-         npkg( " xfe " );     // for icons and likely it may work., with xfw and xfi. 
+         //npkg( " xfe " );     // for icons and likely it may work., with xfw and xfi. 
+         npkg( " links ");
+         npkg( " links2 ");
          npkg( " unzip " );
 
 
@@ -985,6 +987,16 @@ int main( int argc, char *argv[])
 
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "wincmd" ) ==  0 ) 
+      {
+         // retro
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         npkg( " doublecmd-qt  " );
+         return 0;
+      }
 
 
 
@@ -1323,7 +1335,10 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[2] , "all" ) ==  0 ) 
       {
          if ( MYOS == 1 ) nsystem( " apt-get update  " );
-         npkg( "    links  subversion gcc " );
+         npkg( " ssh   " );
+         npkg( " links " );
+         npkg( "  mc  " );
+         npkg( " subversion gcc " );
          nsystem( "  nconfig install apps ");
          nsystem( "  nconfig install xapps ");
          npkg( "  alsa-utils " );
@@ -1391,6 +1406,8 @@ int main( int argc, char *argv[])
            npkg( "  i3lock  " );
          npkg( "  links  " );
          npkg( "  scrot  " );
+         npkg( " links ");
+         npkg( " links2 ");
          npkg( "  xpaint  " );
          npkg( "  nedit  " );
          npkg( "  rox-filer  " );
@@ -1411,22 +1428,70 @@ int main( int argc, char *argv[])
      }
 
 
+
+
+
+
    ////////////////////////////////////////////////////////
    if ( argc == 3)
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
      if ( strcmp( argv[2] ,   "x11" ) ==  0 ) 
      {
-         printf( "1. Blackbox\n" );
-         printf( "2. Icewm\n" );
-         printf( "<Enter Your Choice and Press Return to Continue>\n" ); 
          nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
-         nsystem( " apt-get install  -y libx11-dev ");
-         nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
+         ////nsystem( " apt-get install  -y libx11-dev ");
+         //nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
          nsystem( " apt-get install  -y icewm " );
          nsystem( " apt-get install  -y unzip " ); //for the x11 icons
+         npkg( " icewm ");
+         npkg( " xterm ");
+         npkg( " xinit ");
+         npkg( " xserver-xorg " );
          //nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
          return 0;
      }
+
+
+
+
+   ////////////////////////////////////////////////////////
+   if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( ( strcmp( argv[2] ,   "xutils" ) ==  0 ) 
+     || ( strcmp( argv[2] ,   "xutil" ) ==  0 ) )
+     {
+         if ( MYOS == 1 )
+         {
+           nsystem( " apt-get update ; apt-get install  -y xinit xterm icewm " );
+           ////nsystem( " apt-get install  -y libx11-dev ");
+           //nsystem( " apt-get install  -y xbindkeys wmctrl xdotool " );
+           nsystem( " apt-get install  -y icewm " );
+           nsystem( " apt-get install  -y unzip " ); //for the x11 icons
+           npkg( " xserver-xorg " );
+         }
+         else if ( MYOS == 4 )
+         {
+           npkg( " Xorg ");
+         }
+
+         npkg( " icewm ");
+         npkg( " xterm ");
+         npkg( " xinit ");
+         npkg( " xclip ");
+         npkg( " xclock ");
+         npkg( " xlockmore ");
+         npkg( " i3lock ");
+         npkg( " icewm ");
+         npkg( " wmctrl ");
+         npkg( " xdotool ");
+         npkg( " links ");
+         npkg( " links2 ");
+         npkg( " xserver-xorg " );
+         npkg( " xterm ");
+         //nsystem( " apt-get install  -y x11-xserver-utils xserver-xorg-legacy  " ); 
+         return 0;
+     }
+
+
 
 
 
@@ -1848,6 +1913,11 @@ int main( int argc, char *argv[])
       {
 	  nsystem( " apt-get update  " );
           ////nsystem( " dpkg-reconfigure keyboard-configuration " );
+	  npkg( " ssh " );
+	  npkg( " links " );
+	  npkg( " ncurses-dev " );
+	  npkg( " wget " );
+	  npkg( " less " );
 
           nsystem( " apt-get install  -y tcc links debootstrap " ); 
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
@@ -2061,6 +2131,13 @@ int main( int argc, char *argv[])
 
 
 
+    ////////////////////////////////////////////////////////
+    if  ( argc == 2)
+     if ( strcmp( argv[1] , "dpms" ) ==  0 )
+     {
+         nsystem( " export DISPLAY=:0 ; xset s off ;  xset -dpms ;  xset s noblank  ; setterm -blank 0  " );
+         return 0;
+     }
 
 
      ////////////////////////////////////////////////////////
@@ -2197,8 +2274,14 @@ int main( int argc, char *argv[])
           nsystem( " mplayer -loop 0 http://ia800201.us.archive.org/12/items/BigBuckBunny_328/BigBuckBunny.ogv" );
           return 0;
       }
-
-
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "videotest" ) ==  0 ) 
+      {
+          printf(  "> Testing Application (mplayer, http connection for video, and video) \n" );
+          nsystem( " mplayer -fs -zoom -loop 0 https://ia800402.us.archive.org/22/items/video_20160419/video.mp4 ");
+          return 0;
+      }
 
 
 
@@ -2752,6 +2835,7 @@ int main( int argc, char *argv[])
          nsystem( " echo yellow term  ; xterm  -bg black -fg yellow   -e  bash " );
          return 0;
      }
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "green" ) ==  0 ) 
@@ -2761,8 +2845,77 @@ int main( int argc, char *argv[])
      }
 
 
+     ////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "gpart" ) ==  0 ) 
+     if ( strcmp( argv[2] , "destroy" ) ==  0 ) 
+     if ( strcmp( argv[3] , "disk" ) ==  0 ) 
+     {
+         nsystem( " dd if=/dev/zero of=/dev/da0 bs=2m  count=1 " );
+         return 0;
+     }
 
 
+     ////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "gpart" ) ==  0 ) 
+     if ( strcmp( argv[2] , "create" ) ==  0 ) 
+     if ( strcmp( argv[3] , "fat32" ) ==  0 ) 
+     {
+         nsystem( " dd if=/dev/zero of=/dev/da0 bs=2m  count=1 " );
+         nsystem( " gpart create -s mbr da0 " );
+         nsystem( " gpart add -t fat32  da0 " );
+         nsystem( " newfs_msdos -F32 /dev/da0s1 " );
+         return 0;
+     }
+    
+
+     // mounting on freebsd
+     // mount ... <- direct for ufs2
+     // -t msdosfs 
+     // -t ext2fs 
+
+     ////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "gpart" ) ==  0 ) 
+     if ( strcmp( argv[2] , "create" ) ==  0 ) 
+     if ( strcmp( argv[3] , "ufs" ) ==  0 ) 
+     if ( MYOS == 4 )
+     {
+         nsystem( " dd if=/dev/zero of=/dev/da0 bs=2m  count=1 " );
+         nsystem( " gpart create -s mbr da0 " );
+         nsystem( " gpart add -t freebsd  da0 " );
+         nsystem( " gpart set -a active -i 1 da0 " );
+         nsystem( " gpart create -s bsd da0s1 " );
+         nsystem( " gpart show -p  da0 " );
+         nsystem( " newfs /dev/da0s1 " );
+         nsystem( " gpart show -p  da0 " );
+     // install bootloader, da0s1a, da0s1b
+     //nsystem( " gpart bootcode -b /boot/boot da0s1 ");
+         return 0;
+     }
+
+
+
+
+
+
+     ////////////////////////////////////////////////////////
+     // mnount ufs : mount -r -t ufs -o ufstype=ufs2   /dev/sdb1 /home/<your_username>/ufs_mount
+     ////////////////////////////////////////////////////////
+     if ( argc == 4)
+     if ( strcmp( argv[1] , "mount" ) ==  0 ) 
+     if ( strcmp( argv[2] , "ufs" ) ==  0 ) 
+     {
+       strncpy( cmdi , " mkdir /media/ufs_mount ; mount -r -t ufs -o  ufstype=ufs2  " , PATH_MAX );
+       strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " \"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[3] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , "\"" , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " /media/ufs_mount  " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem( cmdi );
+       return 0;
+     }
 
     ////////////////////////////////////////////////////////
     if ( argc == 3)
