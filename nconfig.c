@@ -397,8 +397,10 @@ int main( int argc, char *argv[])
          nsystem("   mkdir /media/pendrive "  );
          nsystem("   mkdir /usr/local/bin/  "  );
          nsystem( "  chmod 777 /dev/ttyv0 " ); 
+         nsystem( "  chmod 777 /dev/tty0 " ); 
          nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
          nsystem( "  chmod 777 /dev/ttyv0 " ); 
+         nsystem( "  chmod 777 /dev/fb0 " ); // for fbi and fbgs  
          nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
          nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
          nsystem("   sysctl vfs.usermount " );
@@ -711,11 +713,13 @@ int main( int argc, char *argv[])
 	 nsystem( " apt-get update " );
 	 nsystem( " apt-get install --no-install-recommends  -y texlive mupdf  " );
 	 nsystem( " apt-get install -y sshfs " );
+	 nsystem( " apt-get install -y xclip " );
 	 nsystem( " apt-get install -y screen " );
 	 nsystem( " apt-get install -y mupdf " );
 	 nsystem( " apt-get install -y feh " );
 	 nsystem( " apt-get install -y xinit " );
 	 nsystem( " apt-get install -y xterm " );
+	 nsystem( " apt-get install -y xsel " );  // xsel -b -i for the clip 
 	 nsystem( " apt-get install -y scrot " );
 	 nsystem( " apt-get install -y --no-install-recommends mupdf texlive texlive-latex-extra   texlive-font-utils " );
          return 0;
@@ -3383,6 +3387,17 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "entropyfix" ) ==  0 ) 
+      {
+               nsystem( "   fetch -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libssl.so.111  "  );
+               nsystem( "   fetch  -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libcrypto.so.111 " );
+               return 0;
+      }
+
+
+
 
     ////////////////////////////////////////////////////////
     if ( argc == 2)
@@ -3606,6 +3621,15 @@ texlive-tlmgr-20150523_2       TeXLive manager modules
     ///////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if  ( strcmp( argv[2] , "gnuplot" ) ==  0 )
+      {
+         nsystem( "  apt-get update " );
+         nsystem( "  apt-get install -y --no-install-recommends gnuplot " );
+         return 0; 
+      }
 
 
 
@@ -3831,6 +3855,15 @@ texlive-tlmgr-20150523_2       TeXLive manager modules
        return 0;
      }
 
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )  
+     if ( strcmp( argv[2] , "pdftk" ) ==  0 ) 
+     {
+       npkg( " pdftk  " );
+       return 0;
+     }
 
 
 
@@ -4381,6 +4414,12 @@ texlive-tlmgr-20150523_2       TeXLive manager modules
 
      return 0; 
 } 
+
+
+
+
+// fbgs
+//   5782 98.3  4.5  55760 42964 tty1     R+   11:22   1:21 gs -dSAFER -dNOPAUSE -dBATCH -sPDFPassword= -sDEVICE=png16m -sOutputFile=/var/tmp/fbgs-Q4w0XN/ps%03d.tiff Lecture.pdf
 
 
 
