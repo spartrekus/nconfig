@@ -288,6 +288,11 @@ void ncmdwith( char *mycmd, char *myfile )
 }
 
 
+void npkg_update( )
+{
+    if ( MYOS == 1 ) 
+      nsystem( "  apt-get update " );
+}
 
 
 void npkg( char *mycmd )
@@ -368,6 +373,23 @@ int main( int argc, char *argv[])
      }
 
 
+     if ( argc == 2)  // default
+     if ( strcmp( argv[1] , "asoundrc1" ) ==  0 ) 
+     {
+              printf( "pcm.!default { \n" );
+              printf( "          type asym \n" );
+              printf( "          playback.pcm { \n" );
+              printf( "                  type plug \n" );
+              printf( "                  slave.pcm \"hw:1,0\" \n" );
+              printf( "          } \n" );
+              printf( "          capture.pcm { \n" );
+              printf( "                  type plug \n" );
+              printf( "                  slave.pcm \"hw:1,0\" \n" );
+              printf( "          }  \n" );
+              printf( " } \n" );
+              return 0;
+     }
+
 
 
      ////////////////////////////////////////////////////////
@@ -394,6 +416,9 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "perm" ) ==  0 )  // root access
      {
+         if ( MYOS == 1 ) 
+             nsystem("   chmod 777 /dev/fb0  " );
+
          nsystem("   mkdir /media/pendrive "  );
          nsystem("   mkdir /usr/local/bin/  "  );
          nsystem( "  chmod 777 /dev/ttyv0 " ); 
@@ -653,6 +678,20 @@ int main( int argc, char *argv[])
          printf( "ntpd_sync_on_start=\"YES\"  \n" );
          printf( "sshd_enable=\"YES\"  \n" );
          printf( "fusefs_enable=\"YES\"  \n" );
+         printf( "allscreens_flags=\"-f terminus-b32\"  \n");
+         printf( "#apache24_enable=\"YES\"  \n" );
+         return 0;
+     }
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "rcpi" ) ==  0 ) 
+     {
+         printf( "keymap=de \n" );
+         printf( "ntpd_enable=\"YES\"  \n" );
+         printf( "ntpd_sync_on_start=\"YES\"  \n" );
+         printf( "sshd_enable=\"YES\"  \n" );
+         printf( "fusefs_enable=\"YES\"  \n" );
          printf( "#apache24_enable=\"YES\"  \n" );
          printf( "allscreens_flags=\"-f terminus-b32\"  \n");
          return 0;
@@ -696,6 +735,57 @@ int main( int argc, char *argv[])
          return 0;
      }
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fbi" ) ==  0 ) 
+      {
+         npkg_update( );
+         npkg( "  fbi " );
+         return 0;
+     }
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "kodi" ) ==  0 ) 
+      {
+         npkg_update( );
+         npkg( "  kodi " );
+         return 0;
+     }
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "human" ) ==  0 ) 
+      {
+         nsystem( "  apt-get update " );
+         nsystem( "  apt-get install -y subversion gcc  icewm rox-filer mc mplayer links feh mupdf scrot " );
+         return 0;
+     }
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "acer" ) ==  0 ) 
+      {
+         npkg( "  Xorg icewm xterm xinit subversion gcc ncurses " );
+         return 0;
+     }
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "grinder" ) ==  0 ) 
+      {
+         nsystem( "  apt-get update " );
+         nsystem( "  apt-get install -y wordgrinder " );
+         return 0;
+     }
+
 
 
 
@@ -724,6 +814,9 @@ int main( int argc, char *argv[])
 	 nsystem( " apt-get install -y --no-install-recommends mupdf texlive texlive-latex-extra   texlive-font-utils " );
          return 0;
       }
+
+
+
 
 
 
@@ -3016,7 +3109,10 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "cr" ) ==  0 ) 
      {
-       nsystem( " chromium-browser " );
+       if ( MYOS == 1 ) 
+         nsystem( " chromium-browser " );
+       else
+         nsystem( " chromium " );
        return 0;
      }
 
@@ -3389,10 +3485,14 @@ int main( int argc, char *argv[])
 
       ////////////////////////////////////////////////////////
       if ( argc == 2)
-      if ( strcmp( argv[1] , "entropyfix" ) ==  0 ) 
+      if ( ( strcmp( argv[1] , "entropyfix" ) ==  0 ) 
+      || ( strcmp( argv[1] , "entropy" ) ==  0 ) )
       {
                nsystem( "   fetch -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libssl.so.111  "  );
                nsystem( "   fetch  -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libcrypto.so.111 " );
+
+               nsystem( "   wget https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libssl.so.111  "  );
+               nsystem( "   wget https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libcrypto.so.111 " );
                return 0;
       }
 
@@ -4401,6 +4501,16 @@ texlive-tlmgr-20150523_2       TeXLive manager modules
          return 0;
      }
 
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+    if ( strcmp( argv[1] , "REBOOT" ) ==  0 ) 
+    {
+       nsystem( "  reboot "  );
+       return 0;
+    }
 
 
 
