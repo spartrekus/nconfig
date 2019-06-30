@@ -359,6 +359,42 @@ return fileordir;
 //////////////////////////////////////////
 int main( int argc, char *argv[])
 {
+
+    ///////////////////////////////////////////////////////
+    // BSD Rocks
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "wheel" ) ==  0 ) 
+      {
+         printf( " you may enter this : pw user mod username -G wheel \n" );
+         printf( " or : nconfig set wheel \n" );
+         return 0;
+      }
+
+
+
+    ///////////////////////////////////////////////////////
+    // BSD Rocks
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+      if ( strcmp( argv[1] , "wheel" ) ==  0 ) 
+      {
+         printf( " you may enter this : pw user mod username -G wheel \n" );
+         printf( " or : nconfig set wheel \n" );
+         return 0;
+      }
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2 )
+     if ( strcmp( argv[1] , "yellow" ) ==  0 ) 
+     {
+       printf("%s", KYEL);
+       printf("Hello Yellow Terminal\n");
+       return 0;
+     }
+
+
      char cmdi[PATH_MAX];
      char charo[PATH_MAX];
      int i; 
@@ -371,23 +407,157 @@ int main( int argc, char *argv[])
        return 0;
      }
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2 )
-     if ( strcmp( argv[1] , "yellow" ) ==  0 ) 
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "mana" ) ==  0 ) 
      {
-       printf("%s", KYEL);
-       printf("Hello Yellow Terminal\n");
-       return 0;
+            npkg( "  manaplus " );
+            return 0;
      }
 
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2 )
-     if ( strcmp( argv[1] , "lock" ) ==  0 ) 
+
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "all" ) ==  0 ) 
      {
-       nsystem( " export DISPLAY=:0 ; i3lock " );
-       return 0;
+            nsystem( "  nconfig pkg subversion " );
+            nsystem( "  nconfig pkg links     " );
+            nsystem( "  nconfig install xbase " );
+            nsystem( "  nconfig install xutil " );
+            nsystem( "  nconfig install claw " );
+            nsystem( "  nconfig pkg vim-console " );
+            nsystem( "  nconfig pkg dillo " );
+            nsystem( "  nconfig pkg dillo " );
+            return 0;
      }
+
+
+
+
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "xutil" ) ==  0 ) 
+     {
+            if ( MYOS == 1 )   nsystem( " apt-get update " );
+
+            npkg( " xclock  "  );
+            npkg( " i3lock "  );
+            npkg( " wmctrl "  );
+
+            printf( ">update and svn\n" );
+             npkg( " subversion " );
+
+            if ( MYOS == 1 )   npkg( " dosfstools "  );
+
+            printf( ">sshfs\n" );
+            if ( MYOS == 1 ) 
+               npkg( " dosfstools "  );
+            else 
+               npkg( " fusefs-sshfs  " );
+
+            npkg( " screen " );    //helpful
+            npkg( " icewm  " );     //img
+
+            if ( MYOS == 1 ) npkg( " sshfs " );
+            npkg( " zip " );
+            npkg( " links " );    //web
+            npkg( " scrot " );    //shot
+            npkg( " feh  " );     //img
+            npkg( " mupdf  " );   //pdf
+            npkg( " xpaint  " );  //paint
+            npkg( " abook  " );   //abook 
+            npkg( " xdotool  " );   //with tcx
+            return 0;
+     }
+
+
+
+
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "base" ) ==  0 ) 
+     {
+            nsystem( " mkdir /media/pendrive " );
+            nsystem( " mkdir /usr/local/bin/ " );
+            npkg( " gcc subversion " );
+            npkg(  " fusefs-sshfs "); // great to mount a drive over the seas with X11 forward and usage. ;)
+            npkg(  " fusefs-ext2 ");  // for ext2, and likely ext3.
+            npkg( " mpg123 " ); // for music
+            return 0;
+     }
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+
+
+
+
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "xbase" ) ==  0 ) 
+     {
+            nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
+            nsystem( " mkdir /usr/local/bin " );
+            npkg( " icewm  " );
+            if ( MYOS == 1 ) nsystem( " apt-get update " );
+            if ( MYOS == 1 ) npkg( " xserver-xorg " );
+            else npkg( " Xorg " );
+            npkg( " xterm xinit " );
+            npkg( " xinit xterm " );
+            //if ( MYOS == 1 )  npkg( " sshfs  " );
+            //else              npkg( " fusefs-sshfs  " );
+            npkg( " mupdf  " );
+            npkg( " i3lock   " ); // if kids, dog, or cat go for keyboard fun... 
+            return 0;
+     }
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
+      {
+         //nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
+         nsystem( "  apt-get install -y libx11-dev " ); 
+         return 0;
+      }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
+      {
+         //fltk-1.3.5                     Cross-platform C++ graphical user interface toolkit
+         if ( MYOS == 1 ) 
+         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         if ( MYOS == 1 ) 
+         nsystem( "  apt-get install -y libx11-dev " ); 
+         npkg( " fltk-1.3.5 " );
+         return 0;
+      }
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0      )  
+     if ( strcmp( argv[2] , "svn" ) ==  0    ) 
+     {
+            if ( MYOS == 1 )  npkg( " sshfs  " );
+            else              npkg( " fusefs-sshfs  " );
+            return 0;
+     }
+
 
 
     ////////////////////////////////////////////////////////
@@ -411,6 +581,21 @@ int main( int argc, char *argv[])
          nsystem( " export DISPLAY=:0 ; xset s off ;  xset -dpms ;  xset s noblank  ; setterm -blank 0  " );
          return 0;
      }
+
+
+
+
+
+    ///////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if  ( strcmp( argv[2] , "gnuplot" ) ==  0 )
+      {
+         if ( MYOS == 1 )   nsystem( "  apt-get update " );
+         npkg( " gnuplot-x11 " ); //x11/gt, care because -qt has no zoom
+         return 0; 
+      }
+
 
 
 
@@ -464,17 +649,20 @@ int main( int argc, char *argv[])
             return 0;
      }
 
-   ////////////////////////////////////////////////////////
+
+
    ////////////////////////////////////////////////////////
      if ( argc == 3)
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "xbase" ) ==  0 ) 
+     if ( ( strcmp( argv[2] ,   "docx" ) ==  0 ) 
+     || ( strcmp( argv[2] ,   "catx" ) ==  0 ) )
      {
-            if ( MYOS == 1 ) nsystem( " apt-get update " );
-            if ( MYOS == 1 ) npkg( " xserver-xorg " );
-            else npkg( " Xorg " );
-            npkg( " xterm xinit " );
-            npkg( " xinit xterm " );
+            npkg( " docx2txt " );
+            npkg( " antiword " );
+            npkg( " antiword " );
+            npkg( "  docx2txt  " );
+            npkg( "  antiword  " );
+            npkg( "  catdoc  " );
             return 0;
      }
 
@@ -501,6 +689,15 @@ int main( int argc, char *argv[])
          nsystem("   sysctl vfs.usermount=1 " );
          nsystem("   sysctl vfs.usermount  " );
          return 0;
+     }
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "claw" ) ==  0 ) 
+     {
+       printf( "- run claws-mail -\n"  );
+       nsystem( "  claws-mail "  );
+       return 0;
      }
 
 
@@ -539,19 +736,6 @@ int main( int argc, char *argv[])
      }
 
 
-    ////////////////////////////////////////////////////////
-    if ( argc == 3)
-      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-      if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
-      {
-         //fltk-1.3.5                     Cross-platform C++ graphical user interface toolkit
-         if ( MYOS == 1 ) 
-         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
-         if ( MYOS == 1 ) 
-         nsystem( "  apt-get install -y libx11-dev " ); 
-         npkg( " fltk-1.3.5 " );
-         return 0;
-      }
 
 
      if ( argc == 2)  // default
@@ -613,17 +797,19 @@ int main( int argc, char *argv[])
       || ( strcmp( argv[2] , "kde-standard" ) ==  0 ) )
       {
 	  nsystem( " apt-get update  " );
+	  npkg( " gcc " );
+	  npkg( " screen " );
           ////nsystem( " dpkg-reconfigure keyboard-configuration " );
 	  npkg( " ssh " );
 	  npkg( " links " );
 	  npkg( " wget " );
 	  npkg( " less " );
-
+	  npkg( " screen " );
+	  npkg( " links " );
           npkg( " dosfstools  " );
-
-	  npkg( " ncurses-dev " );
-
-          nsystem( " apt-get install  -y tcc links debootstrap " ); 
+	  //npkg( " ncurses-dev " );
+	  npkg( " mplayer " );
+          nsystem( " apt-get install  -y links debootstrap " ); 
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
 
           nsystem( " apt-get install  -y zip ssh ncurses-dev " );
@@ -639,6 +825,7 @@ int main( int argc, char *argv[])
 	  nsystem( " apt-get install -y feh scrot " );
           nsystem( " apt-get install -y kmahjongg  " ); // ma
 	  nsystem( " apt-get install -y vim " );
+	  nsystem( " apt-get install -y xterm " );
 
           nsystem( " apt-get install  -y rxvt  " );
 	  nsystem( " apt-get install -y fledit " ); //let's hope that one day in there with fltk 
@@ -781,16 +968,18 @@ int main( int argc, char *argv[])
 
 
      ///////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "sshfs" ) ==  0 )  // root access
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 )  // root access
+     if ( strcmp( argv[2] , "sshfs" ) ==  0 )    // root access
      {
-         nsystem("   mkdir /media/pendrive "  );
+         nsystem("    mkdir /media/pendrive "  );
          nsystem( "   kldload fuse ; chmod 777 /dev/fuse " ); 
          nsystem("    mkdir /media/pendrive " );
          nsystem( "    kldload fuse ; chmod 777 /dev/fuse " ); 
          nsystem("      sysctl vfs.usermount " );
          nsystem("      sysctl vfs.usermount=1 " );
          nsystem("      sysctl vfs.usermount  " );
+         npkg( " fusefs-sshfs  " );
         return 0;
      }
 
@@ -841,6 +1030,18 @@ int main( int argc, char *argv[])
       }
 
 
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "screenrc" ) ==  0 ) 
+     {
+             printf("bindkey -k F1 prev\n" );
+             printf("bindkey -k F2 next\n" );
+             printf("vbell off\n" );
+             return 0;
+     }
 
 
      ////////////////////////////////////////////////////////
@@ -1077,45 +1278,6 @@ int main( int argc, char *argv[])
    ////////////////////////////////////////////////////////
 
 
-     if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "xutil" ) ==  0 ) 
-     {
-            if ( MYOS == 1 )   nsystem( " apt-get update " );
-
-            npkg( " xclock  "  );
-            npkg( " i3lock "  );
-            npkg( " wmctrl "  );
-
-            printf( ">update and svn\n" );
-             npkg( " subversion " );
-
-            if ( MYOS == 1 )   npkg( " dosfstools "  );
-
-            printf( ">sshfs\n" );
-            if ( MYOS == 1 ) 
-               npkg( " dosfstools "  );
-            else 
-               npkg( " fusefs-sshfs  " );
-
-            npkg( " screen " );    //helpful
-            npkg( " icewm  " );     //img
-
-            if ( MYOS == 1 ) npkg( " sshfs " );
-            npkg( " zip " );
-            npkg( " links " );    //web
-            npkg( " scrot " );    //shot
-            npkg( " feh  " );     //img
-            npkg( " mupdf  " );   //pdf
-            npkg( " xpaint  " );  //paint
-            npkg( " abook  " );   //abook 
-            npkg( " xdotool  " );   //with tcx
-            return 0;
-     }
-
-
-
-
 
     ////////////////////////////////////////////////////////
     if ( argc == 3)
@@ -1168,9 +1330,9 @@ int main( int argc, char *argv[])
      printf( "EOF NCONFIG\n" );
      return 0;
      // antibug
-
-
 }
+
+
 
 
 
