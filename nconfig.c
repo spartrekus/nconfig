@@ -511,16 +511,11 @@ int main( int argc, char *argv[])
             nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
             nsystem( " mkdir /usr/local/bin " );
             npkg( " icewm  " );
-            npkg( " i3lock " );   
             if ( MYOS == 1 ) nsystem( " apt-get update " );
             if ( MYOS == 1 ) npkg( " xserver-xorg " );
             else npkg( " Xorg " );
             npkg( " xterm xinit " );
             npkg( " xinit xterm " );
-            //if ( MYOS == 1 )  npkg( " sshfs  " );
-            //else              npkg( " fusefs-sshfs  " );
-            npkg( " mupdf  " );
-            npkg( " i3lock   " ); // if kids, dog, or cat go for keyboard fun... 
             return 0;
      }
 
@@ -634,7 +629,7 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] , "metropolis" ) ==  0 ) 
       {
          printf(  "> Testing Application (mpg123,mplayer, http connection for audio, and audio) \n" );
-         nsystem( " export DISPLAY=:0 ; mplayer -fs \"https://archive.org/download/Metropolis1927Restored/Metropolis%20%281927%29%20Restored.mp4\" " );
+         nsystem( " export DISPLAY=:0 ; mplayer -fs  -loop 0  \"https://archive.org/download/Metropolis1927Restored/Metropolis%20%281927%29%20Restored.mp4\" " );
          return 0; 
       }
       ////////////////////////////////////////////////////////
