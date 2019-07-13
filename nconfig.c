@@ -387,7 +387,28 @@ int main( int argc, char *argv[])
 
      ////////////////////////////////////////////////////////
      if ( argc == 2 )
-     if ( strcmp( argv[1] , "yellow" ) ==  0 ) 
+     if ( ( strcmp( argv[1] , "byellow" ) ==  0 ) || ( strcmp( argv[1] , "--byellow" ) ==  0 ) )
+     {
+       printf("%s", KBYEL);
+       printf("Hello Yellow Terminal (bright)\n");
+       return 0;
+     }
+
+      ////////////////////////////////////////////////////////
+      // useful sometimes
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "max" ) ==  0 ) 
+      {
+        nsystem( "  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz   " );
+        return 0;
+      }
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2 )
+     if ( ( strcmp( argv[1] , "yellow" ) ==  0 ) || ( strcmp( argv[1] , "--yellow" ) ==  0 ) )
      {
        printf("%s", KYEL);
        printf("Hello Yellow Terminal\n");
@@ -419,24 +440,6 @@ int main( int argc, char *argv[])
 
 
 
-   ////////////////////////////////////////////////////////
-   ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "all" ) ==  0 ) 
-     {
-            nsystem( "  nconfig pkg subversion " );
-            nsystem( "  nconfig pkg links     " );
-            nsystem( "  nconfig install xbase " );
-            nsystem( "  nconfig install xutil " );
-            nsystem( "  nconfig install claw " );
-            nsystem( "  nconfig pkg vim-console " );
-            nsystem( "  nconfig pkg dillo " );
-            nsystem( "  nconfig pkg dillo " );
-            return 0;
-     }
-
-
 
 
      if ( argc == 3)
@@ -444,37 +447,38 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[2] ,   "xutil" ) ==  0 ) 
      {
             if ( MYOS == 1 )   nsystem( " apt-get update " );
-
+            npkg( " xdotool  " ); 
+            npkg( " i3lock " );   
+            npkg( " xclip  " );
             npkg( " xclock  "  );
-            npkg( " i3lock "  );
-            npkg( " wmctrl "  );
-
-            printf( ">update and svn\n" );
-             npkg( " subversion " );
-
-            if ( MYOS == 1 )   npkg( " dosfstools "  );
-
-            printf( ">sshfs\n" );
-            if ( MYOS == 1 ) 
-               npkg( " dosfstools "  );
-            else 
-               npkg( " fusefs-sshfs  " );
-
-            npkg( " screen " );    //helpful
-            npkg( " icewm  " );     //img
-
-            if ( MYOS == 1 ) npkg( " sshfs " );
-            npkg( " zip " );
-            npkg( " links " );    //web
-            npkg( " scrot " );    //shot
-            npkg( " feh  " );     //img
-            npkg( " mupdf  " );   //pdf
-            npkg( " xpaint  " );  //paint
-            npkg( " abook  " );   //abook 
-            npkg( " xdotool  " );   //with tcx
+            npkg( " scrot " );  
+            npkg( " feh " );  
             return 0;
      }
 
+
+     //// Right, portable apps
+     if ( argc == 3 )
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( ( strcmp( argv[2] ,   "xapp" ) ==  0 ) || ( strcmp( argv[2] ,   "xapps" ) ==  0 ) )
+     {
+            if ( MYOS == 1 )   
+              nsystem( " apt-get update " );
+            npkg( " i3lock " );   
+            npkg( " feh  "  );
+            npkg( " nedit  "  ); // motif
+            npkg( " scrot " );   
+            npkg( " xdotool  " );  
+            npkg( " wmctrl  " );  
+            npkg( " xclip  " );  
+            npkg( " rox-filer  " );  
+            npkg( " mutt   " );  
+            npkg( "  claws-mail "  );
+            npkg( " xterm   " );  
+            if ( MYOS == 1 ) 
+               nsystem( " apt-get install --no-install-recommends mupdf " );
+            return 0;
+     }
 
 
 
@@ -507,6 +511,7 @@ int main( int argc, char *argv[])
             nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
             nsystem( " mkdir /usr/local/bin " );
             npkg( " icewm  " );
+            npkg( " i3lock " );   
             if ( MYOS == 1 ) nsystem( " apt-get update " );
             if ( MYOS == 1 ) npkg( " xserver-xorg " );
             else npkg( " Xorg " );
@@ -527,8 +532,9 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[2] , "fltk" ) ==  0 ) 
       {
          //nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
-         nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
-         nsystem( "  apt-get install -y libx11-dev " ); 
+         //nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
+         //nsystem( "  apt-get install -y libx11-dev " ); 
+         nsystem( " apt-get update ; apt-get install -y libfltk1.3 " ); 
          return 0;
       }
 
@@ -560,6 +566,21 @@ int main( int argc, char *argv[])
 
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "antiword" ) ==  0 )
+     {
+        //if ( MYOS == 1 ) nsystem( " apt-get install -y antiword docx2txt "  );
+        //else  npkg( " antiword docx2txt "  );
+        npkg( " antiword docx2txt "  );
+
+        if ( MYOS == 1 ) 
+           npkg( " catdoc " );  // to conv from xls to txt
+        return 0;
+     }
+
+
     ////////////////////////////////////////////////////////
     if ( argc == 3)
      if ( ( strcmp( argv[1] , "install" ) ==  0 )  || ( strcmp( argv[1] , "--install" ) ==  0 ))
@@ -568,7 +589,7 @@ int main( int argc, char *argv[])
      || ( strcmp( argv[2] ,   "2txt" ) ==  0 ))
      {
        if ( MYOS == 1 ) nsystem( " apt-get update ; apt-get install -y poppler-utils   " );
-       if ( MYOS == 1 ) nsystem( " apt-get install -y antiword docx2txt "  );
+       /////if ( MYOS == 1 ) nsystem( " apt-get install -y antiword docx2txt "  );
        if ( MYOS == 4 ) 
           npkg( " poppler-utils " );
        return 0;
@@ -600,15 +621,45 @@ int main( int argc, char *argv[])
 
 
 
+
+
+
+
+
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "metropolis" ) ==  0 ) 
+      {
+         printf(  "> Testing Application (mpg123,mplayer, http connection for audio, and audio) \n" );
+         nsystem( " export DISPLAY=:0 ; mplayer -fs \"https://archive.org/download/Metropolis1927Restored/Metropolis%20%281927%29%20Restored.mp4\" " );
+         return 0; 
+      }
       ////////////////////////////////////////////////////////
       if ( argc == 2)
       if ( strcmp( argv[1] , "mylene" ) ==  0 ) 
       {
           printf(  "> Testing Application (mpg123,mplayer, http connection for audio, and audio) \n" );
           nsystem( " mpg123 http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
-            nsystem( " mplayer http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
+          nsystem( " mplayer http://listen.radionomy.com/mylenefarmerwebradio " );  //stable for testing sound 
           return 0;
       }
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( ( strcmp( argv[1] , "house" ) ==  0 ) || ( strcmp( argv[1] , "houseradio" ) ==  0 ) )
+      {
+          printf(  "> Testing Application (mpg123,mplayer, http connection for audio, and audio) \n" );
+          nsystem( " mpg123 http://streaming.radionomy.com/Retro-House-Belgium " );
+          nsystem( " mplayer http://streaming.radionomy.com/Retro-House-Belgium " );
+          return 0;
+      }
+
+
+
+
+
 
 
 
@@ -633,7 +684,7 @@ int main( int argc, char *argv[])
      {
             if ( MYOS == 1 ) nsystem( " apt-get update " );
             if ( MYOS == 1 ) 
-              nsystem( " apt-get install --no-install-recommends texlive " );
+              nsystem( " apt-get install -y --no-install-recommends texlive " );
             return 0;
      }
 
@@ -691,20 +742,12 @@ int main( int argc, char *argv[])
          return 0;
      }
 
-     ////////////////////////////////////////////////////////
-     if ( argc == 2)
-     if ( strcmp( argv[1] , "claw" ) ==  0 ) 
-     {
-       printf( "- run claws-mail -\n"  );
-       nsystem( "  claws-mail "  );
-       return 0;
-     }
 
 
      ////////////////////////////////////////////////////////
      if ( argc == 3)
      if ( strcmp( argv[1] , "install" ) ==  0 ) 
-     if ( strcmp( argv[2] , "claw" ) ==  0 ) 
+     if ( ( strcmp( argv[2] , "claw" ) ==  0 )  || ( strcmp( argv[2] , "claws" ) ==  0 ) )
      {
        npkg( "  claws-mail "  );
        return 0;
@@ -717,7 +760,7 @@ int main( int argc, char *argv[])
      {
        printf( " Search bin   claw %d\n", fexist( "/usr/bin/claws-mail" ));
        printf( " Search local claw %d\n", fexist( "/usr/local/bin/claws-mail" ));
-       nsystem( "  claws-mail "  );
+       nsystem( " export DISPLAY=:0 ;  claws-mail "  );
        return 0;
      }
 
@@ -769,6 +812,32 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "entropy" ) ==  0 )
+      {
+               nsystem( "   fetch -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libssl.so.111  "  );
+               nsystem( "   fetch  -R https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libcrypto.so.111 " );
+
+               nsystem( "   wget  --no-check-certificate     https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libssl.so.111  "  );
+               nsystem( "   wget  --no-check-certificate     https://raw.githubusercontent.com/spartrekus/freebsd-13-entropyfix/master/libcrypto.so.111 " );
+               return 0;
+      }
+
+
+
+      ////////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+      if ( strcmp( argv[2] ,   "e2fs" ) ==  0 ) 
+      {
+         npkg( " e2fsprogs  " );
+         return 0;
+      }
+
+
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 3)
       if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
@@ -785,8 +854,47 @@ int main( int argc, char *argv[])
 
 
 
+      ////////////////////////////////////////////////////////
+      // useful sometimes
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "max" ) ==  0 ) 
+      {
+        nsystem( "  wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz   " );
+        return 0;
+      }
+
+
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "mupdf" ) ==  0 ) 
+     {
+            nsystem( " apt-get install -y --no-install-recommends mupdf " );
+            return 0;
+     }
+   ////////////////////////////////////////////////////////
+
 
     
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "gs" ) ==  0 ) 
+     {
+            npkg( " ghostscript " );
+            return 0;
+     }
+   ////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     // xterm has bugs
@@ -794,11 +902,18 @@ int main( int argc, char *argv[])
     if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "kde" ) ==  0 ) 
+      || ( strcmp( argv[2] , "notebook" ) ==  0 ) 
       || ( strcmp( argv[2] , "kde-standard" ) ==  0 ) )
       {
 	  nsystem( " apt-get update  " );
+
+          npkg( " keyboard-configuration " );
+          nsystem( " dpkg-reconfigure keyboard-configuration " ); //for gal
+          npkg( " console-setup " );
+
 	  npkg( " gcc " );
 	  npkg( " screen " );
+          nsystem( " apt-get install  -y subversion   " ); 
           ////nsystem( " dpkg-reconfigure keyboard-configuration " );
 	  npkg( " ssh " );
 	  npkg( " links " );
@@ -811,36 +926,50 @@ int main( int argc, char *argv[])
 	  npkg( " mplayer " );
           nsystem( " apt-get install  -y links debootstrap " ); 
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
-
+          if ( MYOS == 1 )
+          {
+	    nsystem( " apt-get update ; apt-get install --no-install-recommends  -y libreoffice    " );
+	    nsystem( "  apt-get install -y nedit  " );
+	    nsystem( "  apt-get install -y gnumeric  " );
+	    nsystem( "  apt-get install -y ssh  " );
+	    nsystem( "  apt-get install -y sshfs  " );
+	    npkg( " wmctrl " );
+	    npkg( " xdotool " );
+          }
+	  npkg( " mpg123 " );
           nsystem( " apt-get install  -y zip ssh ncurses-dev " );
-         nsystem( " apt-get install  -y ncurses-dev " ); 
-         nsystem( " apt-get install  -y debootstrap " );
-
-         nsystem( " apt-get install  -y gcc " );
-
+          nsystem( " apt-get install  -y ncurses-dev " ); 
+          nsystem( " apt-get install  -y debootstrap " );
+          nsystem( " apt-get install  -y gcc " );
          //nsystem( " apt-get install  -y rxvt " ); // rxvt has no (less) display bug, like xterm or Eterm.
-
 	  nsystem( " apt-get update ; apt-get install -y kde-standard " );
           //nsystem( " dpkg-reconfigure tzdata " );
 	  nsystem( " apt-get install -y feh scrot " );
-          nsystem( " apt-get install -y kmahjongg  " ); // ma
 	  nsystem( " apt-get install -y vim " );
 	  nsystem( " apt-get install -y xterm " );
+            npkg( " ghostscript " );
 
-          nsystem( " apt-get install  -y rxvt  " );
-	  nsystem( " apt-get install -y fledit " ); //let's hope that one day in there with fltk 
 	  nsystem( " apt-get install -y leafpad " ); //leafpad for pa
+
+	  npkg( " kate " );       // top editor
+	  npkg( " audacious " );  // winamp like 
+	  npkg( " leafpad " );       // top editor
+	  npkg( " gnumeric " );       // top editor
+
+          if ( MYOS == 1 )  
+             npkg( " ntpdate " );
 
 	  nsystem( " apt-get install -y xterm " );
 	  nsystem( " apt-get install -y vim " );
 	  nsystem( " apt-get install -y chromium " );
 	  nsystem( " apt-get install -y chromium-browser " );
-          nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
+          ///nsystem( " apt-get update ; apt-get install -y doublecmd-gtk --no-install-recommends  " );
 
          nsystem( " apt-get install  -y rox-filer " ); 
          nsystem( " apt-get install  -y ssh " ); 
          nsystem( " apt-get install  -y links " ); 
-         nsystem( " apt-get install  -y ncurses-dev  " ); 
+
+          nsystem( " apt-get install  -y ncurses-dev  " ); 
           nsystem( " apt-get install  -y subversion   " ); 
           nsystem( " apt-get install  -y make   " ); 
           nsystem( " apt-get install  -y libx11-dev   " ); 
@@ -851,9 +980,8 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y alsa-base " );
          nsystem( " apt-get install  -y alsa-utils " );
          nsystem( " apt-get install  -y vim  " );
-         nsystem( " apt-get install  -y tcc  " );
 
-          nsystem( " apt-get install  -y ekiga  " ); // to chat and voice video  over ip in intranet // why not
+          //nsystem( " apt-get install  -y ekiga  " ); // to chat and voice video  over ip in intranet // why not
 
           npkg( " xdemineur xmahjongg " );
 
@@ -873,6 +1001,16 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y xpaint  " );
          nsystem( " apt-get install  -y nedit  " ); //it works
 
+            if ( MYOS == 1 ) 
+              nsystem( " apt-get install -y --no-install-recommends texlive " );
+              /////nsystem( " apt-get install --no-install-recommends texlive " );
+
+         nsystem( " apt-get install  -y feh  " );
+         nsystem( " apt-get install  -y make  " );
+         nsystem( " apt-get install  -y gcc  " );
+         nsystem( " apt-get install  -y clang  " );
+
+
          nsystem( " apt-get install  -y feh  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
@@ -881,7 +1019,7 @@ int main( int argc, char *argv[])
          nsystem( " apt-get update ; apt-get install  -y cups-bsd   " ); 
          nsystem( " apt-get install  -y vim  " );
 
-         nsystem( " apt-get install  -y xpenguins  " );
+         //nsystem( " apt-get install  -y xpenguins  " );
          nsystem( " apt-get install  -y xdemineur  " );
          nsystem( " apt-get install  -y xedit  " );
          nsystem( " apt-get install  -y nedit  " );
@@ -944,6 +1082,8 @@ int main( int argc, char *argv[])
             nsystem( "  pkg install -y openntpd ; tzsetup ; service ntpd restart  " );
           else 
             nsystem( " dpkg-reconfigure tzdata " );
+          if ( MYOS == 1 )  
+             npkg( " ntpdate " );
           return 0;
       }
 
@@ -993,9 +1133,11 @@ int main( int argc, char *argv[])
        printf("%syellow\n", KYEL);
        return 0;
     }
+
+
      ////////////////////////////////////////////////////////
      if ( argc == 2)
-     if ( strcmp( argv[1] , "-time" ) ==  0 ) 
+     if ( ( strcmp( argv[1] , "-time" ) ==  0 ) || ( strcmp( argv[1] , "--time" ) ==  0 ) )
      {
        printf("%d\n", (int)time(NULL));
        return 0;
@@ -1032,7 +1174,58 @@ int main( int argc, char *argv[])
 
 
 
+     ///////////////////////////////////////////////
+     ///////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "ssh" ) ==  0 ) 
+     {
+       strncpy( cmdi, "", PATH_MAX );
+       strncat( cmdi , " ssh -C sameklu@192.168.1." , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , argv[ 2 ] , PATH_MAX - strlen( cmdi ) -1 );
+       strncat( cmdi , " " , PATH_MAX - strlen( cmdi ) -1 );
+       nsystem( cmdi );
+       return 0;
+     }
+     ///////////////////////////////////////////////
+     ///////////////////////////////////////////////
 
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "fstab" ) ==  0 ) 
+     {
+             printf( "/dev/sda1  /media/pendrive  vfat  rw,user,exec,umask=000 0 0 \n" );
+             printf( "/dev/da0s1a     /               ufs     rw      1       1" );
+             printf( "/dev/ada0s2a     /               ufs     rw      1       1" );
+             printf( "/dev/da0s1b     none            swap    sw      0       0" );
+             return 0;
+     }
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( ( strcmp( argv[2] , "printer" ) ==  0 ) 
+      || ( strcmp( argv[2] , "cups" ) ==  0 ) )
+      {
+          nsystem( " apt-get update ; apt-get install  -y cups   " ); 
+          nsystem( " apt-get install  -y cups-bsd  " ); 
+          return 0;
+      }
+
+
+
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
+     if ( strcmp( argv[1] , "xinitrc" ) ==  0 ) 
+     {
+             printf(" setxkbmap de \n" );
+             printf("icewm\n" );
+             return 0;
+     }
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "screenrc" ) ==  0 ) 
@@ -1073,7 +1266,7 @@ int main( int argc, char *argv[])
          nsystem( " cd ; cd .icewm ; wget --no-check-certificate https://raw.githubusercontent.com/spartrekus/icewm-xp/master/applications    -O  applications  " );
          nsystem( " cd ; cd .icewm ; wget  https://raw.githubusercontent.com/spartrekus/icewm-xp/master/applications    -O  applications  " );
 
-         nsystem( " cd ; cd .icewm ; wget --no-check-certificate https://raw.githubusercontent.com/spartrekus/icewm-xp/master/accessories    -O  accessories  " );
+         nsystem( " cd ; cd .icewm ; wget  --no-check-certificate   https://raw.githubusercontent.com/spartrekus/icewm-xp/master/accessories    -O  accessories  " );
          nsystem( " cd ; cd .icewm ; wget  https://raw.githubusercontent.com/spartrekus/icewm-xp/master/accessories   -O  accessories  " );
 
          nsystem( " cd ; cd .icewm ; wget --no-check-certificate https://raw.githubusercontent.com/spartrekus/icewm-xp/master/games    -O  games  " );
@@ -1314,6 +1507,7 @@ int main( int argc, char *argv[])
          npkg( "  fbi " );
          return 0;
      }
+
       ////////////////////////////////////////////////////////
       if ( argc == 3)
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
@@ -1324,6 +1518,16 @@ int main( int argc, char *argv[])
          return 0;
      }
 
+
+
+      ///////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "gnumeric" ) ==  0 ) 
+      {
+	  nsystem( " apt-get update ; apt-get install --no-install-recommends  -y gnumeric    " );
+          return 0;
+      }
 
 
 
