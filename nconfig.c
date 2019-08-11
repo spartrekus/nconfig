@@ -384,26 +384,39 @@ int main( int argc, char *argv[])
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
+     if ( strcmp( argv[1] , "fsck" ) ==  0 ) 
+     {
+        printf( "fsck_y_enable=\"YES\"  \n" );
+        return 0;
+     }
+
+     ////////////////////////////////////////////////////////
+     if ( argc == 2)
      if ( strcmp( argv[1] , "rc" ) ==  0 ) 
      {
-        printf( "keymap=de \n" );
+//growfs_enable="YES"
+//keymap="de.kbd"
+        printf( "#hostname=\"generic\"\n" );
+        printf( "keymap=de\n" );
+        printf( "keymap=\"de.kbd\"\n" );
+        printf( "growfs_enable=\"YES\"\n" );
         printf( "fsck_y_enable=\"YES\"  \n" );
-        printf( "hostname=\"generic\"\n" );
         printf( "ifconfig_DEFAULT=\"DHCP\"\n" );
         printf( "sshd_enable=\"YES\"\n" );
-        printf( "sendmail_enable=\"NONE\"\n" );
-        printf( "sendmail_submit_enable=\"NO\"\n" );
-        printf( "sendmail_outbound_enable=\"NO\"\n" );
-        printf( "sendmail_msp_queue_enable=\"NO\"\n" );
-        printf( "growfs_enable=\"YES\"\n" );
-        printf( "keymap=\"de.kbd\"\n" );
+        printf( "fusefs_enable=\"YES\"  \n" );
         printf( "wlans_rtwn0=\"wlan0\"\n" );
         printf( "ifconfig_wlan0=\"WPA DHCP\"\n" );
         printf( "ifconfig_wlan0_ipv6=\"inet6 accept_rtadv\"\n" );
         printf( "create_args_wlan0=\"country AT regdomain FCC4\"\n" );
-        printf( "sshd_enable=\"YES\"\n" );
-        printf( "dumpdev=\"AUTO\"\n" );
-       return 0;
+        printf( "allscreens_flags=\"-f terminus-b32\"  \n");
+        printf( "sendmail_enable=\"NONE\"\n" );
+        printf( "sendmail_submit_enable=\"NO\"\n" );
+        printf( "sendmail_outbound_enable=\"NO\"\n" );
+        printf( "sendmail_msp_queue_enable=\"NO\"\n" );
+        printf( "#apache24_enable=\"YES\"  \n" );
+        printf( "#proftpd_enable=\"YES\"  \n" );
+        printf( "#dumpdev=\"AUTO\"\n" );
+        return 0;
      }
 
 
@@ -593,15 +606,16 @@ int main( int argc, char *argv[])
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
      if ( strcmp( argv[2] ,   "base" ) ==  0 ) 
      {
-            npkg( "  subversion " ); 
             npkg( "  screen " );
+            npkg( "  mpg123 " );
+            //if      ( MYOS == 1 ) 
+            //   npkg( "  vim " );
+            //else if ( MYOS == 4 ) 
+            //   npkg( "  vim-console " );
+            //else 
+            //   npkg( "  vim " );
+            npkg( "  subversion " ); 
             npkg( "  ncurses " );
-            if      ( MYOS == 1 ) 
-               npkg( "  vim " );
-            else if ( MYOS == 4 ) 
-               npkg( "  vim-console " );
-            else 
-               npkg( "  vim " );
             return 0;
      }
    ////////////////////////////////////////////////////////
@@ -806,6 +820,19 @@ int main( int argc, char *argv[])
      }
 
 
+
+
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+    if ( strcmp( argv[1] , "ue0" ) ==  0 ) 
+    {
+       printf(  "\n" );
+       printf( "ifconfig_ue0=\"dhcp\"\n" );
+       printf(  "\n" );
+       return 0;
+    }
+    ////////////////////////////////////////////////////////
 
 
     ////////////////////////////////////////////////////////
@@ -1693,6 +1720,21 @@ int main( int argc, char *argv[])
          npkg( "  kodi " );
          return 0;
      }
+
+      ///////////////////////////////////////////////////////
+      if  ( argc == 2)
+      if (  strcmp( argv[1] , "compile" ) ==  0 ) 
+      {
+            system( " ./configure ; make  " );
+            return 0;
+      }
+      ///////////////////////////////////////////////////////
+      if  ( argc == 2)
+      if (  ( strcmp( argv[1] , "scr" ) ==  0 ) ||  ( strcmp( argv[1] , "screen" ) ==  0 ) )
+      {
+            system( "  screen -x " );
+            return 0;
+      }
 
 
 
