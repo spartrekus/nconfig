@@ -394,12 +394,10 @@ int main( int argc, char *argv[])
      if ( argc == 2)
      if ( strcmp( argv[1] , "rc" ) ==  0 ) 
      {
-//growfs_enable="YES"
-//keymap="de.kbd"
         printf( "#hostname=\"generic\"\n" );
+        printf( "growfs_enable=\"YES\"\n" );
         printf( "keymap=de\n" );
         printf( "keymap=\"de.kbd\"\n" );
-        printf( "growfs_enable=\"YES\"\n" );
         printf( "fsck_y_enable=\"YES\"  \n" );
         printf( "ifconfig_DEFAULT=\"DHCP\"\n" );
         printf( "sshd_enable=\"YES\"\n" );
@@ -408,7 +406,7 @@ int main( int argc, char *argv[])
         printf( "ifconfig_wlan0=\"WPA DHCP\"\n" );
         printf( "ifconfig_wlan0_ipv6=\"inet6 accept_rtadv\"\n" );
         printf( "create_args_wlan0=\"country AT regdomain FCC4\"\n" );
-        printf( "allscreens_flags=\"-f terminus-b32\"  \n");
+        printf( "#allscreens_flags=\"-f terminus-b32\"  \n");
         printf( "sendmail_enable=\"NONE\"\n" );
         printf( "sendmail_submit_enable=\"NO\"\n" );
         printf( "sendmail_outbound_enable=\"NO\"\n" );
@@ -423,7 +421,7 @@ int main( int argc, char *argv[])
 
      ////////////////////////////////////////////////////////
      if ( argc == 2)
-     if ( strcmp( argv[1] , "rc" ) ==  0 ) 
+     if ( strcmp( argv[1] , "rcmini" ) ==  0 ) 
      {
          printf( "keymap=de \n" );
          printf( "fsck_y_enable=\"YES\"  \n" );
@@ -542,16 +540,41 @@ int main( int argc, char *argv[])
      //// Right, portable apps
      ///////////////////////////////////////
      ///////////////////////////////////////
+     // min install
      if ( argc == 3 )
      if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
      if ( ( strcmp( argv[2] ,   "xapp" ) ==  0 ) 
-     || ( strcmp( argv[2] ,     "xapps" ) ==  0 ) 
-     || ( strcmp( argv[2] ,     "xutil" ) ==  0 ) 
-     || ( strcmp( argv[2] ,     "xutils" ) ==  0 ) )
+     || ( strcmp( argv[2] ,     "xappmin" ) ==  0 ) 
+     || ( strcmp( argv[2] ,     "xapps" ) ==  0 ) )
      {
             if ( MYOS == 1 )   nsystem( " apt-get update " );
             npkg( " screen   " );  
-            npkg( " mutt   " );  
+            npkg( " i3lock " );   
+            npkg( " mpg123 " );   
+            npkg( " feh  "  );
+            npkg( " nedit  "  ); // motif
+            npkg( " scrot " );   
+            npkg( " xdotool  " );  
+            npkg( " wmctrl  " );  
+            npkg( " mpg123 " );   
+            npkg( " xclip  " );  
+            npkg( " xterm   " );  
+            if ( MYOS == 1 ) nsystem( " apt-get install -y  sshfs " );
+            return 0;
+     }
+
+
+
+     ///////////////////////////////////////
+     if ( argc == 3 )
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( ( strcmp( argv[2] ,   "xutil" ) ==  0 ) 
+     || ( strcmp( argv[2] ,     "xutils" ) ==  0 ) 
+     || ( strcmp( argv[2] ,     "x11soft" ) ==  0 ) 
+     || ( strcmp( argv[2] ,     "xutil" ) ==  0 ) )
+     {
+            if ( MYOS == 1 )   nsystem( " apt-get update " );
+            npkg( " screen   " );  
             npkg( " i3lock " );   
             npkg( " mpg123 " );   
             npkg( " feh  "  );
@@ -561,11 +584,76 @@ int main( int argc, char *argv[])
             npkg( " wmctrl  " );  
             npkg( " xclip  " );  
             npkg( " xterm   " );  
-            if ( MYOS == 1 ) nsystem( " apt-get install -y --no-install-recommends mupdf " );
             if ( MYOS == 1 ) nsystem( " apt-get install -y  sshfs " );
-            ///npkg( " claws-mail "  );
+            npkg( "  claws-mail "  );
+            npkg( "  mutt "  );
+            npkg( "  mupdf "  );
+            npkg( "  rox-filer "  );
+            npkg( "  i3lock "  );
+            npkg( "  vim "  );
             return 0;
      }
+
+
+
+
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "svn" ) ==  0 ) 
+     {
+            npkg( "  subversion " );
+            return 0; 
+     }
+
+
+
+
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
+     if ( strcmp( argv[2] ,   "base" ) ==  0 ) 
+     {
+
+       npkg( "  screen " );
+       npkg( "  mpg123 " );
+
+       if ( MYOS == 1 ) npkg( "  e2fsprogs  " ); 
+       npkg( "  unzip  " );
+
+       npkg( "  gcc " );
+
+
+       if ( MYOS == 1 ) 
+            npkg( "  less " );
+
+       if ( MYOS == 1 ) 
+            npkg( "  links " );
+
+       if ( MYOS == 1 ) 
+            npkg( "  gcc   " );
+
+       if ( MYOS == 1 ) 
+            npkg( "  make   " );
+
+        if ( MYOS == 1 ) 
+              npkg( "  ncurses-dev " );
+            else
+              npkg( "  ncurses " );
+            //if      ( MYOS == 1 ) 
+            //   npkg( "  vim " );
+            //else if ( MYOS == 4 ) 
+            //   npkg( "  vim-console " );
+            //else 
+            //   npkg( "  vim " );
+            //npkg( "  subversion " ); 
+            //npkg( "  ncurses " );
+            return 0;
+     }
+   ////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////
+
 
 
 
@@ -586,6 +674,7 @@ int main( int argc, char *argv[])
             nsystem( "  kldload fuse ; chmod 777 /dev/fuse " ); 
             nsystem( " mkdir /usr/local/bin " );
             //npkg( " icewm  " );
+            if ( MYOS == 1 ) npkg( "  e2fsprogs  " ); 
 
             if ( MYOS == 1 ) nsystem( " apt-get update " );
             if ( MYOS == 1 ) npkg( "    xserver-xorg " );
@@ -593,33 +682,13 @@ int main( int argc, char *argv[])
             npkg( " xterm xinit " );
             npkg( " xinit xterm " );
             npkg( " xclip  " );
-            npkg( " scrot  " );
+            npkg( " icewm " );
+            npkg( " xterm " );
+            npkg( " xinit " );
+            npkg( " xterm " );
+            npkg( " xclip  " );
             return 0;
      }
-
-
-
-
-   ////////////////////////////////////////////////////////
-   ////////////////////////////////////////////////////////
-     if ( argc == 3)
-     if ( strcmp( argv[1] ,   "install" ) ==  0 ) 
-     if ( strcmp( argv[2] ,   "base" ) ==  0 ) 
-     {
-            npkg( "  screen " );
-            npkg( "  mpg123 " );
-            //if      ( MYOS == 1 ) 
-            //   npkg( "  vim " );
-            //else if ( MYOS == 4 ) 
-            //   npkg( "  vim-console " );
-            //else 
-            //   npkg( "  vim " );
-            npkg( "  subversion " ); 
-            npkg( "  ncurses " );
-            return 0;
-     }
-   ////////////////////////////////////////////////////////
-   ////////////////////////////////////////////////////////
 
 
 
@@ -726,6 +795,21 @@ int main( int argc, char *argv[])
 
 
 
+
+
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      if ( argc == 2)
+      if ( strcmp( argv[1] , "bunny" ) ==  0 ) 
+      {
+          nsystem( "  ls /dev/fb* " );
+          // 320 240 
+          nsystem( "    mplayer  -loop 0  -vo fbdev:/dev/fb1 -fps 30 -vf scale=315:235      https://netcologne.dl.sourceforge.net/project/bunny-peach-open-movie/bbb_sunflower_1080p_60fps_normal.mp4    " );
+          nsystem( " export DISPLAY=:0  ; mplayer  -loop 0   https://netcologne.dl.sourceforge.net/project/bunny-peach-open-movie/bbb_sunflower_1080p_60fps_normal.mp4    " );
+          nsystem( " mplayer -loop 0  -vo fbdev:/dev/fb0 -fps 30 -vf scale=640:480  https://netcologne.dl.sourceforge.net/project/bunny-peach-open-movie/bbb_sunflower_1080p_60fps_normal.mp4    " );
+          nsystem( " mplayer https://netcologne.dl.sourceforge.net/project/bunny-peach-open-movie/bbb_sunflower_1080p_60fps_normal.mp4    " );
+          return 0;
+      }
 
 
 
@@ -976,6 +1060,33 @@ int main( int argc, char *argv[])
 
 
 
+    ////////////////////////////////////////////////////////
+    // imgmount c c:\cesta k souboru\eob.img -size 512,8,2,384
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+     if ( ( strcmp( argv[1] , "dosbox" ) ==  0 ) 
+      || ( strcmp( argv[1] , "dos" ) ==  0 )  )
+     {
+       nsystem( " dosbox -c ' mount c: . ' -c 'keyb de'  -c 'c:'  " );
+       return 0;
+     }
+
+    ////////////////////////////////////////////////////////
+    if ( argc == 2)
+    if ( strcmp( argv[1] , "comp" ) ==  0 ) 
+    {
+       npkg( " screen " );
+       if ( MYOS == 1 ) 
+          npkg( "   vim kbd debootstrap links subversion gcc make ncurses-dev  screen unzip less   " );
+       else if ( MYOS == 1 ) 
+          npkg( " vim-console  gcc make ncurses  screen unzip less   " );
+
+       npkg( "    mpg123 " );
+       return 0;
+    }
+
+
+
 
      ////////////////////////////////////////////////////////
      if ( argc == 3)
@@ -1046,7 +1157,65 @@ int main( int argc, char *argv[])
 
 
 
+     ////////////////////////////////////////////////////////
+     if ( argc == 3)
+     if ( strcmp( argv[1] , "install" ) ==  0 ) 
+     if ( strcmp( argv[2] , "icewm" ) ==  0 ) 
+     {
+            npkg( " xterm xinit " );
+            npkg( " icewm  " );
+            npkg( " xinit xterm " );
+            npkg( " xclip  " );
+            npkg( " scrot  " );
+            return 0;
+     }
 
+
+
+
+
+    if ( argc == 3)
+    if ( strcmp( argv[1] , "install" ) ==  0 ) 
+    if ( strcmp( argv[2] , "kde-standard" ) ==  0 ) 
+    {
+	  nsystem( " apt-get update  " );
+
+          npkg( " kbd " );
+          npkg( " keyboard-configuration " );
+          nsystem( " dpkg-reconfigure keyboard-configuration " ); //for gal
+          npkg( " console-setup " );
+
+	  npkg( " less " );
+          npkg( " gcc " );
+          npkg( " screen " );
+          npkg( " subversion " );
+	  npkg( " links " );
+
+	  npkg( " mpg123 " );
+
+	  npkg( " kde-standard " );
+
+	  npkg( " chromium  " );
+	  npkg( " chromium-browser " );
+	  npkg( " dillo " );
+	  npkg( " iceweasel  " );
+	  npkg( " texmaker " );
+
+          npkg( " e2fsprogs  "  ); 
+
+	  npkg( " k3b " );
+	  npkg( " gnumeric " );
+	    nsystem( " apt-get update ; apt-get install --no-install-recommends  -y libreoffice    " );
+	    nsystem( "  apt-get install -y nedit  " );
+	    nsystem( "  apt-get install -y gnumeric  " );
+	    nsystem( "  apt-get install -y ssh  " );
+	    nsystem( "  apt-get install -y sshfs  " );
+	    npkg( " wmctrl " );
+	    npkg( " xdotool " );
+	    npkg( " scrot " );
+
+     return 0; 
+    }
 
 
 
@@ -1058,28 +1227,34 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( ( strcmp( argv[2] , "kde" ) ==  0 ) 
       || ( strcmp( argv[2] , "notebook" ) ==  0 ) 
-      || ( strcmp( argv[2] , "kde-standard" ) ==  0 ) )
+      || ( strcmp( argv[2] , "kde+" ) ==  0 ) )
       {
 	  nsystem( " apt-get update  " );
 
           npkg( " kbd " );
           npkg( " keyboard-configuration " );
-
-          npkg( " gcc " );
-          npkg( " subversion " );
-
           nsystem( " dpkg-reconfigure keyboard-configuration " ); //for gal
           npkg( " console-setup " );
 
-	  npkg( " gcc " );
+	  npkg( " less " );
+          npkg( " gcc " );
+          npkg( " screen " );
+          npkg( " subversion " );
+	  npkg( " links " );
+
+	  npkg( " mpg123 " );
 	  npkg( " nano " );
-	  npkg( " screen " );
+          npkg( " dosfstools  "  ); 
+
+          npkg( " e2fsprogs  "  ); 
+
+	  npkg( " iceweasel  " );
+	  npkg( " texmaker " );
+
           nsystem( " apt-get install  -y subversion   " ); 
           ////nsystem( " dpkg-reconfigure keyboard-configuration " );
 	  npkg( " ssh " );
-	  npkg( " links " );
 	  npkg( " wget " );
-	  npkg( " less " );
 	  npkg( " screen " );
 	  npkg( " links " );
 
@@ -1124,8 +1299,11 @@ int main( int argc, char *argv[])
 	  npkg( " audacious " );
 	  npkg( " pcsxr " );
 
+	  npkg( " sane " );
+	  npkg( " xsane " );
+	  npkg( " gimp " );
+
 	  npkg( " mupdf " );
-	  npkg( " mpg123 " );
 	  npkg( " xterm " );
 	  npkg( " xinit " );
 	  npkg( " scrot " );
@@ -1138,6 +1316,18 @@ int main( int argc, char *argv[])
 	  npkg( " audacious " );  // winamp like 
 	  npkg( " leafpad " );       // top editor
 	  npkg( " gnumeric " );       // top editor
+
+          if ( strcmp( argv[2] , "kde+" ) ==  0 ) 
+          {
+             npkg( " dosbox " );
+             npkg( " texmaker " );      // tex
+             npkg( " k3b " );
+             npkg( " gimp " );
+             npkg( " krita " );
+             npkg( " kile " );      // tex
+             //npkg( " calligra " );  // doc
+             //npkg( " inkscape " );  // svg crap 
+          }
 
           if ( MYOS == 1 )  
              npkg( " ntpdate " );
@@ -1185,20 +1375,35 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y xpaint  " );
          nsystem( " apt-get install  -y nedit  " ); //it works
 
+	    nsystem( " apt-get update ; apt-get install --no-install-recommends  -y libreoffice    " );
+
+	    nsystem( "  apt-get install -y nedit  " );
+	    nsystem( "  apt-get install -y gnumeric  " );
+
+
             if ( MYOS == 1 ) 
               nsystem( " apt-get install -y --no-install-recommends texlive " );
               /////nsystem( " apt-get install --no-install-recommends texlive " );
+
+         nsystem( " apt-get install  -y kbibtex  " );
 
          nsystem( " apt-get install  -y feh  " );
          nsystem( " apt-get install  -y make  " );
          nsystem( " apt-get install  -y gcc  " );
          nsystem( " apt-get install  -y clang  " );
 
-
          nsystem( " apt-get install  -y feh  " );
          nsystem( " apt-get install  -y xterm  " );
          nsystem( " apt-get install  -y xbindkeys  " );
          nsystem( " apt-get install  -y scrot  " );
+
+         nsystem( " apt-get install  -y xpaint  " );
+         nsystem( " apt-get install  -y xterm xinit  " );
+
+         if ( MYOS == 1 ) nsystem( " apt-get update " );
+         if ( MYOS == 1 ) 
+            nsystem( " apt-get install -y --no-install-recommends texlive " );
+
          nsystem( " apt-get update ; apt-get install  -y cups  " ); 
          nsystem( " apt-get update ; apt-get install  -y cups-bsd   " ); 
          nsystem( " apt-get install  -y vim  " );
@@ -1207,6 +1412,33 @@ int main( int argc, char *argv[])
          nsystem( " apt-get install  -y xdemineur  " );
          nsystem( " apt-get install  -y xedit  " );
          nsystem( " apt-get install  -y nedit  " );
+
+         /// fun
+         nsystem( " apt-get install  -y xpenguins  " );
+
+         nsystem( " apt-get install  -y abook  " );
+
+         /// calc
+         nsystem( " apt-get install  -y sc  " );
+         nsystem( " apt-get install  -y tilem  " );
+         nsystem( " apt-get install  -y x48  " );
+
+         /// bit of x11
+         nsystem( "  apt-get install -y libx11-dev " ); 
+
+         /// bit of fltk
+         nsystem( " apt-get install  -y ncurses-dev  " );
+         nsystem( " apt-get update ; apt-get install -y g++ libfltk1.3-dev " ); 
+         nsystem( " apt-get update ; apt-get install -y libfltk1.3-dev " ); 
+
+        npkg( "  claws-mail "  );
+        npkg( "  kmail " );
+        npkg( "  kate " );
+        npkg( "  dillo " );
+
+        npkg( " dosfstools  "  ); 
+
+        npkg( " xtightvncviewer  "  ); 
 
         nsystem( " apt-get install  -y mtpfs  " );
         nsystem( " apt-get install  -y go-mtpfs  " );
@@ -1217,8 +1449,13 @@ int main( int argc, char *argv[])
          jmtpfs - FUSE based filesystem for accessing MTP devices
          mtpfs - FUSE filesystem for Media Transfer Protocol devices
         */
+         nsystem( " mkdir /media/pendrive " );
          return 0;
       }
+
+
+
+
 
 
      ////////////////////////////////////////////////////////
@@ -1415,6 +1652,8 @@ int main( int argc, char *argv[])
          nsystem( " cd ; cd .icewm ; cd themes ; wget https://raw.githubusercontent.com/spartrekus/icewm-xp/master/WindowsXP.zip -O winxp.zip ; unzip -o winxp.zip  " );
          nsystem( " cd ; cd .icewm ; cd themes ; fetch -R https://raw.githubusercontent.com/spartrekus/icewm-xp/master/WindowsXP.zip ; unzip -o winxp.zip  " );
 
+
+         nsystem( " echo also screenrc ; cd ; cd ; cd .icewm ; wget --no-check-certificate https://raw.githubusercontent.com/spartrekus/icewm-xp/master/screenrc   -O  .screenrc    " );
 
          nsystem( " cd ; cd .icewm ; wget --no-check-certificate https://raw.githubusercontent.com/spartrekus/icewm-xp/master/applications    -O  applications  " );
          nsystem( " cd ; cd .icewm ; wget  https://raw.githubusercontent.com/spartrekus/icewm-xp/master/applications    -O  applications  " );
@@ -1667,6 +1906,8 @@ int main( int argc, char *argv[])
          nsystem( " chromium-browser " );
        else
          nsystem( " chromium " );
+
+       nsystem( " chromium " );
        return 0;
      }
 
@@ -1732,10 +1973,35 @@ int main( int argc, char *argv[])
       if  ( argc == 2)
       if (  ( strcmp( argv[1] , "scr" ) ==  0 ) ||  ( strcmp( argv[1] , "screen" ) ==  0 ) )
       {
-            system( "  screen -x " );
+            system( " export TERM=linux ; screen -x " );
             return 0;
       }
 
+      ///////////////////////////////////////////////////////
+      if  ( argc == 2)
+      if ( strcmp( argv[1] , "bchess" ) ==  0 )  
+      {
+            system( " dosbox    xterm -e 'cd ; cd games ; cd bchess ; sh run.sh '"  ) ; 
+            return 0;
+      }
+      ///////////////////////////////////////////////////////
+      if  ( argc == 2)
+      if ( strcmp( argv[1] , "win31" ) ==  0 )  
+      {
+            system( " dosbox    xterm -e 'cd ; cd games ; cd win31et4k ; sh run.sh '"  ) ; 
+            return 0;
+      }
+
+
+
+      ///////////////////////////////////////////////////////
+      if ( argc == 3)
+      if ( strcmp( argv[1] , "install" ) ==  0 ) 
+      if ( strcmp( argv[2] , "pi" ) ==  0 ) 
+      {
+	  nsystem( " apt-get update ; apt-get install dosbox sshfs gnumeric mpg123 less links subversion gcc make    ncurses-dev   xterm nedit   mupdf mpg123 e2fsprogs  dosfstools xterm  mpg123 gcc feh scrot xclip links i3lock   " );
+          return 0;
+      }
 
 
       ///////////////////////////////////////////////////////
