@@ -1219,6 +1219,22 @@ int main( int argc, char *argv[])
 
 
 
+
+    if ( argc == 3)
+    if ( strcmp( argv[1] , "install" ) ==  0 ) 
+    if ( strcmp( argv[1] , "xfce" ) ==  0 ) 
+    {
+          npkg( " xfce " );
+          npkg( " xfce4 " );
+          npkg( " xterm xinit feh scrot xclip mupdf mpg123 e2fsprogs dosfstools " );
+	  ///npkg( " tmux xdotool wmctrl less screen nano  sshfs gnumeric mpg123 less links subversion gcc make  wmctrl xdotool  ncurses-dev   xterm nedit   mupdf mpg123 e2fsprogs  dosfstools xterm  mpg123 gcc feh scrot xclip links i3lock   " );
+          return 0; 
+    }
+
+
+
+
+
     ////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////
     // xterm has bugs
@@ -1753,7 +1769,6 @@ int main( int argc, char *argv[])
      }
 
 
-
      ////////////////////////////////////////////////////////
      if ( argc == 2)
      if ( strcmp( argv[1] , "big" ) ==  0 ) 
@@ -1761,6 +1776,7 @@ int main( int argc, char *argv[])
        nsystem( " xterm -fn DejaVuMono -bg black -fg yellow  -fa 80 -fs 20 " );
        return 0;
      }
+
 
 
      ////////////////////////////////////////////////////////
@@ -1981,14 +1997,14 @@ int main( int argc, char *argv[])
       if  ( argc == 2)
       if ( strcmp( argv[1] , "bchess" ) ==  0 )  
       {
-            system( " dosbox    xterm -e 'cd ; cd games ; cd bchess ; sh run.sh '"  ) ; 
+            system( "   xterm -e 'cd ; cd games ; cd bchess ; sh run.sh '"  ) ; 
             return 0;
       }
       ///////////////////////////////////////////////////////
       if  ( argc == 2)
       if ( strcmp( argv[1] , "win31" ) ==  0 )  
       {
-            system( " dosbox    xterm -e 'cd ; cd games ; cd win31et4k ; sh run.sh '"  ) ; 
+            system( "   xterm -e 'cd ; cd games ; cd win31et4k ; sh run.sh '"  ) ; 
             return 0;
       }
 
@@ -1999,7 +2015,7 @@ int main( int argc, char *argv[])
       if ( strcmp( argv[1] , "install" ) ==  0 ) 
       if ( strcmp( argv[2] , "pi" ) ==  0 ) 
       {
-	  nsystem( " apt-get update ; apt-get install dosbox sshfs gnumeric mpg123 less links subversion gcc make    ncurses-dev   xterm nedit   mupdf mpg123 e2fsprogs  dosfstools xterm  mpg123 gcc feh scrot xclip links i3lock   " );
+	  nsystem( " apt-get update ; apt-get install  screen gcc make  man tmux xdotool wmctrl less screen nano vim   sshfs rox-filer unzip zip e2fsprogs nedit gnumeric mpg123 less links subversion gcc make  wmctrl xdotool  ncurses-dev   xterm nedit   mupdf mpg123 e2fsprogs  dosfstools xterm  mpg123 gcc feh scrot xclip links   i3lock   " );
           return 0;
       }
 
